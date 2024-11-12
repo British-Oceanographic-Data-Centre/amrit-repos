@@ -1,6 +1,5 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import nothing from './nowhere';
 
 export default function Home() {
   return (
