@@ -29,4 +29,4 @@ jobs:
         with:
           context: "{{defaultContext}}:typescript-demo"
           push: true
-          tags: ghcr.io/British-Oceanographic-Data-Centre/amrit/ts-demo:latest
+          tags: ghcr.io/matcor-bodc/amrit/ts-demo:latest
