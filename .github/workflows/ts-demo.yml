@@ -24,11 +24,10 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - uses: actions/checkout@v4
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./typescript-demo
+          context: "{{defaultContext}}:typescript-demo"
           file: ./typescript-demo/Dockerfile
-          push: true
+          push: false
           tags: amrit/ts-demo:latest
