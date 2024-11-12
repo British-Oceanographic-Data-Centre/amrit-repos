@@ -27,7 +27,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./typescript-demo
           file: ./typescript-demo/Dockerfile
           push: false
           tags: amrit/ts-demo:latest
