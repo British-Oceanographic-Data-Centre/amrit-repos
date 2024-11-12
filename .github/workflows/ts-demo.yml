@@ -28,5 +28,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: "{{defaultContext}}:typescript-demo"
-          push: false
+          push: true
           tags: amrit/ts-demo:latest
