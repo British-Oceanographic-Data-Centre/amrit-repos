@@ -1,0 +1,19 @@
+name: Typescript Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install modules
+      working-directory: ./typescript-demo
+      run: npm install
+    - name: Run ESLint
+      working-directory: ./typescript-demo
+      run: npm run lint

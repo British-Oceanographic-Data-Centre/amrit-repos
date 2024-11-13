@@ -1,4 +1,4 @@
-name: Typescript Demo
+name: Typescript Build
 
 on:
   push:
@@ -7,17 +7,9 @@ on:
   pull_request:
 
 jobs:
-  eslint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Install modules
-      working-directory: ./typescript-demo
-      run: npm install
-    - name: Run ESLint
-      working-directory: ./typescript-demo
-      run: npm run lint
   build:
+    env:
+      shouldPushImage: ${{ github.ref == 'refs/head/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -28,5 +20,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: "{{defaultContext}}:typescript-demo"
-          push: true
+          push: ${{ env.shouldPushImage }}
           tags: ttl.sh/amrit-ts-demo:24h
