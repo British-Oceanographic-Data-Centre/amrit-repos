@@ -11,6 +11,8 @@ jobs:
     name: dagger linting
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Project
+        uses: actions/checkout@v3
       - name: Call Dagger Function
         uses: dagger/dagger-for-github@v6
         with:
