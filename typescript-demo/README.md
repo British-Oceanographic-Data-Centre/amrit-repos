@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+Docker image is available publicly using `docker pull ttl.sh/amrit-ts-demo:24h`. Note this will only be available for 24 hours since the last pipeline run on main.
+
 ## Getting Started
 
 
