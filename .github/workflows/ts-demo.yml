@@ -29,4 +29,4 @@ jobs:
         with:
           context: "{{defaultContext}}:typescript-demo"
           push: true
-          tags: ttl.sh/amrit-ts-demo:1h
+          tags: ttl.sh/amrit-ts-demo:24h
