@@ -1,0 +1,154 @@
+[build-system]
+requires = ["poetry-core>=1.9.1,<2.0.0", "poetry-dynamic-versioning>=1.4.1,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+
+
+[tool.poetry]
+version = "0.0.0"
+name = "example"
+description = "Best practices example for Python-based AMRIT projects."
+authors = ["Matthew Cazaly <matcaz@noc.ac.uk>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0.0"
+
+
+# Define the dependencies for building.
+[tool.poetry.group.build]
+optional = true
+
+[tool.poetry.group.build.dependencies]
+twine = ">=5.1.1,<6.0.0"
+
+
+# Define the dependencies for Linting.
+[tool.poetry.group.lint]
+optional = true
+
+[tool.poetry.group.lint.dependencies]
+ruff = ">=0.7.3,<1.0.0"
+
+[tool.poetry.group.type]
+optional = true
+
+[tool.poetry.group.type.dependencies]
+mypy = "<=1.13.0,<2.0.0"
+
+
+# Define the dependencies for Testing.
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=8.3.3,<9.0.0"
+pytest-cov = ">=6.0.0,<7.0.0"
+pytest-mock = ">=3.14.0,<4.0.0"
+tox = ">=4.23.2,<5.0.0"
+coverage = {extras = ["xml"], version = ">=7.6.4,<8.0.0"}
+
+[tool.coverage.paths]
+source = [ "example", "**/example",]
+
+[tool.setuptools.packages.find]
+namespaces = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+indent-width = 4
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+select = [
+    "F",
+    "E",
+    "C90",
+    "I",
+    "N",
+    "D",
+    "S",
+    "ERA",
+    "PD",
+    "PGH",
+    "PL",
+    "TRY",
+    "FLY",
+    "NPY",
+    "PERF",
+    "FURB",
+    "RUF"
+]
+ignore = [
+    "D203",  # Conflict with D211 - prefer no-blank-line-before-class.
+    "D213",  # Conflict with D213 - prefer multi-line-summary-first-line.
+]
+fixable = ["ALL"]
+unfixable = []
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+isort.split-on-trailing-comma = false
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = true
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.mpypy]
+python_version = "3.12"
+disallow_any_unimported = true
+disallow_any_expr = true
+disallow_any_decorated = true
+disallow_any_generics = true
+disallow_any_explicit = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_return_any = true
+warn_redundant_casts = true
+strict_equality = true
+warn_unused_configs = true
+ignore_missing_imports = true
