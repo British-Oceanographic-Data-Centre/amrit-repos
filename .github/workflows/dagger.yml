@@ -15,7 +15,7 @@ jobs:
         uses: dagger/dagger-for-github@v6
         with:
           version: "latest"
-          verb: call
-          module: ./dagger
-          args: lint --scoure=./typescript-demo
+          verb: "call"
+          module: "lint"          
+          args: --scoure=./typescript-demo
           
