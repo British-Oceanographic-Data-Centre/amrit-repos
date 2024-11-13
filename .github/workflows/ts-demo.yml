@@ -29,4 +29,4 @@ jobs:
         with:
           context: "{{defaultContext}}:typescript-demo"
           push: true
-          tags: ghcr.io/british-oceanographic-data-centre/amrit-repos/ts-demo:latest
+          tags: ttl.sh/amrit-ts-demo:1h
