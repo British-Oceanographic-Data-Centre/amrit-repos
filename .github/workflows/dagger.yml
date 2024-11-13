@@ -19,5 +19,5 @@ jobs:
           version: latest
           workdir: ./typescript-demo
           verb: call                  
-          args: lint --source=typescript-demo
+          args: lint --source=.
           
