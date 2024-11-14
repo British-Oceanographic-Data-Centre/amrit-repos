@@ -29,7 +29,7 @@ jobs:
         uses: docker/build-push-action@v6
         if: ${{ github.event_name != 'release' }}
         with:
-          context: "{{defaultContext}}:example-python"
+          context: "{{defaultContext}}:typescript-demo"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
