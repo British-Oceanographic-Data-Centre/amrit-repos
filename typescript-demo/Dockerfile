@@ -1,5 +1,13 @@
 FROM cgr.dev/chainguard/node AS base
 
+LABEL org.opencontainers.image.authors="matcor@noc.ac.uk"
+LABEL org.opencontainers.image.description="Example OCI image for a NextJS application."
+LABEL org.opencontainers.image.url="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"
+LABEL org.opencontainers.image.source="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"
+LABEL org.opencontainers.image.documentation="https://github.com/British-Oceanographic-Data-Centre/amrit-repos/wiki"
+LABEL org.opencontainers.image.licenses="TBD"
+LABEL org.opencontainers.image.vendor="Advance Marine Research Infrastructures Together (AMRIT)"
+
 USER root
 
 # Install dependencies only when needed
