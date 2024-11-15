@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - typescript-demo/**
   pull_request:
     paths:
     - 'typescript-demo/**'
