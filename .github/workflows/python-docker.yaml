@@ -1,0 +1,44 @@
+name: Python Docker
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - example-python/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - example-python/**
+  release:
+    types: [created]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        if: ${{ github.event_name == 'release' }}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        uses: docker/build-push-action@v6
+        if: ${{ github.event_name != 'release' }}
+        with:
+          context: "{{defaultContext}}:example-python"
+          push: false
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        if: ${{ github.event_name == 'release' }}
+        with:
+          context: "{{defaultContext}}:example-python"
+          push: true
+          tags: "ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app:${{ github.ref_name }}"
