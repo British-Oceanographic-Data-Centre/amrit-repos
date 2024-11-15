@@ -54,8 +54,8 @@ class AmritRepos:
         return (
             dag.container()
             .from_("cgr.dev/chainguard/node")
-            .with_directory("/src", source)
+            .with_directory("/src", source, owner="node")
             .with_mounted_cache("/root/.npm", node_cache)                   
-            .with_workdir("/src")            
-            .with_exec(["npm", "ci"])            
+            .with_workdir("/src")
+            .with_exec(["npm", "ci"])
         )
