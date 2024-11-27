@@ -5,10 +5,10 @@ on:
     branches:
       - main
     paths:
-      - 'flutter-demo/**'
+      - 'flutter_demo/**'
   pull_request:
     paths:
-      - 'flutter-demo/**'
+      - 'flutter_demo/**'
 
 jobs:
   build:
