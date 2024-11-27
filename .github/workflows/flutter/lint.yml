@@ -1,10 +1,14 @@
-name: "Build"
+name: "Flutter Lint"
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'flutter-demo/**'
   pull_request:
+    paths:
+      - 'flutter-demo/**'
 
 jobs:
   build:
