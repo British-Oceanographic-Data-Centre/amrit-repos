@@ -23,6 +23,8 @@ jobs:
           flutter-version: '3.24.5'
           channel: 'stable'
       - name: Install Dependencies
+        working-directory: ./flutter_demo
         run: flutter pub get
       - name: Run tests
+        working-directory: ./flutter_demo
         run: flutter test
