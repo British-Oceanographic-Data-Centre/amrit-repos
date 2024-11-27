@@ -1,0 +1,11 @@
+{
+  "title": "AMRIT Demo",
+  "geolocationButton": "Geolocation Test",
+  "qrButton": "QR Test",
+  "locationPermissionDenied": "Location permissions are denied",
+  "locationPermissionBlocked": "Location permissions are permanently denied, we cannot request permissions.",
+  "showLocationButton": "Show Location",
+  "currentLocation": "Current Location: Latitude: {latitude}, Longitude: {longitude}",
+  "ok": "OK",
+  "dismiss": "Dismiss"
+}
