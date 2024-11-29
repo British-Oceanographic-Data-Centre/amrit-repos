@@ -28,7 +28,7 @@ class _DatabaseState extends State<DatabasePage> {
     var dbPath = join(await getDatabasesPath(), 'test.db');
     var db = await openDatabase(dbPath);
 
-    await db.execute('DROP TABLE Test');
+    await db.execute('DROP TABLE IF EXISTS Test');
     await db.execute('CREATE TABLE Test (id INTEGER PRIMARY KEY, name TEXT, value INTEGER, number REAL)');
     // Insert some records in a transaction
     await db.transaction((txn) async {

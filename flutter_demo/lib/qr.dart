@@ -20,15 +20,20 @@ class _QrState extends State<QrCodeScanner> {
         controller: controller,
         onDetect: (BarcodeCapture capture) {
           final List<Barcode> barcodes = capture.barcodes;
+          var isDialogVisible = false;
 
-          if (barcodes.isNotEmpty) {
+          if (barcodes.isNotEmpty && !isDialogVisible) {
+            isDialogVisible = true;
             showDialog<String>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
                 content: Text(barcodes[0].rawValue!),
                 actions: <Widget>[
                   TextButton(
-                    onPressed: () => Navigator.pop(context, AppLocalizations.of(context)!.ok),
+                    onPressed: () {
+                      Navigator.pop(context, AppLocalizations.of(context)!.ok);
+                      isDialogVisible = false;
+                    },
                     child: Text(AppLocalizations.of(context)!.dismiss),
                   ),
                 ],
