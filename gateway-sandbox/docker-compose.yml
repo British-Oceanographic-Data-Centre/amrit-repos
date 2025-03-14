@@ -1,0 +1,37 @@
+services:
+  gateway-api-base:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/app
+      - ./dummy_data:/data
+      - ./keys:/keys
+      - ./peers:/peers
+  gateway-api-1:
+    extends:
+      service: gateway-api-base
+    command: --port 80
+    environment:
+      - SERVICE_NUMBER=1
+    ports:
+      - "80:80"
+  gateway-api-2:
+    extends:
+      service: gateway-api-base
+    command: --port 8080
+    environment:
+      - SERVICE_NUMBER=2
+    depends_on:
+      - gateway-api-1
+    ports:
+      - "8080:8080"
+  gateway-api-3:
+    extends:
+      service: gateway-api-base
+    command: --port 8081
+    environment:
+      - SERVICE_NUMBER=3
+    depends_on:
+      - gateway-api-1
+    ports:
+      - "8081:8081"
