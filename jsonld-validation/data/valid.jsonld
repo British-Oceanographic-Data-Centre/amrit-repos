@@ -1,0 +1,8 @@
+{
+    "@context": {
+        "@vocab": "https://schema.org/"
+    },
+    "@id": "https://whatever.com/some_id",
+    "@type": "Dataset",
+    "name": "test"
+}
