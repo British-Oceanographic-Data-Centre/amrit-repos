@@ -55,3 +55,9 @@ API response will be available on http://localhost/query
 10. Check http://localhost:8081/query endpoint: No data should be present
 11. Call http://localhost:8081/retrieve_from_peers endpoint
 12. Check http://localhost:8081/query endpoint: Data from node 1 has been retrieved from node 2 and added along with original signature from node 1. Logs show that signature has been verified
+
+Simulate compromised node
+
+13. Add the following data into test_1.json (Node 1 "database") - "signature" decodes to "invalid": {"author": "bodc.ac.uk", "key": "bd20c3bc-c2d5-4f98-bbec-413bd63cedd4.keys.bodc.uk", "metadata": "\"{\\n  \\\"hello\\\": \\\"world\\\",\\n  \\\"number\\\": 2\\n}\"", "signature": "aW52YWxpZA=="}
+14. Attempt to retrieve metadata from Node 2: http://localhost:8080/retrieve_from_peers
+15. Should return "Signature invalid" response and log message

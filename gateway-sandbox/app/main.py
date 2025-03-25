@@ -1,6 +1,7 @@
 import base64
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from cryptography.hazmat.primitives import serialization
+from cryptography.exceptions import InvalidSignature
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -33,12 +34,16 @@ def retrieve_metadata_from_peer(peer_address):
         for item in json["data"]:
             answers = dns.resolver.resolve(item["key"], 'TXT')
             for answer in answers:
-                public_key_data = f"-----BEGIN PUBLIC KEY-----\n{str(answer)[1:-1]}\n-----END PUBLIC KEY-----"
-                signature = base64.b64decode(item["signature"])
-                key = load_pem_public_key(public_key_data.encode())
-                key.verify(signature, item["metadata"].encode()) # will raise InvalidSignature error if not verified
-                print(f"Data signature verified with key {item['key']}")
-                metadata_items.append(item)
+                try:
+                    public_key_data = f"-----BEGIN PUBLIC KEY-----\n{str(answer)[1:-1]}\n-----END PUBLIC KEY-----"
+                    signature = base64.b64decode(item["signature"])
+                    key = load_pem_public_key(public_key_data.encode())
+                    key.verify(signature, item["metadata"].encode()) # will raise InvalidSignature error if not verified
+                    print(f"Data signature verified with key {item['key']}")
+                    metadata_items.append(item)
+                except InvalidSignature as e:
+                    print("Invalid signature")
+                    raise
         return metadata_items
     else:
         return False
@@ -49,7 +54,10 @@ def retrieve_from_peers():
     peers = read_peers_file(os.path.join(f"/peers/peers_{os.getenv('SERVICE_NUMBER', 1)}.txt"))
     print(f"Querying {len(peers)} peer{'' if len(peers) == 1 else 's'}")
     for peer in peers:
-        data = retrieve_metadata_from_peer(peer)
+        try:
+            data = retrieve_metadata_from_peer(peer)
+        except InvalidSignature as e:
+            return "Signature invalid!"
         if data:
             filepath = f"/data/test_{os.getenv('SERVICE_NUMBER', 1)}.json"
             with open(filepath, "r") as data_file:
@@ -57,6 +65,7 @@ def retrieve_from_peers():
             local_content["data"] = local_content["data"] + data
             with open(filepath, "w") as data_file:
                 data_file.write(json.dumps(local_content, sort_keys=True))
+            return "Data added"
 
 
 @app.get("/query")
