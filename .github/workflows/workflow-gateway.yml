@@ -1,0 +1,42 @@
+name: Gateway Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - gateway/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - gateway/**
+  release:
+    types: [created]
+
+jobs:
+  ts-linting:
+    uses: ./.github/workflows/component-ts-lint.yml
+    with:
+      context: gateway
+  ts-test:
+    uses: ./.github/workflows/component-ts-test.yml
+    with:
+      context: gateway
+      run-cypress: false
+  ts-security:
+    uses: ./.github/workflows/component-ts-security.yml
+    with:
+      context: gateway
+  container-image-build:
+    needs: [ts-linting, ts-test, ts-security]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: gateway
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/gateway/app
+  container-image-security:
+    needs: [container-image-build]
+    uses: ./.github/workflows/component-container-image-security.yml
+    with:
+      context: gateway
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/gateway/app

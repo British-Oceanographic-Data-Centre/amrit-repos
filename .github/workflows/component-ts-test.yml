@@ -7,6 +7,10 @@ on:
         description: "Path to the module to lint"
         default: ""
         type: string
+      run-cypress:
+        description: "Whether to run Cypress tests"
+        default: true
+        type: boolean
 
 jobs:
   test:
@@ -47,6 +51,7 @@ jobs:
           report_paths: '**/junit.xml'
       # Run Cypress tests
       - name: Run Cypress tests
+        if: ${{ inputs.run-cypress }}
         uses: cypress-io/github-action@v4
         with:
           working-directory: ./${{ inputs.context }}
