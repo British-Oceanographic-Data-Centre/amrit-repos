@@ -8,7 +8,7 @@ from dagger import dag, function, object_type
 class AmritRepos:
     @function
     async def publish(self, source: dagger.Directory) -> str:
-        """Publish the application container after building and testing it on-the-fly"""
+        """Publish the application container after building and testing it on-the-fly."""
         await self.lint(source)
         return await self.build(source).publish(
             f"ttl.sh/amrit-frontend-{random.randrange(10 ** 8)}"
