@@ -1,0 +1,6 @@
+[
+	{ "code": "TEMP", "label": "Temperature", "unit": "°C" },
+	{ "code": "SAL", "label": "Salinity", "unit": "PSU" },
+	{ "code": "PRES", "label": "Pressure", "unit": "dbar" }
+  ]
+  

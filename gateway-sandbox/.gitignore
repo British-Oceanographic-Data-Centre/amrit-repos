@@ -1,0 +1,10 @@
+# ignore default generated project
+New-Docker-Project
+
+keys/*.pem
+
+.idea/
+
+# Virtual environments
+venv/
+amrit-env/

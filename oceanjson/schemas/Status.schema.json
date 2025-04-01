@@ -1,0 +1,42 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://www.ocean-ops.org/oceanjson/schemas/Status.schema.json",
+	"@context": "https://www.ocean-ops.org/oceanjson/context.jsonld",
+	"@type": ["oceanmeta:Status, schema:Thing"],
+	"title": "Status",
+	"description": "Current and historical status information related to platform missions.",
+	"type": "object",
+	"oceanMetaCode": "STS",
+	"properties": {
+	  "latestMissionStatus": {
+		"$ref": "oceanmeta:MissionStatus",
+		"description": "The most recent status of the mission.",
+		"oceanMetaCode": "STS-01",
+		"oceanMetaType": "MST"
+	  },
+	  "missionStatusHistory": {
+		"type": "array",
+		"description": "Historical records of the mission status over time.",
+		"items": {
+			"$ref": "oceanmeta:MissionStatus"
+		},
+		"oceanMetaCode": "STS-02",
+		"oceanMetaType": "MST[]"
+	  },
+	  "activityCriterion": {
+		"type": "string",
+		"description": "Criteria used to determine the activity status of the mission.",
+		"oceanMetaCode": "STS-03",
+		"oceanMetaType": ""
+	  },
+	  "closureCriterion": {
+		"type": "string",
+		"description": "Criteria used to determine when a mission is considered closed.",
+		"oceanMetaCode": "STS-04",
+		"oceanMetaType": ""
+	  }
+	},
+	"required": ["latestMissionStatus"],
+	"additionalProperties": false
+}
+  

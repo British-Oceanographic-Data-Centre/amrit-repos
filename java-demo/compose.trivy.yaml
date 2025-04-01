@@ -1,0 +1,18 @@
+---
+services:
+  trivy-filesystem:
+    image: aquasec/trivy
+    container_name: trivy-fs
+    environment:
+      TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db,aquasec/trivy-db,ghcr.io/aquasecurity/trivy-db
+      TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,aquasec/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
+    volumes:
+      - .:/app
+    command: [
+      "fs", 
+      "--exit-code", "1", 
+      "--no-progress", 
+      "-f", "table", 
+      "--scanners" ,"misconfig,vuln,secret", 
+      "/app"
+    ]

@@ -1,0 +1,41 @@
+name: Dashboard Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - dashboard/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - dashboard/**
+  release:
+    types: [created]
+
+jobs:
+  ts-linting:
+    uses: ./.github/workflows/component-ts-lint.yml
+    with:
+      context: dashboard
+  ts-test:
+    uses: ./.github/workflows/component-ts-test.yml
+    with:
+      context: dashboard
+  ts-security:
+    uses: ./.github/workflows/component-ts-security.yml
+    with:
+      context: dashboard
+  container-image-build:
+    needs: [ts-linting, ts-test, ts-security]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: dashboard
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app
+  container-image-security:
+    needs: [container-image-build]
+    uses: ./.github/workflows/component-container-image-security.yml
+    with:
+      context: dashboard
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app

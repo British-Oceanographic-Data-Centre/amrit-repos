@@ -1,0 +1,38 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://www.ocean-ops.org/oceanjson/schemas/Contact.schema.json",
+	"@context": "https://www.ocean-ops.org/oceanjson/context.jsonld",
+	"@type": ["oceanmeta:Contact", "schema:Person"],
+	"title": "Contact",
+	"description": "Represents a person including their personal contact information.",
+	"type": "object",
+	"oceanMetaCode": "CON",
+	"properties": {
+	  "givenName": {
+		"type": "string",
+		"description": "The given name of the contact person.",
+		"oceanMetaCode": "CON-01",
+		"oceanMetaType": "schema:givenName"
+	  },
+	  "familyName": {
+		"type": "string",
+		"description": "The last name (surname) of the contact person.",
+		"oceanMetaCode": "CON-02",
+		"oceanMetaType": "schema:familyName"
+	  },
+	  "email": {
+		"type": "string",
+		"format": "email",
+		"description": "The email address of the contact person, used for communication.",
+		"oceanMetaCode": "CON-03",
+		"oceanMetaType": "schema:email"
+	  },
+	  "country": {
+		"$ref": "oceanmeta:Country",
+		"description": "Country associated with the contact."
+	  }
+	},
+	"required": ["givenName", "familyName", "email"],
+	"additionalProperties": false
+  }
+  

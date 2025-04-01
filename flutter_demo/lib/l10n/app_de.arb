@@ -1,0 +1,11 @@
+{
+  "title": "AMRIT Demo",
+  "geolocationButton": "Geolokalisierung Test",
+  "qrButton": "QR Test",
+  "locationPermissionDenied": "Standortberechtigungen werden verweigert",
+  "locationPermissionBlocked": "Standortberechtigungen werden dauerhaft verweigert, wir können keine Berechtigungen anfordern.",
+  "showLocationButton": "Standort anzeigen",
+  "currentLocation": "Aktueller Standort: Breite: {latitude}, Länge: {longitude}",
+  "ok": "OK",
+  "dismiss": "Zurückweisen"
+}

@@ -1,0 +1,37 @@
+name: Java Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - java-demo/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - java-demo/**
+  release:
+    types: [created]
+
+jobs:
+  java-linting:
+    uses: ./.github/workflows/component-java-lint.yml
+    with:
+      context: java-demo
+  java-testing:
+    uses: ./.github/workflows/component-java-test.yml
+    with:
+      context: java-demo
+  container-image-build:
+    needs: [java-linting, java-testing]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: java-demo
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app
+  container-image-security:
+    needs: [container-image-build]
+    uses: ./.github/workflows/component-container-image-security.yml
+    with:
+      context: java-demo
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app

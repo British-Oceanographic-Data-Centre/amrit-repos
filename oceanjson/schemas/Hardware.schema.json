@@ -1,0 +1,76 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://www.ocean-ops.org/oceanjson/schemas/Hardware.schema.json",
+	"@context": "https://www.ocean-ops.org/oceanjson/context.jsonld",
+	"@type": ["oceanmeta:Hardware", "schema:Thing"],
+	"title": "Hardware",
+	"description": "Hardware details of a platform, including battery, control board, and firmware information.",
+	"type": "object",
+	"oceanMetaCode": "HAR",
+	"properties": {
+	  "id": {
+		"type": "string",
+		"description": "Unique identifier for the hardware.",
+		"oceanMetaCode": "HAR-01",
+		"oceanMetaType": ""
+	  },
+	  "battery": {
+		"$ref": "oceanmeta:Battery",
+		"description": "Reference to the battery installed in the hardware.",
+		"oceanMetaCode": "HAR-02",
+		"oceanMetaType": "BAT"
+	  },
+	  "batteryPack": {
+		"type": "string",
+		"description": "Details of the battery pack used in the hardware.",
+		"oceanMetaCode": "HAR-03",
+		"oceanMetaType": ""
+	  },
+	  "manufactureDate": {
+		"type": "string",
+		"format": "date",
+		"description": "Date the hardware was manufactured.",
+		"oceanMetaCode": "HAR-04",
+		"oceanMetaType": ""
+	  },
+	  "specialFeature": {
+		"type": "string",
+		"description": "Any special feature or unique capability of the hardware.",
+		"oceanMetaCode": "HAR-05",
+		"oceanMetaType": ""
+	  },
+	  "bluetoothId": {
+		"type": "string",
+		"description": "Bluetooth identifier for the hardware.",
+		"oceanMetaCode": "HAR-06",
+		"oceanMetaType": ""
+	  },
+	  "batchRef": {
+		"type": "string",
+		"description": "Reference number for the hardware batch.",
+		"oceanMetaCode": "HAR-07",
+		"oceanMetaType": ""
+	  },
+	  "controlBoardType": {
+		"type": "string",
+		"description": "Type of the control board installed in the hardware.",
+		"oceanMetaCode": "HAR-08",
+		"oceanMetaType": ""
+	  },
+	  "controlBoardSerialNumber": {
+		"type": "string",
+		"description": "Serial number of the control board.",
+		"oceanMetaCode": "HAR-09",
+		"oceanMetaType": ""
+	  },
+	  "firmwareVersion": {
+		"type": "string",
+		"description": "Version of the firmware installed on the hardware.",
+		"oceanMetaCode": "HAR-10",
+		"oceanMetaType": ""
+	  }
+	},
+	"required": ["id", "manufactureDate"],
+	"additionalProperties": false
+  }
+  

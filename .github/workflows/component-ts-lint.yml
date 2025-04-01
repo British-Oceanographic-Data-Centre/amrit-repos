@@ -1,0 +1,21 @@
+name: Typescript Lint
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        description: "Path to the module to lint"
+        default: ""
+        type: string
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install modules
+        working-directory: ./${{ inputs.context }}
+        run: npm install
+      - name: Run ESLint
+        working-directory: ./${{ inputs.context }}
+        run: npm run lint

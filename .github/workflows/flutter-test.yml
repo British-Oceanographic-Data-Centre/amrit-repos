@@ -1,0 +1,30 @@
+name: "Flutter Test"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'flutter_demo/**'
+  pull_request:
+    paths:
+      - 'flutter_demo/**'
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.5'
+          channel: 'stable'
+      - name: Install Dependencies
+        working-directory: ./flutter_demo
+        run: flutter pub get
+      - name: Run tests
+        working-directory: ./flutter_demo
+        run: flutter test

@@ -1,0 +1,35 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://www.ocean-ops.org/oceanjson/schemas/Variable.schema.json",
+	"@context": "https://www.ocean-ops.org/oceanjson/context.jsonld",
+	"@type": ["oceanmeta:Variable", "schema:Thing"],
+	"title": "Variable",
+	"description": "Represents a measurable parameter observed by sensors on a platform.",
+	"type": "object",
+	"oceanMetaCode": "VAR",
+	"properties": {
+	  "id": {
+		"type": "string",
+		"description": "The unique identifier of the variable.",
+		"oceanMetaCode": "VAR-01"
+	  },
+	  "name": {
+		"type": "string",
+		"description": "The name of the variable (e.g., temperature, salinity).",
+		"oceanMetaCode": "VAR-02"
+	  },
+	  "description": {
+		"type": "string",
+		"description": "Detailed description of the variable measured",
+		"oceanMetaCode": "VAR-03"
+	  },
+	  "wigosCode": {
+		"type": "string",
+		"description": "URL link to variable in WMO reference table",
+		"oceanMetaCode": "VAR-04"
+	  }
+	},
+	"required": ["id", "name"],
+	"additionalProperties": false
+}
+  

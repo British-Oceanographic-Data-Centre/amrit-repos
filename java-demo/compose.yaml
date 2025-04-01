@@ -1,0 +1,28 @@
+---
+include:
+  - path: compose.postgresql.yaml
+
+services:
+  fruits:
+    build:
+      context: .
+    container_name: fruits
+    ports:
+      - 8080:8080
+    depends_on:
+      - fruits-db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      retries: 5
+      timeout: 10s
+      interval: 3s
+      start_interval: 10s
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://fruits-db:5432/fruits
+      SPRING_DATASOURCE_USERNAME: fruits
+      SPRING_DATASOURCE_PASSWORD: fruits
+    # docker compose watch
+    develop:
+      watch:
+        - path: target
+          action: rebuild

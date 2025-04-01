@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+Docker image is available publicly using `docker pull ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app:{TAG}`.
+
 ## Getting Started
 
 
@@ -24,6 +26,22 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ## Linting
 
 To lint the code base, after doing `npm install` use the command `npm run lint`.
+
+## Testing
+
+To test the code base, you can run Unit tests with Jest and E2E tests with Cypress.
+
+Add unit *.test.tsx test files in `/__tests__/` and run them with:
+
+```bash
+npm test
+```
+
+Add E2E *.cy.js test files in `/cypress/e2e/` and run them with:
+
+```bash
+npm run cypress:run
+```
 
 ## Learn More
 

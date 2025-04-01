@@ -1,0 +1,41 @@
+name: TypeScript Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - typescript-demo/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - typescript-demo/**
+  release:
+    types: [created]
+
+jobs:
+  ts-linting:
+    uses: ./.github/workflows/component-ts-lint.yml
+    with:
+      context: typescript-demo
+  ts-test:
+    uses: ./.github/workflows/component-ts-test.yml
+    with:
+      context: typescript-demo
+  ts-security:
+    uses: ./.github/workflows/component-ts-security.yml
+    with:
+      context: typescript-demo
+  container-image-build:
+    needs: [ts-linting, ts-test, ts-security]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: typescript-demo
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app
+  container-image-security:
+    needs: [container-image-build]
+    uses: ./.github/workflows/component-container-image-security.yml
+    with:
+      context: typescript-demo
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/typescript/app

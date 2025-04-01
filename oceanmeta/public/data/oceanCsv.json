@@ -1,0 +1,1331 @@
+[
+	{
+	  "headerCode": "REF",
+	  "fieldTypeCode": "PLA-02",
+	  "propertyPath": "mission.platform.ref",
+	  "aliases": ["REFERENCE", "SOT ID", "SOT_ID", "SOT-ID"]
+	},
+	{
+	  "headerCode": "NAME",
+	  "fieldTypeCode": "PLA-06",
+	  "propertyPath": "mission.platform.name",
+	  "aliases": ["NICKNAME", "GLIDERNAME", "GLIDER NAME"]
+	},
+	{
+	  "headerCode": "WATER DEPTH",
+	  "fieldTypeCode": "DEP-06",
+	  "propertyPath": "mission.deployment.max_water_depth",
+	  "aliases": [
+		"MAX_MOORING_DEPTH",
+		"MAXIMUM MOORING DEPTH",
+		"MAXIMUM_MOORING_DEPTH",
+		"WATER_DEPTH",
+		"MAX MOORING DEPTH"
+	  ]
+	},
+	{
+	  "headerCode": "DESCRIPTION",
+	  "fieldTypeCode": "PLA-07",
+	  "propertyPath": "mission.platform.description",
+	  "aliases": ["COMMENTS", "COMMENT", "STATION COMMENT"]
+	},
+	{
+	  "headerCode": "MODEL",
+	  "fieldTypeCode": "PTM-02",
+	  "propertyPath": "mission.platform.model.name",
+	  "aliases": [
+		"MODEL NAME",
+		"MODEL_NAME",
+		"GLIDER MODEL",
+		"GLIDERMODEL",
+		"MODEL MAIN DEVICE",
+		"PLATFORM_TYPE"
+	  ]
+	},
+	{
+        "headerCode": "NETWORK",
+        "fieldTypeCode": "NET-02 Array",
+        "propertyPath": "mission.platform.networks[].name",
+        "aliases": [
+            "CATEGORIES",
+            "NETWORK",
+            "CATEGORY",
+            "ADDITIONAL PROGRAMS",
+            "ADDITIONAL_PROGRAMS",
+            "ADDITIONAL PROGRAM"
+        ]
+    },
+    {
+        "headerCode": "SITES",
+        "fieldTypeCode": "SIT-01 Array",
+        "propertyPath": "mission.deployment.sites[].name",
+        "aliases": [
+            "OCEANGLIDERSSITE",
+            "OCEANGLIDERS SITE",
+            "OCEANGLIDERS_SITE",
+            "SITE NAME",
+            "SITE"
+        ]
+    },
+    {
+        "headerCode": "WEBLINKS TOPICS",
+        "fieldTypeCode": "",
+        "propertyPath": "",
+        "aliases": [
+            "WEBLINKS_TOPICS",
+            "WEBLINK TOPIC"
+        ]
+    },
+    {
+        "headerCode": "WEBLINKS NAMES",
+        "fieldTypeCode": "",
+        "propertyPath": "",
+        "aliases": [
+            "WEBLINKS_NAMES",
+            "WEBLINK NAME"
+        ]
+    },
+    {
+        "headerCode": "WEBLINKS URLS",
+        "fieldTypeCode": "",
+        "propertyPath": "",
+        "aliases": [
+            "DATA_LINKS",
+            "DATA_LINK",
+            "DATA WEBLINK",
+            "DATA WEBLINKS",
+            "WEBLINK URLS",
+            "WEBLINK URL"
+        ]
+    },
+    {
+        "headerCode": "PROGRAM",
+        "fieldTypeCode": "PRO-02",
+        "propertyPath": "mission.program.name",
+        "aliases": [
+            "PROGRAM NAME",
+            "PROGRAM_NAME",
+            "PROG"
+        ]
+    },
+    {
+        "headerCode": "AGENCIES",
+        "fieldTypeCode": "AGN-01 Array",
+        "propertyPath": "mission.platform.agency_contributions[].agency.name",
+        "aliases": [
+            "AGENCY"
+        ]
+    },
+    {
+        "headerCode": "AGENCY ROLES",
+        "fieldTypeCode": "ARL-01 Array",
+        "propertyPath": "mission.platform.agency_contributions[].role.name",
+        "aliases": [
+            "AGENCY ROLE",
+            "AGENCIES ROLES",
+            "AGENCIES ROLE"
+        ]
+    },
+    {
+        "headerCode": "CONTRIBUTORS",
+        "fieldTypeCode": "CON-01 + \" \" + CON-02 Array",
+        "propertyPath": "mission.platform.contact_contributions[].contact.first_name + last_name",
+        "aliases": [
+            "CONTACTS",
+            "CONTACT",
+            "CONTRIBUTOR"
+        ]
+    },
+    {
+        "headerCode": "CONTRIBUTOR ROLES",
+        "fieldTypeCode": "CRL-01 Array",
+        "propertyPath": "mission.platform.contact_contributions[].role.name",
+        "aliases": [
+            "CONTRIBUTOR_ROLES",
+            "CONTRIBUTOR ROLE",
+            "CONTACT ROLE",
+            "CONTACT ROLES"
+        ]
+    },
+    {
+        "headerCode": "WMO",
+        "fieldTypeCode": "GTS-01",
+        "propertyPath": "mission.platform.gts_allocations[?(@.start_date == latest)].identifier",
+        "aliases": [
+            "WMO ID",
+            "WMO-ID",
+            "GTS-ID",
+            "GTS ID",
+            "WMO - GTS-ID",
+            "WMO_PLATFORM_CODE"
+        ]
+    },
+    {
+        "headerCode": "SERIAL NUMBER",
+        "fieldTypeCode": "PLA-03",
+        "propertyPath": "mission.platform.serial_number",
+        "aliases": [
+            "GLIDERSERIALNUMBER",
+            "GLIDER SERIAL NUMBER",
+            "SERIAL N\u00b0",
+            "SERIAL NO",
+            "SERIAL?",
+            "SERIALNUMBER",
+            "SERIAL_NUMBER",
+            "SERIAL NUMBER MAIN DEVICE",
+            "SERIAL NUM MAIN DEVICE"
+        ]
+    },
+    {
+        "headerCode": "ID",
+        "fieldTypeCode": "PLA-04",
+        "propertyPath": "mission.platform.internal_id",
+        "aliases": [
+            "INTERNAL ID",
+            "INTERNAL_ID",
+            "INTERNAL_MISSION_ID",
+            "INTERNAL MISSION ID",
+            "INTERNALMISSIONID",
+            "INTERNALMISSIONIDENTIFIER"
+        ]
+    },
+    {
+        "headerCode": "DEPLOYMENT METHOD",
+        "fieldTypeCode": "DMT-01",
+        "propertyPath": "mission.deployment.method.name",
+        "aliases": [
+            "METHOD"
+        ]
+    },
+    {
+        "headerCode": "DEPLOYMENT DATE",
+        "fieldTypeCode": "DEP-01",
+        "propertyPath": "mission.deployment.start_date",
+        "aliases": [
+            "DEPLOYMENT_DATE",
+            "D_DATE",
+            "START DATE",
+            "START_DATE",
+            "DATE",
+            "DEPLOYMENTDATE",
+            "DEPL DATE",
+            "TIME"
+        ]
+    },
+    {
+        "headerCode": "DEPLOYMENT LAT",
+        "fieldTypeCode": "DEP-02",
+        "propertyPath": "mission.deployment.latitude",
+        "aliases": [
+            "LATITUDE",
+            "DEPLOYMENT LATITUDE",
+            "DEPLOYMENTLATITUDE",
+            "LAT",
+            "LATD",
+            "DEPLOYMENT_LAT"
+        ]
+    },
+    {
+        "headerCode": "DEPLOYMENT LON",
+        "fieldTypeCode": "DEP-03",
+        "propertyPath": "mission.deployment.longitude",
+        "aliases": [
+            "LONGITUDE",
+            "DEPLOYMENT LONGITUDE",
+            "DEPLOYMENTLONGITUDE",
+            "LON",
+            "LOND",
+            "DEPLOYMENT_LON"
+        ]
+    },
+    {
+        "headerCode": "DEPLOYMENT SHIP",
+        "fieldTypeCode": "SHP-02",
+        "propertyPath": "mission.deployment.ship.name",
+        "aliases": [
+            "VESSEL",
+            "SHIP",
+            "D_SHIP",
+            "DEPLOYMENTSHIP",
+            "DEPLOYM. SHIP",
+            "SHIP NAME"
+        ]
+    },
+    {
+        "headerCode": "CRUISE",
+        "fieldTypeCode": "CRU-05",
+        "propertyPath": "mission.deployment.cruise.name",
+        "aliases": [
+            "DEPLOYMENTCRUISE",
+            "CRUISE NAME",
+            "CRUISE_NAME",
+            "CRUISE_ID",
+            "D_CRUISE_ID"
+        ]
+    },
+    {
+        "headerCode": "DEPLOYMENT HEIGHT",
+        "fieldTypeCode": "DEP-07",
+        "propertyPath": "mission.deployment.platform_altitude",
+        "aliases": [
+            "OBSERVING HEIGHT"
+        ]
+    },
+    {
+        "headerCode": "AREA OF OPERATION",
+        "fieldTypeCode": "LIN-01 Array",
+        "propertyPath": "mission.deployment.cruise.lines[].name",
+        "aliases": [
+            "AREA_OF_OPERATION",
+            "LINES",
+            "AREA"
+        ]
+    },
+    {
+        "headerCode": "RETRIEVAL START DATE",
+        "fieldTypeCode": "RET-02",
+        "propertyPath": "mission.retrieval.start_date",
+        "aliases": [
+            "RECOVERYDATE",
+            "RETRIEVAL_START",
+            "R_DATE",
+            "END DATE",
+            "RETRIEVAL START",
+            "STOP DATE",
+            "DEPLOYMENT_END_DATETIME"
+        ]
+    },
+    {
+        "headerCode": "RETRIEVAL END DATE",
+        "fieldTypeCode": "RET-03",
+        "propertyPath": "mission.retrieval.end_date",
+        "aliases": [
+            "RETRIEVAL_END",
+            "RETRIEVAL END"
+        ]
+    },
+	{
+        "headerCode": "RETRIEVAL LAT",
+        "fieldTypeCode": "RET-05",
+        "propertyPath": "mission.retrieval.latitude",
+        "aliases": [
+            "RETRIEVAL_LAT",
+            "RETRIEVALLATITUDE",
+            "R_LAT"
+        ]
+    },
+    {
+        "headerCode": "RETRIEVAL LON",
+        "fieldTypeCode": "RET-06",
+        "propertyPath": "mission.retrieval.longitude",
+        "aliases": [
+            "RETRIEVAL_LON",
+            "RETRIEVALLONGITUDE",
+            "R_LON"
+        ]
+    },
+    {
+        "headerCode": "RETRIEVAL SHIP",
+        "fieldTypeCode": "SHP-02",
+        "propertyPath": "mission.retrieval.ship.name",
+        "aliases": [
+            "RETRIEVAL_SHIP",
+            "RECOVERYSHIP",
+            "R_SHIP"
+        ]
+    },
+    {
+        "headerCode": "RETRIEVAL CRUISE",
+        "fieldTypeCode": "CRU-05",
+        "propertyPath": "mission.retrieval.cruise.name",
+        "aliases": [
+            "RETRIEVAL_CRUISE",
+            "R_CRUISE_ID",
+            "R_CRUISE",
+            "RECOVERYCRUISE"
+        ]
+    },
+    {
+        "headerCode": "ENDING CAUSE",
+        "fieldTypeCode": "ENC-01",
+        "propertyPath": "mission.retrieval.ending_cause",
+        "aliases": [
+            "ENDING_CAUSE",
+            "END_CAUSE",
+            "END CAUSE"
+        ]
+    },
+    {
+        "headerCode": "SHIP ICES CODE",
+        "fieldTypeCode": "SHP-03",
+        "propertyPath": "mission.deployment.ship.ices",
+        "aliases": [
+            "SHIP_ICES_CODE",
+            "ICES"
+        ]
+    },
+    {
+        "headerCode": "SHIP COUNTRY OF REGISTRATION",
+        "fieldTypeCode": "SHP-08",
+        "propertyPath": "mission.deployment.ship.flag_country",
+        "aliases": [
+            "SHIP_COUNTRY_OF_REGISTRATION",
+            "COUNTRY_OF_REGISTRATION"
+        ]
+    },
+    {
+        "headerCode": "SHIP IMO",
+        "fieldTypeCode": "SHP-06",
+        "propertyPath": "mission.deployment.ship.imo",
+        "aliases": [
+            "SHIP_IMO",
+            "IMO"
+        ]
+    },
+    {
+        "headerCode": "SHIP CALL SIGN",
+        "fieldTypeCode": "SHP-04",
+        "propertyPath": "mission.deployment.ship.call_sign",
+        "aliases": [
+            "SHIP_CALL_SIGN",
+            "CALL SIGN",
+            "CALLSIGN",
+            "CALL_SIGN"
+        ]
+    },
+    {
+        "headerCode": "SHIP MMSI",
+        "fieldTypeCode": "SHP-05",
+        "propertyPath": "mission.deployment.ship.mmsi",
+        "aliases": [
+            "MMSI",
+            "SHIP_MMSI"
+        ]
+    },
+    {"headerCode": "SHIP VESSEL TYPE", "fieldTypeCode": "VTY-02", "propertyPath": "mission.deployment.ship.type.name", "aliases": ["SHIP_VESSEL_TYPE", "VESSEL TYPE"]},
+    {"headerCode": "SHIP HIDE METADATA", "fieldTypeCode": "SHP-09", "propertyPath": "mission.deployment.ship.hide_metadata", "aliases": ["SHIP_HIDE_METADATA", "HIDE SHIP METADATA"]},
+    {"headerCode": "SHIP VESSEL LENGTH", "fieldTypeCode": "SHP-10", "propertyPath": "mission.deployment.ship.length", "aliases": ["SHIP_VESSEL_LENGTH", "VESSEL LENGTH"]},
+    {"headerCode": "SHIP VESSEL BREADTH", "fieldTypeCode": "SHP-11", "propertyPath": "mission.deployment.ship.breadth", "aliases": ["SHIP_VESSEL_BREADTH", "VESSEL BREADTH", "SHIP BREADTH"]},
+    {"headerCode": "SHIP FREEBOARD", "fieldTypeCode": "SHP-12", "propertyPath": "mission.deployment.ship.freeboard", "aliases": ["SHIP_FREEBOARD", "FREEBOARD"]},
+    {"headerCode": "SHIP DRAFT", "fieldTypeCode": "SHP-13", "propertyPath": "mission.deployment.ship.draft", "aliases": ["SHIP_DRAFT", "DRAFT"]},
+    {"headerCode": "SHIP CARGO HEIGHT", "fieldTypeCode": "SHP-14", "propertyPath": "mission.deployment.ship.cargo_height", "aliases": ["SHIP_CARGO_HEIGHT", "CARGO HEIGHT"]},
+    {"headerCode": "SHIP DISTANCE BRIDGE BOW", "fieldTypeCode": "SHP-15", "propertyPath": "mission.deployment.ship.bridge_bow", "aliases": ["SHIP_DISTANCE_BRIDGE_BOW", "DISTANCE BRIDGE BOW"]},
+    {"headerCode": "SHIP MAX SPEED", "fieldTypeCode": "SHP-16", "propertyPath": "mission.deployment.ship.max_speed", "aliases": ["SHIP_MAX_SPEED", "MAX SPEED"]},
+    {"headerCode": "SHIPPING COMPANY", "fieldTypeCode": "SHP-17", "propertyPath": "mission.deployment.ship.shipping_company", "aliases": ["SHIPPING_COMPANY", "SHIP SHIPPING AGENCY", "SHIP AGENCY", "SHIPPING_AGENCY", "SHIPPING AGENCY"]},
+	{
+			"headerCode": "SHIP COMMENTS",
+			"fieldTypeCode": "SHP-18",
+			"propertyPath": "mission.deployment.ship.comments",
+			"aliases": [
+				"SHIP COMMENT",
+				"SHIP_COMMENT",
+				"SHIP_COMMENTS",
+				"SHIP DESCRIPTION",
+				"SHIP_DESCRIPTION",
+				"COMMENT_SHIP"
+			]
+		},
+		{
+			"headerCode": "SHIP CONTACT SHORE NAME",
+			"fieldTypeCode": "SHP-19",
+			"propertyPath": "mission.deployment.ship.shore_contact_name",
+			"aliases": [
+				"SHIP_CONTACT_SHORE_NAME"
+			]
+		},
+		{
+			"headerCode": "SHIP CONTACT SHORE EMAIL",
+			"fieldTypeCode": "SHP-20",
+			"propertyPath": "mission.deployment.ship.shore_contact_email",
+			"aliases": [
+				"SHIP_CONTACT_SHORE_EMAIL"
+			]
+		},
+		{
+			"headerCode": "SHIP CONTACT SEA EMAIL",
+			"fieldTypeCode": "SHP-21",
+			"propertyPath": "mission.deployment.ship.sea_contact_email",
+			"aliases": [
+				"SHIP_CONTACT_SEA_EMAIL",
+				"SHIP EMAIL"
+			]
+		},
+		{
+			"headerCode": "VARIABLE:SENSOR MODEL",
+			"fieldTypeCode": "SEM-02 Array",
+			"propertyPath": "mission.variable_setups[ ].sensor.model.name",
+			"aliases": [
+				"PARAMETER:MAKE_MODEL",
+				"SENSORS",
+				"SENSOR_MODELS",
+				"SENSOR_MODEL",
+				"VARIABLE:SENSOR_MODEL",
+				"VARIABLE:SENSOR_MODELS",
+				"VARIABLES:SENSOR_MODEL",
+				"SENSOR",
+				"SENSOR_MODELS",
+				"SENSORMODELS",
+				"SENSORMODEL",
+				"SENSOR MODELS",
+				"SENSOR MODEL",
+				"BODC_ID",
+				"BODC_IDS",
+				"VARIABLE SENSOR MODELS",
+				"INSTRUMENT_MODEL"
+			]
+		},
+		{
+			"headerCode": "VARIABLES UNIT",
+			"fieldTypeCode": "SUN-02 (or SUN-03) Array",
+			"propertyPath": "mission.variable_setups[ ].unit.name (or unit.wigos_code)",
+			"aliases": [
+				"VAR UNIT",
+				"VARIABLES_UNIT",
+				"VARIABLE UNIT",
+				"SENSOR UNIT",
+				"SENSOR_UNIT"
+			]
+		},
+		{
+			"headerCode": "VARIABLES INSTRUMENT RANGE",
+			"fieldTypeCode": "VSP-05:VSP-06 Array",
+			"propertyPath": "mission.variable_setups[ ].range_min (and range_max)",
+			"aliases": [
+				"VAR INSTRUMENT RANGE",
+				"VARIABLES_INSTRUMENT_RANGE",
+				"VARIABLES_RANGE",
+				"VARIABLES RANGE",
+				"SENSOR RANGE",
+				"SENSOR_RANGE"
+			]
+		},
+		{
+			"headerCode": "VARIABLES INSTRUMENT PRECISION",
+			"fieldTypeCode": "VSP-09 Array",
+			"propertyPath": "mission.variable_setups[ ].precision",
+			"aliases": [
+				"VAR INSTRUMENT PRECISION",
+				"VARIABLES_INSTRUMENT_PRECISION",
+				"VARIABLES_PRECISION",
+				"VARIABLES PRECISION",
+				"SENSOR PRECISION",
+				"SENSOR_PRECISION"
+			]
+		},
+		{
+			"headerCode": "VARIABLES INSTRUMENT RESOLUTION",
+			"fieldTypeCode": "VSP-07 Array",
+			"propertyPath": "mission.variable_setups[ ].resolution",
+			"aliases": [
+				"VAR INSTRUMENT RESOLUTION",
+				"VARIABLES_INSTRUMENT_RESOLUTION",
+				"VARIABLES_RESOLUTION",
+				"VARIABLES RESOLUTION",
+				"SENSOR RESOLUTION",
+				"SENSOR_RESOLUTION"
+			]
+		},
+		{
+			"headerCode": "VARIABLES INSTRUMENT ACCURACY",
+			"fieldTypeCode": "VSP-08 Array",
+			"propertyPath": "mission.variable_setups[ ].accuracy",
+			"aliases": [
+				"VAR INSTRUMENT ACCURACY",
+				"VARIABLES_INSTRUMENT_ACCURACY",
+				"VARIABLES_ACCURACY",
+				"VARIABLES ACCURACY",
+				"SENSOR ACCURACY",
+				"SENSOR_ACCURACY"
+			]
+		},
+		{
+			"headerCode": "VARIABLES INSTRUMENT UNCERTAINTY",
+			"fieldTypeCode": "VSP-10 Array",
+			"propertyPath": "mission.variable_setups[ ].uncertainty",
+			"aliases": [
+				"VAR INSTRUMENT UNCERTAINTY",
+				"VARIABLES_INSTRUMENT_UNCERTAINTY",
+				"VARIABLES_UNCERTAINTY",
+				"VARIABLES UNCERTAINTY",
+				"SENSOR UNCERTAINTY",
+				"SENSOR_UNCERTAINTY"
+			]
+		},
+		{
+			"headerCode": "VARIABLES DATA WEBLINKS",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"VAR DATA WEBLINKS",
+				"SENSOR DATALINK",
+				"SENSOR_DATALINK",
+				"SENSOR_DATA_WEBLINK",
+				"SENSOR_DATA_WEBLINKS",
+				"VARIABLES_DATA_WEBLINKS",
+				"VARIABLE DATA WEBLINK",
+				"VARIABLE DATA WEBLINKS"
+			]
+		},
+		{
+			"headerCode": "VARIABLES SENSOR SERIALS",
+			"fieldTypeCode": "SEN-03 Array",
+			"propertyPath": "mission.variable_setups[ ].sensor.serial_number",
+			"aliases": [
+				"VAR SENSOR SERIALS",
+				"SENSOR_SERIALS",
+				"SENSORSERIALNUMBERS",
+				"SENSORSERIALNUMBER",
+				"SENSOR SERIAL",
+				"SENSOR SERIALS",
+				"SENSOR_SERIAL",
+				"VARIABLES_SENSOR_SERIALS",
+				"VARIABLE SENSOR SERIAL",
+				"VARIABLE SENSOR SERIALS",
+				"INSTRUMENT_SERIAL_NUMBER"
+			]
+		},
+		{
+			"headerCode": "VARIABLES START DATES",
+			"fieldTypeCode": "VSP-03 Array",
+			"propertyPath": "mission.variable_setups[ ].activation_date",
+			"aliases": [
+				"VAR START DATES",
+				"SENSOR_START_DATE",
+				"SENSOR START DATES",
+				"SENSOR START DATE",
+				"SENSOR_START_DATES",
+				"VARIABLES_START_DATES",
+				"VARIABLE START DATE",
+				"VARIABLE START DATES"
+			]
+		},
+		{
+			"headerCode": "VARIABLES END DATES",
+			"fieldTypeCode": "VSP-04 Array",
+			"propertyPath": "mission.variable_setups[ ].deactivation_date",
+			"aliases": [
+				"VAR END DATES",
+				"VARIABLE_STOP_DATE",
+				"VARIABLE STOP DATES",
+				"SENSOR_END_DATE",
+				"SENSORS END DATES",
+				"SENSOR END DATE",
+				"SENSOR_END_DATES",
+				"SENSOR END DATES",
+				"SENSOR STOP DATES",
+				"VARIABLES_END_DATES",
+				"VARIABLE END DATE",
+				"VARIABLE END DATES",
+				"VARIABLE STOP DATE"
+			]
+		},
+		{
+			"headerCode": "VARIABLES HEIGHTS",
+			"fieldTypeCode": "VSP-12 Array",
+			"propertyPath": "mission.variable_setups[ ].height_from_sea",
+			"aliases": [
+				"VAR HEIGHTS",
+				"SENSOR_HEIGHTS",
+				"SENSOR HEIGHT",
+				"SENSOR_HEIGHT",
+				"SENSOR HEIGHTS",
+				"VARIABLES_HEIGHTS",
+				"VARIABLE HEIGHT",
+				"VARIABLE HEIGHTS"
+			]
+		},
+		{
+			"headerCode": "VARIABLES CALIBRATION DATES",
+			"fieldTypeCode": "VSP-14 Array",
+			"propertyPath": "mission.variable_setups[ ].calibration_date",
+			"aliases": [
+				"VAR CALIBRATION DATES",
+				"SENSOR CALIBRATION DATES",
+				"SENSOR_CALIBRATION_DATES",
+				"SENSOR_CALIBRATION_DATE",
+				"VARIABLE CALIBRATION DATE",
+				"SENSOR CALIBRATION DATE",
+				"SENSOR CALIB DATE",
+				"SENSOR_CALIB_DATE",
+				"SENSOR_CALIB_DATES",
+				"VARIABLES_CALIBRATION_DATES",
+				"VARIABLE CALIBRATION DATES"
+			]
+		},
+		{
+			"headerCode": "VARIABLES PROGRAMS",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"VAR PROGRAMS",
+				"SENSOR_PROG",
+				"SENSOR PROGRAM",
+				"SENSOR_PROGRAM",
+				"SENSOR_PROGRAMS",
+				"SENSOR PROGRAMS",
+				"VARIABLES_PROGRAMS",
+				"VARIABLE PROGRAM",
+				"VARIABLE PROGRAMS",
+				"PROGRAM SENSOR PROVIDER",
+				"SENSOR PROVIDER",
+				"SENSOR PROVIDER PROGRAM"
+			]
+		},
+		{
+			"headerCode": "VARIABLES LOCATION",
+			"fieldTypeCode": "SLC-02 Array",
+			"propertyPath": "mission.variable_setups[ ].location.ref",
+			"aliases": [
+				"VAR LOCATION",
+				"VARIABLES_LOCATION",
+				"VARIABLE LOCATION",
+				"SENSOR LOCATION",
+				"SENSOR_LOCATION"
+			]
+		},
+		{
+			"headerCode": "VARIABLES EXPOSURE",
+			"fieldTypeCode": "EXP-02 Array",
+			"propertyPath": "mission.variable_setups[ ].exposure.ref",
+			"aliases": [
+				"VAR EXPOSURE",
+				"VARIABLES_EXPOSURE",
+				"VARIABLE EXPOSURE",
+				"SENSOR EXPOSURE",
+				"SENSOR_EXPOSURE"
+			]
+		},
+		{
+			"headerCode": "VARIABLES SIDE INDICATOR",
+			"fieldTypeCode": "VSP-24 Array",
+			"propertyPath": "mission.variable_setups[ ].side_indicator",
+			"aliases": [
+				"VAR SIDE INDICATOR",
+				"VARIABLES_SIDE_INDICATOR",
+				"VARIABLE SIDE INDICATOR",
+				"SENSOR SIDE INDICATOR",
+				"SENSOR_SIDE_INDICATOR"
+			]
+		},
+		{
+			"headerCode": "VARIABLES HEIGHT DECK",
+			"fieldTypeCode": "VSP-13 Array",
+			"propertyPath": "mission.variable_setups[ ].height_from_sea",
+			"aliases": [
+				"VAR HEIGHT DECK",
+				"VARIABLES_HEIGHT_DECK",
+				"VARIABLE HEIGHT DECK",
+				"SENSOR HEIGHT DECK",
+				"SENSOR_HEIGHT_DECK"
+			]
+		},
+		{
+			"headerCode": "VARIABLES DISTANCE BOW",
+			"fieldTypeCode": "VSP-22 Array",
+			"propertyPath": "mission.variable_setups[ ].distance_bow",
+			"aliases": [
+				"VAR DISTANCE BOW",
+				"VARIABLES_DISTANCE_BOW",
+				"VARIABLE DISTANCE BOW",
+				"SENSOR DISTANCE BOW",
+				"SENSOR_DISTANCE_BOW"
+			]
+		},
+		{
+			"headerCode": "VARIABLES DISTANCE CENTER",
+			"fieldTypeCode": "VSP-23 Array",
+			"propertyPath": "mission.variable_setups[ ].distance_center",
+			"aliases": [
+				"VAR DISTANCE CENTER",
+				"VARIABLES_DISTANCE_CENTER",
+				"VARIABLE DISTANCE CENTER",
+				"SENSOR DISTANCE CENTER",
+				"SENSOR_DISTANCE_CENTER"
+			]
+		},
+		{
+			"headerCode": "VARIABLES NEXT CALIBRATION DUE DATES",
+			"fieldTypeCode": "VSP-15 Array",
+			"propertyPath": "mission.variable_setups[ ].next_calibration_date",
+			"aliases": [
+				"SENSOR NEXT CALIB DUE DATE",
+				"VAR NEXT CALIBRATION DUE DATES",
+				"VARIABLES_NEXT_CALIBRATION_DUE_DATES",
+				"VAR NEXT CALIB DUE DATE",
+				"VAR_NEXT_CALIB_DUE_DATE",
+				"VARIABLES NEXT CALIB DUE DATE",
+				"VARIABLES NEXT CALIB DUE DATES",
+				"VARIABLE NEXT CALIBRATION DUE DATE",
+				"SENSOR NEXT CALIBRATION DUE DATES",
+				"SENSOR NEXT CALIBRATION DUE DATE",
+				"SENSOR_NEXT_CALIBRATION_DUE_DATE",
+				"SENSOR NEXT CALIB DUE DATES"
+			]
+		},
+		{
+			"headerCode": "VARIABLES OPERATING STATUS",
+			"fieldTypeCode": "SSS-02 Array",
+			"propertyPath": "mission.variable_setups[ ].operating_status.ref",
+			"aliases": [
+				"VAR OPERATING STATUS",
+				"VARIABLES_OPERATING_STATUS",
+				"VARIABLE OPERATING STATUS",
+				"VARIABLE STATUS",
+				"SENSOR OPERATING STATUS",
+				"SENSOR STATUS",
+				"SENSOR_OPERATING_STATUS",
+				"SENSOR_STATUS"
+			]
+		},
+		{
+			"headerCode": "VARIABLES SAMPLING PERIODS",
+			"fieldTypeCode": "VSP-20 Array",
+			"propertyPath": "mission.variable_setups[ ].sampling_period",
+			"aliases": [
+				"VAR SAMPLING PERIODS",
+				"VARIABLES_SAMPLING_PERIODS",
+				"VARIABLE SAMPLING PERIOD",
+				"SENSOR SAMPLING PERIODS",
+				"SENSOR SAMPLING PERIOD",
+				"SENSOR_SAMPLING_PERIODS",
+				"SENSOR_SAMPLING_PERIOD"
+			]
+		},
+		{
+			"headerCode": "VARIABLES TOTAL SAMPLING PERIODS",
+			"fieldTypeCode": "VSP-21 Array",
+			"propertyPath": "mission.variable_setups[ ].total_sampling_period",
+			"aliases": [
+				"VAR TOTAL SAMPLING PERIODS",
+				"VARIABLE TOTAL SAMPLING PERIODS",
+				"VARIABLES_TOTAL_SAMPLING_PERIODS",
+				"SENSOR TOTAL SAMPLING PERIODS",
+				"VARIABLES TOT SAMPLING PERIODS"
+			]
+		},
+		{
+			"headerCode": "VARIABLES DATA PROCESSING METHODS",
+			"fieldTypeCode": "DPM-02 Array",
+			"propertyPath": "mission.variable_setups[ ].data_processing_method.ref",
+			"aliases": [
+				"SENSOR DATA PROC METHODS",
+				"VAR DATA PROCESSING METHODS",
+				"VAR DATA PROC METHODS",
+				"VAR_DATA_PROC_METHODS",
+				"VARIABLES_DATA_PROC_METHODS",
+				"VARIABLES DATA PROC METHODS",
+				"VARIABLE DATA PROCESSING METHODS",
+				"VARIABLES_DATA PROCESSING_METHODS",
+				"SENSOR DATA PROCESSING METHODS"
+			]
+		},
+		{
+			"headerCode": "VARIABLES SERVICE SCHEDULES",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"VAR SERVICE SCHEDULES",
+				"VARIABLE SERVICE SCHEDULES",
+				"VARIABLES_SERVICE_SCHEDULES",
+				"SENSOR SERVICE SCHEDULES"
+			]
+		},
+		{
+			"headerCode": "VARIABLES SENSOR COMMENTS",
+			"fieldTypeCode": "VSP-25 Array",
+			"propertyPath": "mission.variable_setups[ ].comments",
+			"aliases": [
+				"VAR SENSOR COMMENTS",
+				"VARIABLES_SENSOR_COMMENTS",
+				"VAR SENSOR COMMENT",
+				"VARIABLES_SENSOR_COMMENT",
+				"VAR_SENSOR_COMMENT",
+				"VARIABLES COMMENT",
+				"VARIABLES COMMENTS",
+				"VARIABLES_COMMENTS",
+				"SENSOR COMMENT",
+				"SENSOR_COMMENT",
+				"SENSOR COMMENTS",
+				"SENSOR_COMMENTS"
+			]
+		},
+		{
+			"headerCode": "TELECOM TYPE",
+			"fieldTypeCode": "TTY-02",
+			"propertyPath": "mission.platform.telecom.type.name",
+			"aliases": [
+				"TEL TYPE",
+				"TELECOM_TYPE",
+				"TELECOMTYPE",
+				"SOURCE"
+			]
+		},
+		{
+			"headerCode": "TELECOM NUMBER",
+			"fieldTypeCode": "TEL-02",
+			"propertyPath": "mission.platform.telecom.number",
+			"aliases": [
+				"TEL NUMBER"
+			]
+		},
+		{
+			"headerCode": "IMEI",
+			"fieldTypeCode": "TEL-03",
+			"propertyPath": "mission.platform.telecom.imei",
+			"aliases": [
+				"TELECOM IMEI"
+			]
+		},
+		{
+			"headerCode": "TELECOM SERVICE",
+			"fieldTypeCode": "TSV-02",
+			"propertyPath": "mission.platform.telecom.service.name",
+			"aliases": [
+				"TELECOM_SERVICE",
+				"TEL_SERVICE",
+				"TEL SERVICE"
+			]
+		},
+		{
+			"headerCode": "TELECOM FORMAT",
+			"fieldTypeCode": "TFM-02",
+			"propertyPath": "mission.platform.telecom.format.name",
+			"aliases": [
+				"TELECOM_FORMAT",
+				"TEL_FORMAT",
+				"TEL FORMAT",
+				"SHIP2SHORE DATAFORMAT",
+				"SHIP2SHORE_DATAFORMAT",
+				"SHIP2SHORE_DATA_FORMAT",
+				"SHIP2SHORE DATA FORMAT"
+			]
+		},
+		{
+			"headerCode": "TRACKING SYSTEM",
+			"fieldTypeCode": "TRS-02",
+			"propertyPath": "mission.platform.telecom.tracking_system.name",
+			"aliases": [
+				"TRACKING_SYSTEM",
+				"TRACKINGSYSTEM"
+			]
+		},
+		{
+			"headerCode": "LATENCY",
+			"fieldTypeCode": "LAY-02",
+			"propertyPath": "mission.platform.telecom.latency.name",
+			"aliases": [
+				"TELECOM LATENCY",
+				"TELECOM_LATENCY"
+			]
+		},
+		{
+			"headerCode": "BACKUP TELECOM TYPE",
+			"fieldTypeCode": "TTY-02",
+			"propertyPath": "mission.platform.backup_telecom.type.name",
+			"aliases": [
+				"BACKUP_TELECOM_TYPE",
+				"BACKUP_TEL_TYPE"
+			]
+		},
+		{
+			"headerCode": "BACKUP TELECOM NUMBER",
+			"fieldTypeCode": "TEL-02",
+			"propertyPath": "mission.platform.backup_telecom.number",
+			"aliases": [
+				"BACKUP_TELECOM_NUMBER",
+				"BACKUP_TEL_NUMBER"
+			]
+		},
+		{
+			"headerCode": "BACKUP IMEI",
+			"fieldTypeCode": "TEL-03",
+			"propertyPath": "mission.platform.backup_telecom.imei",
+			"aliases": [
+				"BACKUP_IMEI"
+			]
+		},
+		{
+			"headerCode": "BACKUP TELECOM SERVICE",
+			"fieldTypeCode": "TSV-02",
+			"propertyPath": "mission.platform.backup_telecom.service.name",
+			"aliases": [
+				"BACKUP_TELECOM_SERVICE",
+				"BACKUP_TEL_SERVICE"
+			]
+		},
+		{
+			"headerCode": "BACKUP TELECOM FORMAT",
+			"fieldTypeCode": "TFM-02",
+			"propertyPath": "mission.platform.backup_telecom.format.name",
+			"aliases": [
+				"BACKUP_TELECOM_FORMAT",
+				"BACKUP_TEL_FORMAT"
+			]
+		},
+		{
+			"headerCode": "BACKUP TRACKING SYSTEM",
+			"fieldTypeCode": "TRS-02",
+			"propertyPath": "mission.platform.backup_telecom.tracking_system.name",
+			"aliases": [
+				"BACKUP_TRACKING_SYSTEM"
+			]
+		},
+		{
+			"headerCode": "CYCLE TIME",
+			"fieldTypeCode": "CFG-02",
+			"propertyPath": "mission.platform.configuration.cycle_time",
+			"aliases": [
+				"SAMPLING_CYCLE (h)",
+				"SAMPLING_CYCLE(h)",
+				"SAMPLING_CYCLE (H)",
+				"SAMPLING CYCLE",
+				"SAMPLING_CYCLE",
+				"CYCLE_TIME"
+			]
+		},
+		{
+			"headerCode": "SURFACE TIME",
+			"fieldTypeCode": "CFG-03",
+			"propertyPath": "mission.platform.configuration.surface_time",
+			"aliases": [
+				"SURFACE_TIME"
+			]
+		},
+		{
+			"headerCode": "DRIFT PRESSURE",
+			"fieldTypeCode": "CFG-04",
+			"propertyPath": "mission.platform.configuration.drift_pressure",
+			"aliases": [
+				"DRIFT_PRESS"
+			]
+		},
+		{
+			"headerCode": "PROFILE PRESSURE",
+			"fieldTypeCode": "CFG-05",
+			"propertyPath": "mission.platform.configuration.profile_pressure",
+			"aliases": [
+				"PROFILE_PRESS"
+			]
+		},
+		{
+			"headerCode": "TARGET INSPECTION INTERVAL",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"TARGET_INSPECTION_INTERVAL",
+				"SERVICE_SCHEDULE",
+				"SERVICE SCHEDULE"
+			]
+		},
+		{
+			"headerCode": "SCHEDULE OF OBSERVATION",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"OBSERVATION SCHEDULE",
+				"OBSERVATION_SCHEDULE",
+				"SCHEDULE_OF_OBSERVATION"
+			]
+		},
+		{
+			"headerCode": "MAINTENANCE ACTIVITY",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"MAINTENANCE_ACTIVITY",
+				"SERVICES"
+			]
+		},
+		{
+			"headerCode": "BATTERY",
+			"fieldTypeCode": "BAT-02",
+			"propertyPath": "mission.platform.hardware.battery.name",
+			"aliases": [
+				"BATTERY NAME",
+				"BATTERY_NAME",
+				"BATTERY_TYPE",
+				"BATTERYTYPE"
+			]
+		},
+		{
+			"headerCode": "BATTERY PACK",
+			"fieldTypeCode": "HAR-03",
+			"propertyPath": "mission.platform.hardware.battery_pack",
+			"aliases": [
+				"BATTERY_PACK",
+				"BATTERYPACK"
+			]
+		},
+		{
+			"headerCode": "SPECIAL FEATURE",
+			"fieldTypeCode": "HAR-05",
+			"propertyPath": "mission.platform.hardware.special_feature",
+			"aliases": [
+				"SPECIAL_FEATURE",
+				"SPECIALFEATURE"
+			]
+		},
+		{
+			"headerCode": "CONTROL BOARD",
+			"fieldTypeCode": "HAR-08",
+			"propertyPath": "mission.platform.hardware.control_board_type",
+			"aliases": [
+				"FIRMWARE NAME",
+				"FIRMWARE_NAME"
+			]
+		},
+		{
+			"headerCode": "BOARD SERIAL",
+			"fieldTypeCode": "HAR-09",
+			"propertyPath": "mission.platform.hardware.control_board_serial_number",
+			"aliases": [
+				"FIRMWARE_SERIAL_REF",
+				"FIRMWARE SERIAL REF"
+			]
+		},
+		{
+			"headerCode": "HARDWARE BATCH REF",
+			"fieldTypeCode": "HAR-07",
+			"propertyPath": "mission.platform.hardware.batch_ref",
+			"aliases": [
+				"BATCH_REF",
+				"HARDWARE_BATCH_REF",
+				"MODEL HARDWARE VERSION"
+			]
+		},
+		{
+			"headerCode": "FIRMWARE BLUETOOTH ID",
+			"fieldTypeCode": "HAR-06",
+			"propertyPath": "mission.platform.hardware.bluetooth_id",
+			"aliases": [
+				"BLUETOOTH_ID"
+			]
+		},
+		{
+			"headerCode": "HARDWARE MANUF DATE",
+			"fieldTypeCode": "HAR-04",
+			"propertyPath": "mission.platform.hardware.manufacture_date",
+			"aliases": [
+				"HARDWARE_MANUF_DATE",
+				"MANUF_DATE"
+			]
+		},
+		{
+			"headerCode": "SOFTWARE NAME",
+			"fieldTypeCode": "SOF-02",
+			"propertyPath": "mission.platform.software.name",
+			"aliases": [
+				"SOFTWARE_NAME"
+			]
+		},
+		{
+			"headerCode": "SOFTWARE VERSION",
+			"fieldTypeCode": "SOF-03",
+			"propertyPath": "mission.platform.software.version",
+			"aliases": [
+				"SOFTWARE_VERSION",
+				"LANDSTATIONVERSION"
+			]
+		},
+		{
+			"headerCode": "SOFTWARE FORMAT",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"FIRMWARE_FORMAT_REF",
+				"FIRMWARE FORMAT REF"
+			]
+		},
+		{
+			"headerCode": "FIRMWARE VERSION",
+			"fieldTypeCode": "HAR-10",
+			"propertyPath": "mission.platform.hardware.firmware_version",
+			"aliases": [
+				"FIRMWARE_VERSION"
+			]
+		},
+		{
+			"headerCode": "ANCILLARY DEVICE MODEL",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"MODEL ANCILLARY DEVICE",
+				"MODEL_ANCILLARY_DEVICE",
+				"ANCILLARY_DEVICE_MODEL",
+				"ANCILLARY_DEVICE",
+				"ANCILLARY DEVICE",
+				"ANCILLARY DEVICE NAME",
+				"MODEL ANCIL DEVICE",
+				"ENTRY_DISPLAY_SOFTWARE_NAME"
+			]
+		},
+		{
+			"headerCode": "ANCILLARY DEVICE SERIAL NUMBER",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"ANCILLARY SERIAL",
+				"SERIAL NUMBER ANCILLARY DEVICE",
+				"SERIAL NUM ANCILLARY DEVICE",
+				"SERIAL_NUMBER_ANCILLARY_DEVICE",
+				"SERIAL NUMBER ANCIL DEVICE"
+			]
+		},
+		{
+			"headerCode": "ANCILLARY DEVICE VERSION NUMBER",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"ANCILLARY VERSION",
+				"VERSION NUMBER ANCILLARY DEVICE",
+				"VERSION NUM ANCILLARY DEVICE",
+				"VERSION_NUMBER_ANCILLARY_DEVICE",
+				"VERSION NUMBER ANCIL DEVICE"
+			]
+		},
+		{
+			"headerCode": "MAIN DEVICE VERSION NUMBER",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"MAIN DEVICE VERSION",
+				"VERSION NUMBER MAIN DEVICE",
+				"VERSION NUM MAIN DEVICE",
+				"VERSION_NUMBER_MAIN_DEVICE",
+				"MAIN_DEVICE_VERSION_NUMBER",
+				"DATA_LOGGER_VERSION",
+				"DATALOGGER_VERSION"
+			]
+		},
+		{
+			"headerCode": "DEPLOYMENT COUNTRY",
+			"fieldTypeCode": "COU-02",
+			"propertyPath": "mission.deployment.country.name",
+			"aliases": [
+				"DEPLOYMENT_COUNTRY"
+			]
+		},
+		{
+			"headerCode": "RETRIEVAL COMMENTS",
+			"fieldTypeCode": "RET-07",
+			"propertyPath": "mission.retrieval.comments",
+			"aliases": [
+				"RETRIEVAL_COMMENTS",
+				"RETRIEVAL DESCRIPTION",
+				"R_COMMENTS"
+			]
+		},
+		{
+			"headerCode": "DATA URL",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"DATA_URL"
+			]
+		},
+		{
+			"headerCode": "RTQC METHOD",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"RTQC_METHOD",
+				"RTQCMETHOD"
+			]
+		},
+		{
+			"headerCode": "ACTIVITY CRITERION",
+			"fieldTypeCode": "STS-03",
+			"propertyPath": "mission.log.activity_criterion",
+			"aliases": [
+				"ACTIVITY_CRITERION",
+				"ACTIVITY CRITERIONS"
+			]
+		},
+		{
+			"headerCode": "CLOSURE CRITERION",
+			"fieldTypeCode": "STS-04",
+			"propertyPath": "mission.log.closure_criterion",
+			"aliases": [
+				"CLOSURE_CRITERION"
+			]
+		},
+		{
+			"headerCode": "PRINCIPAL INVESTIGATOR",
+			"fieldTypeCode": "CON-01 + \" \" + CON-02",
+			"propertyPath": "mission.platform.contact_contributions[?(@.role == 'PI')].contact.first_name + \" \" + last_name",
+			"aliases": [
+				"PRINCIPAL_INVESTIGATOR",
+				"PRINCIPALINVESTIGATOR",
+				"PRINCIPAL_INVESTIGATOR_FULL_NAME",
+				"PRINCIPAL INVESTIGATOR NAME",
+				"PRINCIPAL_INVESTIGATOR",
+				"CREATOR_NAME"
+			]
+		},
+		{
+			"headerCode": "OPERATING AGENCY",
+			"fieldTypeCode": "AGN-01",
+			"propertyPath": "mission.platform.agency_contributions[?(@.role == 'OPERATOR')].agency.name",
+			"aliases": [
+				"OPERATING_AGENCY",
+				"OPERATINGAGENCY",
+				"OPERATOR"
+			]
+		},
+		{
+			"headerCode": "OWNING AGENCY",
+			"fieldTypeCode": "AGN-01",
+			"propertyPath": "mission.platform.agency_contributions[?(@.role == 'OWNER')].agency.name",
+			"aliases": [
+				"OWNING_AGENCY",
+				"OWNINGAGENCY",
+				"GLIDER OWNING AGENCY",
+				"GLIDER_OWNING_AGENCY",
+				"OWNER"
+			]
+		},
+		{
+			"headerCode": "DATA ASSEMBLY CENTER",
+			"fieldTypeCode": "AGN-01",
+			"propertyPath": "mission.platform.agency_contributions[?(@.role == 'DAC')].agency.name",
+			"aliases": [
+				"DATA_ASSEMBLY_CENTER",
+				"DATA_ASSEMBLY_CENTRE",
+				"DATA ASSEMBLY CENTRE"
+			]
+		},
+		{
+			"headerCode": "DEPLOYMENT OPERATOR",
+			"fieldTypeCode": "AGN-01",
+			"propertyPath": "mission.platform.agency_contributions[?(@.role == 'DEPLOYER')].agency.name",
+			"aliases": [
+				"DEPLOYMENT_OPERATOR"
+			]
+		},
+		{
+			"headerCode": "CLASS CATEGORIES",
+			"fieldTypeCode": "",
+			"propertyPath": "",
+			"aliases": [
+				"CLASS_CATEGORIES",
+				"CLASS CATEGORY",
+				"CLASS-CATEGORY",
+				"CLASS_CATEGORY"
+			]
+		},
+		{
+			"headerCode": "VARIABLES INSTRUMENT MANUFACTURER URL",
+			"fieldTypeCode": "MAN-02",
+			"propertyPath": "mission.variable_setups[ ].sensor.sensor_model.manufacturer.url",
+			"aliases": [
+				"VAR INSTRUMENT MANUFACTURER URL",
+				"VARIABLES_INSTRUMENT_MANUFACTURER_URL",
+				"VARIABLES_MANUFACTURER_URL",
+				"VARIABLES MANUFACTURER URL",
+				"SENSOR MANUFACTURER URL",
+				"SENSOR_MANUFACTURER_URL",
+				"SENSOR_URL",
+				"SENSOR URL"
+			]
+		}
+]

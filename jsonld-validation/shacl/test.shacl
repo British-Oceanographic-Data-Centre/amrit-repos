@@ -1,0 +1,19 @@
+@prefix ex:   <http://example.com/ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+
+ex:Dataset
+    a sh:NodeShape ;
+    rdf:type rdf:Property ;
+    sh:targetClass schema:Dataset ;
+    sh:property [
+        sh:message "A single name is required for each dataset" ;
+        sh:name "Dataset name" ;
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .

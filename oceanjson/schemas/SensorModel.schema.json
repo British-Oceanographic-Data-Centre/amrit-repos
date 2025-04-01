@@ -1,0 +1,40 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://www.ocean-ops.org/oceanjson/schemas/SensorModel.schema.json",
+	"@context": "https://www.ocean-ops.org/oceanjson/context.jsonld",
+	"@type": ["oceanmeta:SensorModel", "schema:Product"],
+	"title": "Sensor Model",
+	"description": "Represents the model of a sensor, including its manufacturer and supported variables.",
+	"type": "object",
+	"oceanMetaCode": "SEM",
+	"properties": {
+	  "name": {
+		"type": "string",
+		"description": "The name of the sensor model.",
+		"oceanMetaCode": "SEM-02",
+		"oceanMetaType": ""
+	  },
+	  "manufacturer": {
+		"$ref": "oceanmeta:Manufacturer",
+		"description": "The manufacturer of the sensor model.",
+		"oceanMetaCode": "SEM-03",
+		"oceanMetaType": "MAN"
+	  },
+	  "supportedVariables": {
+		"type": "array",
+		"description": "A list of variables that the sensor model can measure.",
+		"items": {
+			"$ref": "oceanmeta:Variable"
+		},
+		"oceanMetaCode": "SEM-04",
+		"oceanMetaType": "VAR[]"
+	  },
+	  "bodcId": {
+		"type": "string",
+		"description": "British Oceanographic Data Centre (BODC) identifier for the sensor"
+	  }
+	},
+	"required": ["name", "manufacturer", "supportedVariables"],
+	"additionalProperties": false
+  }
+  

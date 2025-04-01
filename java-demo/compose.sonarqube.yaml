@@ -1,0 +1,72 @@
+---
+services:
+
+  # automatically execute analysis from sources
+  sonarqube-analysis:
+    image: eclipse-temurin:21-jre-jammy
+    container_name: sonarqube-analysis
+    depends_on:
+      sonarqube-change-password:
+        condition: service_completed_successfully
+    working_dir: /quality
+    volumes:
+      - .:/quality
+    command: >
+      sh -c "apt update
+      && apt install -y curl jq
+      && curl -u admin:sonarqube -X POST 'http://sonarqube:9000/api/user_tokens/revoke?name=docker-analysis-token'
+      && ./mvnw -P sonar sonar:sonar -Dsonar.token=$(curl -u admin:sonarqube -X POST 'http://sonarqube:9000/api/user_tokens/generate?name=docker-analysis-token&type=GLOBAL_ANALYSIS_TOKEN' | jq --raw-output '.token')"
+
+  # automatically update default password so we can script an analysis
+  sonarqube-change-password:
+    image: ubuntu:22.04
+    container_name: sonarqube-change-password
+    depends_on:
+      sonarqube:
+        condition: service_healthy
+    command: >
+      sh -c "apt update
+      && apt install -y curl
+      && curl -u admin:admin -X POST 'http://sonarqube:9000/api/users/change_password?login=admin&previousPassword=admin&password=sonarqube'"
+
+  # Sonarqube server
+  sonarqube:
+    image: sonarqube:community
+    hostname: sonarqube
+    container_name: sonarqube
+    depends_on:
+      - sonarqube-db
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonarqube-db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    ports:
+      - 9000:9000
+    healthcheck:
+      test: curl -sS http://localhost:9000/api/system/status | grep -e '"status":"UP"' > /dev/null
+      interval: 10s
+      timeout: 30s
+      retries: 10
+      start_period: 60s
+  
+  # postgres database for sonarqube instance
+  sonarqube-db:
+    image: postgres:15
+    hostname: sonarqube-db
+    container_name: sonarqube-db
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  postgresql:
+  postgresql_data:

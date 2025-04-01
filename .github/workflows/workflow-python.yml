@@ -1,0 +1,37 @@
+name: Python Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - example-python/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - example-python/**
+  release:
+    types: [created]
+
+jobs:
+  python-linting:
+    uses: ./.github/workflows/component-python-lint.yml
+    with:
+      context: example-python
+  python-security:
+    uses: ./.github/workflows/component-python-security.yml
+    with:
+      context: example-python 
+  container-image-build:
+    needs: [python-linting, python-security]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: example-python
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app
+  container-image-security:
+    needs: [container-image-build]
+    uses: ./.github/workflows/component-container-image-security.yml
+    with:
+      context: example-python
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/python/app

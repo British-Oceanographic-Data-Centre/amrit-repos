@@ -1,0 +1,38 @@
+name: Python Linting
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        description: "Path to the module to lint"
+        default: ""
+        type: string
+
+jobs:
+  tox:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Run on Python versions that are stable and not EOL
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        tox-job: ["test", "build", "lint", "type"]
+    steps:
+      - uses: actions/checkout@v4 # Checkout the current branch/merge state
+      - name: Set up Python ${{ matrix.python-version }} # Get Python ready to use
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies # Get Tox and Poetry ready
+        working-directory: ./${{ inputs.context }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tox tox-gh-actions
+          curl -sSL https://install.python-poetry.org | python -
+          tox depends --recreate
+      # Run Tox jobs
+      - name: Tox (${{ matrix.tox-job }})
+        working-directory: ./${{ inputs.context }}
+        run: |
+          poetry config virtualenvs.create false
+          poetry install --no-root --with ${{ matrix.tox-job }}
+          tox -e ${{ matrix.tox-job }}

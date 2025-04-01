@@ -1,0 +1,4 @@
+---
+services:
+  fruits:
+    image: ghcr.io/british-oceanographic-data-centre/amrit-repos/java/app:${TAG}

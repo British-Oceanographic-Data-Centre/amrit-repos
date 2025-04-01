@@ -1,0 +1,187 @@
+{
+	"@context": "https://www.ocean-ops.org/oceanjson/context.jsonld",
+	"@id": "https://www.ocean-ops.org/oceanmeta/missions/36739872",
+	"@type": "oceanmeta:Mission",
+	
+	"wigosId": "0-12345-ABC",
+  
+	"program": {
+	  "@id": "https://www.ocean-ops.org/oceanmeta/programs/1001871",
+	  "@type": "oceanmeta:Program",
+	  "name": "AOML Glider program is part of the CARICOOS Network",
+	  "country": {
+		"@id": "https://www.ocean-ops.org/oceanmeta/countries/US",
+		"@type": "schema:Country",
+		"name": "United States"
+	  },
+	  "contactContributions": [
+		{
+		  "@type": "oceanmeta:ContactContribution",
+		  "agent": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/contacts/alice-dupont",
+			"@type": "schema:Person",
+			"givenName": "Alice",
+			"familyName": "Dupont",
+			"email": "alice.dupont@example.org"
+		  },
+		  "role": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/roles/230",
+			"@type": "oceanmeta:ContactRole",
+			"name": "Operations Manager"
+		  }
+		}
+	  ],
+	  "agencyContributions": [
+		{
+		  "@type": "oceanmeta:AgencyContribution",
+		  "agent": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/organizations/ALSEAMAR",
+			"@type": "schema:Organization",
+			"name": "ALSEAMAR"
+		  },
+		  "role": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/roles/3",
+			"@type": "oceanmeta:ContactRole",
+			"name": "Operating agency"
+		  }
+		}
+	  ]
+	},
+  
+	"platform": {
+	  "@id": "https://www.ocean-ops.org/oceanmeta/platforms/36739872",
+	  "@type": "oceanmeta:Platform",
+	  "ref": "1800910_001",
+	  "serialNumber": "164",
+	  "internalId": "ifm09Depl16",
+	  "name": "Glider ALseamar 001",
+  
+	  "model": {
+		"@id": "https://www.ocean-ops.org/oceanmeta/platformModels/35",
+		"@type": "oceanmeta:PlatformModel",
+		"name": "Slocum G2",
+		"type": {
+		  "@id": "https://www.ocean-ops.org/oceanmeta/platformTypes/55",
+		  "@type": "oceanmeta:PlatformType",
+		  "name": "Underwater Glider"
+		}
+	  },
+  
+	  "networks": [
+		{
+		  "@id": "https://www.ocean-ops.org/oceanmeta/networks/1000356",
+		  "@type": "oceanmeta:Network",
+		  "name": "OceanGliders"
+		}
+	  ],
+  
+	  "contactContributions": [
+		{
+		  "@type": "oceanmeta:ContactContribution",
+		  "agent": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/contacts/alice-dupont",
+			"@type": "schema:Person",
+			"givenName": "Alice",
+			"familyName": "Dupont",
+			"email": "alice.dupont@example.org"
+		  },
+		  "role": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/roles/230",
+			"@type": "oceanmeta:ContactRole",
+			"name": "Operations Manager"
+		  }
+		}
+	  ],
+  
+	  "telecom": {
+		"@type": "oceanmeta:Telecom",
+		"number": "309879873",
+		"imei": "998323078521895",
+		"type": {
+		  "@id": "https://www.ocean-ops.org/oceanmeta/telecomTypes/3",
+		  "@type": "oceanmeta:TelecomType",
+		  "name": "IRIDIUM"
+		},
+		"service": {
+		  "@id": "https://www.ocean-ops.org/oceanmeta/telecomServices/65",
+		  "@type": "oceanmeta:TelecomService",
+		  "name": "TURBOWIN",
+		  "description": "TurboWin Obs2Server"
+		}
+	  }
+	},
+  
+	"deployment": {
+	  "@id": "https://www.ocean-ops.org/oceanmeta/deployments/12345",
+	  "@type": "oceanmeta:Deployment",
+	  "startDate": "2022-05-15T00:00:00",
+	  "latitude": 45.1233,
+	  "longitude": -12.4563,
+	  "ship": {
+		"@id": "https://www.ocean-ops.org/oceanmeta/ships/20002091",
+		"@type": "oceanmeta:Ship",
+		"name": "TOTO RV Explorer",
+		"type": {
+		  "@id": "https://www.ocean-ops.org/oceanmeta/shipTypes/34",
+		  "@type": "oceanmeta:ShipType",
+		  "name": "Research Vessel"
+		}
+	  },
+	  "cruise": {
+		"@id": "https://www.ocean-ops.org/oceanmeta/cruises/2650292",
+		"@type": "oceanmeta:Cruise",
+		"name": "Atlantic Mission 2022",
+		"startDate": "2022-05-01T00:00:00",
+		"endDate": "2022-06-01T00:00:00"
+	  }
+	},
+  
+	"variableSetups": [
+	  {
+		"@id": "https://www.ocean-ops.org/oceanmeta/variableSetups/98765",
+		"@type": "oceanmeta:VariableSetup",
+		"sensor": {
+		  "@id": "https://www.ocean-ops.org/oceanmeta/sensors/178",
+		  "@type": "oceanmeta:Sensor",
+		  "serialNumber": "178",
+		  "model": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/sensorModels/SEABIRDSBE41",
+			"@type": "oceanmeta:SensorModel",
+			"name": "SEABIRDSBE41",
+			"manufacturer": {
+			  "@id": "https://www.ocean-ops.org/oceanmeta/organizations/SensorTech",
+			  "@type": "schema:Organization",
+			  "name": "SensorTech",
+			  "url": "https://sensortech.com"
+			}
+		  }
+		},
+		"activatedVariable": {
+		  "@id": "https://www.ocean-ops.org/oceanmeta/variables/3",
+		  "@type": "oceanmeta:Variable",
+		  "name": "Temperature"
+		},
+		"activationDate": "2022-05-15T00:00:00",
+		"deactivationDate": "2023-05-15T00:00:00"
+	  }
+	],
+  
+	"log": {
+	  "@id": "https://www.ocean-ops.org/oceanmeta/logs/12345",
+	  "@type": "oceanmeta:Log",
+	  "statuses": [
+		{
+		  "startDate": "2022-05-15T00:00:00",
+		  "type": {
+			"@id": "https://www.ocean-ops.org/oceanmeta/statusTypes/6",
+			"@type": "oceanmeta:StatusType",
+			"name": "Operational",
+			"rank": 4
+		  }
+		}
+	  ]
+	},
+  
+	"passportDeliveryDate": "2022-06-01T00:00:00"
+  }
+  

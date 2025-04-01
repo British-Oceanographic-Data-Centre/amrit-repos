@@ -1,0 +1,32 @@
+name: Java Tests
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        description: "Path to the module to lint"
+        default: ""
+        type: string
+      java-version:
+        description: "Java version"
+        default: "21"
+        type: string
+
+jobs:
+  java-test-maven:
+    name: Test with Maven
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: ${{ inputs.java-version }}
+      - name: Run Maven run tests
+        working-directory: ./${{ inputs.context }}
+        run: ./mvnw clean test
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v5
+        if: always()
+        with:
+          report_paths: '**/target/**/TEST-*.xml'

@@ -1,0 +1,250 @@
+[
+	{
+	  "title": "AGENCY",
+	  "code": "CT-AGN",
+	  "url": "https://www.ocean-ops.org/api/1/data/agency",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "AGENCY ROLE",
+	  "code": "CT-ARL",
+	  "url": "https://www.ocean-ops.org/api/1/data/agencyrole",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name"
+	  }
+	},
+	{
+	  "title": "BATTERY",
+	  "code": "CT-BAT",
+	  "url": "https://www.ocean-ops.org/api/1/data/platformbattery",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "CONTACT ROLE",
+	  "code": "CT-CRL",
+	  "url": "https://www.ocean-ops.org/api/1/data/contactrole",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "COUNTRY",
+	  "code": "CT-COU",
+	  "url": "https://www.ocean-ops.org/api/1/data/country?exp=[%22active%20=%201%22]",
+	  "columnsDictionary": {
+		"code2": "code2",
+		"name": "name"
+	  }
+	},
+	{
+	  "title": "DATA PROCESSING METHOD",
+	  "code": "CT-DPM",
+	  "url": "https://www.ocean-ops.org/api/1/data/dataprocessingmethod",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "DEPLOYMENT METHOD",
+	  "code": "CT-DMT",
+	  "url": "https://www.ocean-ops.org/api/1/data/deploymentmethod",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "ENDING CAUSE",
+	  "code": "CT-ENC",
+	  "url": "https://www.ocean-ops.org/api/1/data/endingcause",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name"
+	  }
+	},
+	{
+	  "title": "LATENCY",
+	  "code": "CT-LAT",
+	  "url": "https://www.ocean-ops.org/api/1/data/latency",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name"
+	  }
+	},
+	{
+	  "title": "MANUFACTURER",
+	  "code": "CT-MAN",
+	  "url": "https://www.ocean-ops.org/api/1/data/agency?exp=[%22manuf%20=%201%22]",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "NETWORK",
+	  "code": "CT-NET",
+	  "url": "https://www.ocean-ops.org/api/1/data/network",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "PLATFORM MODEL",
+	  "code": "CT-PLM",
+	  "url": "https://www.ocean-ops.org/api/1/data/platformmodel",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "PLATFORM TYPE",
+	  "code": "CT-PLT",
+	  "url": "https://www.ocean-ops.org/api/1/data/platformtype",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "PROGRAM",
+	  "code": "CT-PRO",
+	  "url": "https://www.ocean-ops.org/api/1/data/program",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "SENSOR EXPOSURE",
+	  "code": "CT-EXP",
+	  "url": "https://www.ocean-ops.org/api/1/data/sensorexposure",
+	  "columnsDictionary": {
+		"id": "id",
+		"ref": "ref"
+	  }
+	},
+	{
+	  "title": "SENSOR LOCATION",
+	  "code": "CT-SLC",
+	  "url": "https://www.ocean-ops.org/api/1/data/sensorlocation",
+	  "columnsDictionary": {
+		"id": "id",
+		"ref": "ref"
+	  }
+	},
+	{
+	  "title": "SENSOR MODEL",
+	  "code": "CT-SEM",
+	  "url": "https://www.ocean-ops.org/api/1/data/sensormodel",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "SENSOR STATUS",
+	  "code": "CT-SSS",
+	  "url": "https://www.ocean-ops.org/api/1/data/sensorstatus",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"ref": "ref"
+	  }
+	},
+	{
+	  "title": "SHIP",
+	  "code": "CT-SHP",
+	  "url": "https://www.ocean-ops.org/api/1/data/ship?include=[\"name\",\"imo\"]",
+	  "columnsDictionary": {
+		"name": "name",
+		"imo": "imo"
+	  }
+	},
+	{
+	  "title": "SHIP TYPE",
+	  "code": "CT-VTY",
+	  "url": "https://www.ocean-ops.org/api/1/data/shiptype",
+	  "columnsDictionary": {
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "STATUS TYPE",
+	  "code": "CT-STT",
+	  "url": "https://www.ocean-ops.org/api/1/data/platformstatus",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name",
+		"rank": "rank",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "TELECOM FORMAT",
+	  "code": "CT-TFM",
+	  "url": "https://www.ocean-ops.org/api/1/data/telecomformat",
+	  "columnsDictionary": {
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "TELECOM SERVICE",
+	  "code": "CT-TSV",
+	  "url": "https://www.ocean-ops.org/api/1/data/telecomservice",
+	  "columnsDictionary": {
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "TELECOM TYPE",
+	  "code": "CT-TTY",
+	  "url": "https://www.ocean-ops.org/api/1/data/telecomtype",
+	  "columnsDictionary": {
+		"name": "name",
+		"description": "description"
+	  }
+	},
+	{
+	  "title": "TRACKING SYSTEM",
+	  "code": "CT-TRS",
+	  "url": "https://www.ocean-ops.org/api/1/data/locsystem",
+	  "columnsDictionary": {
+		"id": "id",
+		"name": "name"
+	  }
+	},
+	{
+	  "title": "VARIABLE",
+	  "code": "CT-VAR",
+	  "url": "https://www.ocean-ops.org/api/1/data/variable",
+	  "columnsDictionary": {
+		"name": "name",
+		"description": "description"
+	  }
+	}
+  ]

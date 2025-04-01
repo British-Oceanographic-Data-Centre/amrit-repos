@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: Mon nom d'application
+message: >-
+  Descitpion de l'application
+type: software
+authors:
+  - name: Ifremer
+    address: 1625 route de Sainte-Anne
+    city: Plouzané
+    post-code: '29280'
+    country: FR
+    location: Bretagne
+    website: 'https://www.ifremer.fr'
+    email: user@ifremer.fr
+
+repository-code: 'https://gitlab.ifremer.fr/XXX'
+url: 'https://mon-application.ifremer.fr'
+abstract: >-
+  
+keywords:
+  - XXX
+license: LGPL-3.0
+version: '1.0.0'
+date-released: '2024-05-14'

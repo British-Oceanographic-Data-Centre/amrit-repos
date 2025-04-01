@@ -1,0 +1,2 @@
+#files to be excluded from the context of the docker daemon
+*.md

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="6" failures="0" errors="0" time="11.565">
+  <testsuite name="add function" errors="0" failures="0" skipped="0" timestamp="2024-11-28T12:12:18" time="3.518" tests="1">
+    <testcase classname="add function returns the sum of two numbers" name="add function returns the sum of two numbers" time="0.025">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2024-11-28T12:12:18" time="4.838" tests="1">
+    <testcase classname=" should have no accessibility violations" name=" should have no accessibility violations" time="0.89">
+    </testcase>
+  </testsuite>
+  <testsuite name="Home Page" errors="0" failures="0" skipped="0" timestamp="2024-11-28T12:12:18" time="4.777" tests="4">
+    <testcase classname="Home Page renders the Next.js logo" name="Home Page renders the Next.js logo" time="0.223">
+    </testcase>
+    <testcase classname="Home Page renders the ordered list with instructions" name="Home Page renders the ordered list with instructions" time="0.264">
+    </testcase>
+    <testcase classname="Home Page renders the &quot;Deploy now&quot; link" name="Home Page renders the &quot;Deploy now&quot; link" time="0.165">
+    </testcase>
+    <testcase classname="Home Page renders the footer with navigation links" name="Home Page renders the footer with navigation links" time="0.147">
+    </testcase>
+  </testsuite>
+</testsuites>

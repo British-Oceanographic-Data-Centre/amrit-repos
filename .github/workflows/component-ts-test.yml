@@ -1,0 +1,61 @@
+name: Typescript Test
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        description: "Path to the module to lint"
+        default: ""
+        type: string
+      run-cypress:
+        description: "Whether to run Cypress tests"
+        default: true
+        type: boolean
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+      # Install dependencies in the context folder
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./${{ inputs.context }}
+      # Build the application
+      - name: Build the application
+        run: npm run build
+        working-directory: ./${{ inputs.context }}
+      # Start the application
+      - name: Start the application
+        run: npm start &
+        working-directory: ./${{ inputs.context }}
+        env:
+          NODE_ENV: test
+      - name: Run Jest tests
+        run: npx jest --ci
+        working-directory: ./${{ inputs.context }}
+        env:
+          JEST_JUNIT_OUTPUT_NAME: junit.xml
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v5
+        if: always()
+        with:
+          report_paths: '**/junit.xml'
+      # Run Cypress tests
+      - name: Run Cypress tests
+        if: ${{ inputs.run-cypress }}
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: ./${{ inputs.context }}
+          wait-on: http://localhost:3000
+          wait-on-timeout: 60
+          spec: cypress/e2e/**/*.cy.{js,ts}
+          browser: chrome

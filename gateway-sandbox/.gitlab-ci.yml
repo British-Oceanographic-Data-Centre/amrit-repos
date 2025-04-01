@@ -1,0 +1,127 @@
+
+# common configuration for python gitlab-ci jobs
+stages:
+  - lint
+  - build
+  - check-size
+  - deploy
+
+# common rules to only run jobs on MRs, normal branches
+.common-rules: &common-rules
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: $CI_COMMIT_TAG
+
+.base:
+  <<: *common-rules
+
+.amrit_jws_test-base:
+  variables:
+    DOCKERFILE: ./amrit_jws_test/Dockerfile
+    IMAGE_NAME: bodc/amrit_jws_test
+    BUILD_CONTEXT: ./amrit_jws_test
+    IMAGE_TAR: amrit_jws_test.tar
+
+default:
+  tags:
+    - bodc-runners
+    - shell
+
+.lint-base:
+  extends: .base
+  image: hadolint/hadolint:latest-debian
+  script:
+    - hadolint $DOCKERFILE
+
+lint-amrit_jws_test:
+  stage: lint
+  extends:  
+      - .lint-base
+      - .amrit_jws_test-base
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+
+
+.build-base:
+  extends: .base
+  image: 
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+    - mkdir -p build
+  script:
+    - /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --dockerfile $DOCKERFILE
+      --no-push
+      --destination=$DOCKER_REGISTRY/$IMAGE_NAME
+      --tarPath build/$IMAGE_TAR
+  artifacts:
+    paths:
+      - build/*
+    expire_in: 30 mins
+    when: on_success
+
+build-amrit_jws_test:
+  stage: build
+  extends:
+    - .build-base
+    - .amrit_jws_test-base
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^python-\d+\.\d+\.\d+$/'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - amrit_jws_test/Dockerfile
+        - amrit_jws_test/requirements.txt
+
+
+.check-size-base:
+  stage: check-size
+  extends: .base
+  script:
+    - |
+      echo "Image size: $(du -sh build/$IMAGE_TAR)"
+      echo "Max image size: ${MAX_IMAGE_SIZE_MB} MB"
+      if [ $(($(stat -c%s build/$IMAGE_TAR) / 1024 / 1024)) -ge $MAX_IMAGE_SIZE_MB ]; then
+        echo "Image exceeds the set maximum size, please verify before deploying."
+        exit 1
+      else
+        echo "Size OK."
+      fi
+  allow_failure: true
+
+check-size-amrit_jws_test:
+  extends:
+    - .check-size-base
+    - .amrit_jws_test-base
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^python-\d+\.\d+\.\d+$/'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - amrit_jws_test/Dockerfile
+        - amrit_jws_test/requirements.txt
+  
+
+.deploy-base:
+  extends: .base
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint: [""]
+  script:
+    - |
+      echo "DEPLOYING..."
+      crane auth login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REGISTRY
+      crane push build/$IMAGE_TAR $DOCKER_REGISTRY/$IMAGE_NAME:$CI_COMMIT_TAG
+      crane tag $DOCKER_REGISTRY/$IMAGE_NAME:$CI_COMMIT_TAG latest
+
+
+deploy-amrit_jws_test:
+  stage: deploy
+  extends:
+    - .deploy-base
+    - .amrit_jws_test-base
+  rules:
+    # only run on release tags
+    - if: '$CI_COMMIT_TAG =~ /^python-\d+\.\d+\.\d+$/'
+      when: manual

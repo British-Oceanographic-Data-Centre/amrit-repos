@@ -1,0 +1,27 @@
+name: Java Lint
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        description: "Path to the module to lint"
+        default: ""
+        type: string
+      java-version:
+        description: "Java version"
+        default: "21"
+        type: string
+
+jobs:
+  java-linter-spotless:
+    name: Lint with spotless
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: ${{ inputs.java-version }}
+      - name: Run Spotless lint
+        working-directory: ./${{ inputs.context }}
+        run: ./mvnw spotless:check

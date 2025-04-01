@@ -1,0 +1,46 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://www.ocean-ops.org/oceanjson/schemas/Telecom.schema.json",
+	"@context": "https://www.ocean-ops.org/oceanjson/context.jsonld",
+	"@type": ["oceanmeta:Telecom", "schema:Thing"],
+	"title": "Telecom",
+	"description": "Setup of a telecommunications system onboard a platform.",
+	"type": "object",
+	"oceanMetaCode": "TEL",
+	"properties": {
+	  "id": {
+		"type": "string",
+		"description": "Unique identifier for the telecom setup.",
+		"oceanMetaCode": "TEL-01",
+		"oceanMetaType": ""
+	  },
+	  "number": {
+		"type": "string",
+		"description": "Telecommunication number associated with the platform.",
+		"oceanMetaCode": "TEL-02",
+		"oceanMetaType": ""
+	  },
+	  "imei": {
+		"type": "string",
+		"pattern": "^[0-9]{15}$",
+		"description": "International Mobile Equipment Identity (IMEI) number for tracking telecom devices.",
+		"oceanMetaCode": "TEL-03",
+		"oceanMetaType": ""
+	  },
+	  "type": {
+		"$ref": "oceanmeta:TelecomType",
+		"description": "Type of telecom connection (e.g., satellite, cellular).",
+		"oceanMetaCode": "TEL-04",
+		"oceanMetaType": "TTY"
+	  },
+	  "trackingSystem": {
+		"$ref": "oceanmeta:TrackingSystem",
+		"description": "Tracking system used for telecom data transmission.",
+		"oceanMetaCode": "TEL-07",
+		"oceanMetaType": "TRS"
+	  }
+	},
+	"required": ["id", "type", "service"],
+	"additionalProperties": false
+}
+  
