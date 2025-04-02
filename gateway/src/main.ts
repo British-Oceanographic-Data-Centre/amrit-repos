@@ -9,6 +9,10 @@ async function bootstrap() {
   const { httpAdapter} = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
+  app.enableCors({
+    origin: 'http://localhost:3000',    
+  });
+
   app.setGlobalPrefix('api',{
     exclude: [
       { path: '/', method: RequestMethod.GET }, // exclude '/api' for main controller to have http://localhost:3000 to be available (cypress test...)

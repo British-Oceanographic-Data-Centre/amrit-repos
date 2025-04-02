@@ -1,28 +1,17 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import EnhancedTable from './alertsTable/EnhancedTable';
 
-const Home: React.FC = () => {
 
+const Alerts = () => {
+
+ 
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 2,
-      paddingBottom: 0,
-      textAlign: 'center',
-      maxWidth: '1200px',
-      margin: '0 auto'
-    }}>
+    <Box sx={{ width: '100%', padding:2 }}>
 		
-		  <Box sx={{ marginTop: 0, width: '100%', maxWidth: '600px', mt: 4 }}>
-        <Typography variant="h5" sx={{ marginTop: 0, marginBottom: 0, marginRight: 0 }}>
-          Alerts dashboard
-        </Typography>
-      </Box>
+    <EnhancedTable/>
 
     </Box>
   );
 };
 
-export default Home;
+export default Alerts;

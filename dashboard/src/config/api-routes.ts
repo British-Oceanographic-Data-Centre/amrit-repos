@@ -1,0 +1,1 @@
+export const ALERTA_API_BASE_URL = process.env.NEXT_PUBLIC_ALERTA_API_BASE_URL || 'http://localhost:3001/api/alerta';

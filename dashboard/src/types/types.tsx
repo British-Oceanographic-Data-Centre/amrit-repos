@@ -13,3 +13,4 @@ import {
     "Alerts": <NotificationsIcon />
   };
   
+  export type Order = 'asc' | 'desc';

@@ -56,6 +56,9 @@ export function buildAxiosRequestConfigFromSourceRequest(req: Request, host: str
       url,
       headers,
       params,
+      paramsSerializer : {
+        indexes: null
+      },
       data
   };
 

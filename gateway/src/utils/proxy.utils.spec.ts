@@ -48,6 +48,9 @@ describe('buildAxiosRequestConfigFromSourceRequest', () => {
           'host': 'amrit-alerta.example.com',
         },
         params: { status: 'open' },
+        paramsSerializer: {
+          indexes: null,
+        },
         data: { key: 'value' },
       });
     });
