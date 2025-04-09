@@ -5,7 +5,7 @@ import {AxiosError, AxiosRequestConfig } from 'axios';
 import { firstValueFrom } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpException } from '@nestjs/common';
-
+import { ProxyRoute } from './proxy.routes';
 
 
 /**
@@ -40,7 +40,9 @@ export async function proxyHttpRequest<T = unknown>(httpService: HttpService, co
      * @param baseProxyPath - base Path on gateway. ex: 'api/alerta', 'api/auth'.
      * @returns AxiosRequestConfig
      */
-export function buildAxiosRequestConfigFromSourceRequest(req: Request, host: string, baseProxyPath: string, targetPath: string) {
+export function buildAxiosRequestConfigFromSourceRequest(req: Request, baseProxyPath: string,  route : ProxyRoute) {
+  const { host, targetPath, authHeader } = route; 
+  
   const method = req.method.toLowerCase();
   const params = req.query;
   const headers = { ...cleanProxyHeaders(req.headers), host:host  }; // change host
@@ -61,6 +63,13 @@ export function buildAxiosRequestConfigFromSourceRequest(req: Request, host: str
       },
       data
   };
+
+    if (authHeader) {
+          config.headers = {
+            ...config.headers,
+            Authorization: authHeader,
+          };
+		    }
 
   return config;
 }

@@ -1,12 +1,17 @@
 import { ConfigService } from '@nestjs/config';
 
-export type ProxyRouteMap = {
-  [basePath: string]: {
+export type ProxyRoute = {
+  
     host: string;
     targetPath: string;
     authHeader?: string;
-  };
-};
+  
+}
+
+export type ProxyRouteMap = {
+  [basePath: string]: ProxyRoute
+}
+
 
 /**
  * Builds the proxy route map dynamically using ConfigService for env vars.
@@ -18,10 +23,9 @@ export function createProxyRouteMap(config: ConfigService): ProxyRouteMap {
       targetPath: '/api',
       authHeader: `Key ${config.getOrThrow<string>('ALERTA_READ_API_KEY')}`,
     },
-    // Future routes:
-    // 'api/oceanops': {
-    //   host: config.getOrThrow<string>('OCEANOPS_HOST'),
-    //   targetPath: '/some/other/path',
-    // }
+    'api/oceanops': {
+      host: config.getOrThrow<string>('OCEANOPS_HOST'),
+      targetPath: '/api/data',
+    }
   };
 }
