@@ -15,12 +15,9 @@ export class AuthController {
         return this.authService.authProxyRequest(req);
     }
 
-    @All('*')
+    @All('*path')
     authProxy(@Req() req: Request) {
         return this.authService.authProxyRequest(req);
     }
-
-
-
 
 }

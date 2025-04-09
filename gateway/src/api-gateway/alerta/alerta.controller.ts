@@ -14,7 +14,7 @@ export class AlertaController {
         return this.alertaService.alertaProxyRequest(req);
     }
 
-    @All('*')
+    @All('*path')
     alertaProxy(@Req() req: Request) {
         return this.alertaService.alertaProxyRequest(req);
     }
