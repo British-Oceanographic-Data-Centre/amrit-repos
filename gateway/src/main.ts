@@ -22,6 +22,6 @@ async function bootstrap() {
 
   app.useGlobalGuards(new JwtAuthGuard(app.get(Reflector))); // Apply JwtGuard globally
 
-  await app.listen(process.env.PORT ?? 3001, process.env.HOSTNAME || 'localhost');
+  await app.listen(process.env.PORT ?? 3000, process.env.HOSTNAME || 'localhost');
 }
 bootstrap();
