@@ -15,6 +15,7 @@ const mockConfigService = {
     const mockConfig: Record<string, string> = {
       ALERTA_HOST: 'http://mock-alerta-host',
       ALERTA_READ_API_KEY: 'mock-alerta-key',
+      OCEANOPS_HOST: 'http://mock-oceanops-host'
     };
     if (mockConfig[key]) return mockConfig[key];
     throw new Error(`Config key ${key} not found`);

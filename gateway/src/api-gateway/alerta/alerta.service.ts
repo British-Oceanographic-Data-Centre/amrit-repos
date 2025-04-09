@@ -32,21 +32,22 @@ export class AlertaService {
 
      {  
       this.logger.log(`Proxy ${req.method} request to Alerta API`);
+      const basePath = 'api/alerta'
 
-      const route = this.proxyRoutes['api/alerta'];
+      const route = this.proxyRoutes[basePath];
       if (!route) {
-        throw new Error(`No proxy route config found for 'api/alerta'`);
+        throw new Error(`No proxy route config found for ${basePath}`);
       }
 		
-        //build axiosRequestConfig with source request parameters and target host parameter :
-        const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req,  'api/alerta', route);
+      //build axiosRequestConfig with source request parameters and target host parameter :
+      const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req,  basePath, route);
 
-        // make request to Alerta api
-        const data = proxyHttpRequest<unknown>(this.httpService, config);
+      // make request to Alerta api
+      const data = proxyHttpRequest<unknown>(this.httpService, config);
 
-        //TO DO ? here can add some logic if needed (ex : change Alert model with a mapper)
-        
-        return data;
+      //TO DO ? here can add some logic if needed (ex : change Alert model with a mapper)
+      
+      return data;
     }   
 
 

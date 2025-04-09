@@ -37,7 +37,7 @@ describe('buildAxiosRequestConfigFromSourceRequest', () => {
         body: { key: 'value' },
       } as unknown as Request;
   
-      const result = buildAxiosRequestConfigFromSourceRequest(mockReq, 'amrit-alerta.example.com', 'api/alerta','/api');
+      const result = buildAxiosRequestConfigFromSourceRequest(mockReq, 'api/alerta', {host:'amrit-alerta.example.com',targetPath:'/api' });
   
       expect(result).toEqual({
         method: 'post',
