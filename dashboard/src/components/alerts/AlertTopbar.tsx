@@ -2,7 +2,7 @@
 import { Alert } from '@/types/alert';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
 import React from 'react'
-import MultiSelectChip from '../MultiSelectChip';
+import MultiSelectChip from '../ui/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 interface AlertTopBarProps {

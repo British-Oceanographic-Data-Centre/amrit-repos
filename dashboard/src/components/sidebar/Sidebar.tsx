@@ -34,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', mt: '64px' }}>
         <SidebarList
           category=""
-          options={['Home', 'Alerts']}
+          options={['Home', 'Alerts', 'Protected']}
           open={open}
         />
       </Box>

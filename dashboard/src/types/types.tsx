@@ -6,11 +6,13 @@ import {
   
   export type SidebarOption = 
     | 'Home'
-    | 'Alerts';
+    | 'Alerts'
+    | 'Protected';
   
   export const iconMapping: Record<SidebarOption, JSX.Element> = {
     "Home": <HomeIcon />,
-    "Alerts": <NotificationsIcon />
+    "Alerts": <NotificationsIcon />,
+    "Protected" : <NotificationsIcon />
   };
   
   export type Order = 'asc' | 'desc';

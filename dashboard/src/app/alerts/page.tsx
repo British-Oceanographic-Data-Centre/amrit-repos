@@ -3,7 +3,7 @@ import Alerts from '../../components/alerts/Alerts';
 
 export const metadata: Metadata = {
   title: 'OceanBoards - Alerts',
-  description: 'AMRIT dashboards application',
+  description: 'AMRIT Alerts dashboard',
   icons: {
     icon: '/favicon.png',
   },
