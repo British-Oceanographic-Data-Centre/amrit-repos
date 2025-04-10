@@ -1,6 +1,6 @@
 
 import LoginForm from '@/components/login/LoginForm'
-import Modal from '@/components/Modal'
+import Modal from '@/components/ui/Modal'
 import React from 'react'
 
 const Login = () => {
