@@ -32,7 +32,6 @@ export class AuthService {
          //build axiosRequestConfig with source request parameters and target host parameter :
         const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req, basePath, route);
         
-        console.log(config.url)
         // make request to auth service
         const data = proxyHttpRequest<unknown>(this.httpService, config);
     

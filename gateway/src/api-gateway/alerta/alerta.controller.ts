@@ -1,4 +1,4 @@
-import { All, Controller, Get, Req } from '@nestjs/common';
+import { All, Controller, Get, Post, Req } from '@nestjs/common';
 import { AlertaService } from './alerta.service';
 import { Request } from 'express';
 import { Public } from '../auth/public.decorator';
@@ -9,12 +9,13 @@ export class AlertaController {
     constructor(private readonly alertaService: AlertaService) {}
 
     @Public()
-    @Get('/alerts')
+    @Get('/alerts{/*path}')
     alertaGetAlertsProxy(@Req() req: Request) {
         return this.alertaService.alertaProxyRequest(req);
     }
 
-    @All('*path')
+
+    @Post('*path')
     alertaProxy(@Req() req: Request) {
         return this.alertaService.alertaProxyRequest(req);
     }
