@@ -1,7 +1,11 @@
 import { Box, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { verifySession } from '@/app/_lib/session';
 
-const Home: React.FC = () => {
+const Home: React.FC = async () => {
+
+  const session = await verifySession(); // get session to conditionnaly render this server component
+
 
   return (
     <Box
@@ -28,6 +32,10 @@ const Home: React.FC = () => {
           }}
         />
 
+        {session && 
+          <Typography variant="h6" sx={{ mb: 3 }}>
+            {`Welcome ${session.username} !`}
+          </Typography> }
         <Typography variant="h6" sx={{ mb: 3 }}>
           OceanBoards is a collaborative AMRIT project.
         </Typography>

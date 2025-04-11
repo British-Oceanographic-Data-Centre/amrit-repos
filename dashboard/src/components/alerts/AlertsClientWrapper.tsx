@@ -9,6 +9,7 @@ import AlertsTable from './AlertsTable'
 
 interface AlertsClientWrapperProps {
     filtersData: Partial<Record<keyof Alert, string[]>>
+    isUserLogin: boolean
 }
 
 /**
@@ -26,7 +27,7 @@ function getFilterLabels(
     );
   }
 
-const AlertsClientWrapper = ({filtersData}: AlertsClientWrapperProps) => {
+const AlertsClientWrapper = ({filtersData, isUserLogin}: AlertsClientWrapperProps) => {
     //state for selected filters
     const [selectedFilters, setSelectedFilters] = useState<typeof filtersData> (
         {
@@ -45,7 +46,7 @@ const AlertsClientWrapper = ({filtersData}: AlertsClientWrapperProps) => {
   return (
     <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-        <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters = {selectedFilters}/>
+        <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters = {selectedFilters} isUserLogin={isUserLogin}/>
            
         <AlertsTable selectedFilters={selectedFilters}/>
 

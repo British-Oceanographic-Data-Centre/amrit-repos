@@ -24,9 +24,11 @@
     "@mui/material": "^6.4.8",
     "@mui/x-data-grid": "^7.28.2",
     "dashboard": "file:",
+    "jose": "^6.0.10",
     "next": "^15.2.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

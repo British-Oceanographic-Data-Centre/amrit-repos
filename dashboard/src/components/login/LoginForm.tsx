@@ -1,5 +1,5 @@
 'use client';
-import React from 'react'
+import React, { useActionState, useEffect } from 'react'
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
@@ -7,6 +7,9 @@ import { Box, Button, Divider, FormControl, FormLabel, Link, TextField, Typograp
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon } from '../ui/CustomIcons';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { login } from '../../app/_actions/auth';
+import SubmitButton from '../SubmitButton';
+import { useRouter } from 'next/navigation';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -45,59 +48,24 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }));
 
 const LoginForm = () => {
-    const [emailError, setEmailError] = React.useState(false);
-    const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-    const [passwordError, setPasswordError] = React.useState(false);
-    const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-    const [open, setOpen] = React.useState(false);
+    const [openForgetPassword, setOpenForgetPassword,] = React.useState(false);
+    const [state, loginAction, isPending] = useActionState(login, undefined);
+    const router = useRouter()
 
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
-        event.preventDefault();
-        return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-    });
-    };
-
-    const validateInputs = () => {
-        const email = document.getElementById('email') as HTMLInputElement;
-        const password = document.getElementById('password') as HTMLInputElement;
-    
-        let isValid = true;
-    
-        if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-          setEmailError(true);
-          setEmailErrorMessage('Please enter a valid email address.');
-          isValid = false;
-        } else {
-          setEmailError(false);
-          setEmailErrorMessage('');
+    useEffect(() => {
+        if (!isPending && state?.success) {
+          router.back();    // To go back to current page after successful login   
         }
+      }, [isPending, state]);
     
-        if (!password.value || password.value.length < 6) {
-          setPasswordError(true);
-          setPasswordErrorMessage('Password must be at least 6 characters long.');
-          isValid = false;
-        } else {
-          setPasswordError(false);
-          setPasswordErrorMessage('');
-        }
+    const handleClickOpenForgetPassword = () => {
+        setOpenForgetPassword(true);
+    };
     
-        return isValid;
-      };
+    const handleCloseForgetPassword  = () => {
+        setOpenForgetPassword(false);
+    };
+
     
 
   return (
@@ -122,7 +90,7 @@ const LoginForm = () => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            action={loginAction}
             noValidate
             sx={{
               display: 'flex',
@@ -134,25 +102,25 @@ const LoginForm = () => {
             <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
               <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
+                error={state?.errors?.login ? true : false}
+                helperText={state?.errors?.login}
+                id="login"
                 type="email"
-                name="email"
+                name="login"
                 placeholder="your@email.com"
                 autoComplete="email"
                 autoFocus
                 required
                 fullWidth
                 variant="outlined"
-                color={emailError ? 'error' : 'primary'}
+                color={state?.errors?.login  ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="password">Password</FormLabel>
               <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
+                error={state?.errors?.password ? true : false}
+                helperText={state?.errors?.password}
                 name="password"
                 placeholder="••••••"
                 type="password"
@@ -162,26 +130,19 @@ const LoginForm = () => {
                 required
                 fullWidth
                 variant="outlined"
-                color={passwordError ? 'error' : 'primary'}
+                color={state?.errors?.password ? 'error' : 'primary'}
               />
             </FormControl>
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
-            <ForgotPassword open={open} handleClose={handleClose} />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
-              Sign in
-            </Button>
+            <ForgotPassword open={openForgetPassword} handleClose={handleCloseForgetPassword} />
+            <SubmitButton>Sign in</SubmitButton>
             <Link
               component="button"
               type="button"
-              onClick={handleClickOpen}
+              onClick={handleClickOpenForgetPassword}
               variant="body2"
               sx={{ alignSelf: 'center' }}
             >

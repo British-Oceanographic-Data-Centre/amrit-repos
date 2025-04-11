@@ -16,7 +16,8 @@ export default async function getAlerts(filters:Partial<Record<keyof Alert, stri
   const queryString = [filterQuery, sortByQuery, pagination].filter(Boolean).join('&'); // we filter null, undefined or empty string "" and join in a string with a & separator
 
   // fetch data
-  const res = await fetch(`${baseUrl}/alerts?${queryString}`, {signal});
+  const res = await fetch(`${baseUrl}/alerts?${queryString}`, {signal,
+    credentials: 'include'});
 
   if (!res.ok) throw new Error ("failed to fetch Alert data");
 
@@ -25,7 +26,7 @@ export default async function getAlerts(filters:Partial<Record<keyof Alert, stri
 
 
 export  async function getAlertCount () : Promise<AlertCountApiResponse> {
-  const res = await fetch(`${baseUrl}/alerts/count`);
+  const res = await fetch(`${baseUrl}/alerts/count`, {credentials: 'include'});
 
   if (!res.ok) throw new Error ("failed to fetch Alert data");
 

@@ -1,4 +1,4 @@
-import { All, Controller,  Post, Req } from '@nestjs/common';
+import { All, Controller,  Get,  Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request} from 'express';
 import { Public } from './public.decorator';
@@ -14,6 +14,13 @@ export class AuthController {
     loginProxy(@Req() req: Request) {
         return this.authService.authProxyRequest(req);
     }
+
+    @Public()
+    @Get('/.well-known/jwks.json')
+    JwksProxy(@Req() req: Request) {
+        return this.authService.authProxyRequest(req);
+    }
+
 
     @All('*path')
     authProxy(@Req() req: Request) {

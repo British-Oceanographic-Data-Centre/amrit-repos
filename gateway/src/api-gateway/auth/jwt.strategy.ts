@@ -5,6 +5,7 @@ import * as jwksRsa from 'jwks-rsa';
 import { JwtPayload } from "src/types/types";
 import { createProxyRouteMap } from "src/utils/proxy.routes";
 import { ConfigService } from "@nestjs/config";
+import { Request } from 'express';
 
 
 
@@ -20,7 +21,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         
         super({
             // extract token from request :
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: extractTokenFromRequest,
             // don't ignore expiration :
             ignoreExpiration: false,
             // get the public key from the JWKS endpoint
@@ -43,4 +45,23 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         return { userId: payload.contactId, username: payload.sub, name: payload.name };
     }
 
+    
 }
+function extractTokenFromRequest(req: Request): string | null {
+    console.log ("get JWT")
+    // 1. Try Authorization header
+    const authHeader = req.headers['authorization'];
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        console.log(authHeader)
+      return authHeader.slice(7).trim(); // remove 'Bearer '
+    }
+  
+    // 2. Try Cookie header
+    const cookies = req.cookies;
+    if (cookies && cookies['session']) {
+        console.log(cookies['session'])
+        return cookies['session'];
+    }
+  
+    return null;
+  }

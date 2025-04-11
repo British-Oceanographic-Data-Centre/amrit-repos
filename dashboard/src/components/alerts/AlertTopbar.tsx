@@ -4,14 +4,17 @@ import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
 import React from 'react'
 import MultiSelectChip from '../ui/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 interface AlertTopBarProps {
     filtersData: Partial<Record<keyof Alert, string[]>>
     selectedFilters:  Partial<Record<keyof Alert, string[]>>
     onFilterChange: (filterKey: string, values: string[]) => void
+    isUserLogin : boolean
 }
 
-const AlertTopbar = ({filtersData, onFilterChange, selectedFilters }: AlertTopBarProps) => {
+const AlertTopbar = ({filtersData, onFilterChange, selectedFilters, isUserLogin }: AlertTopBarProps) => {
 
     const theme = useTheme();
 
@@ -43,6 +46,10 @@ const AlertTopbar = ({filtersData, onFilterChange, selectedFilters }: AlertTopBa
                 </IconButton>
             </Tooltip>
             {Object.entries(filtersData).map(([key, valuesList])=><MultiSelectChip key={key} datalist={valuesList} filterName={key} selectedItems={selectedFilters[key as keyof Alert] ?? []} onFilterChange={onFilterChange}  /> )}
+
+            {isUserLogin &&
+                <FormControlLabel control={<Checkbox defaultChecked />} label="View only my subscriptions" />
+            }
 
             </Toolbar>
 

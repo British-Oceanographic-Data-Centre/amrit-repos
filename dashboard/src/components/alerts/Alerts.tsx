@@ -1,9 +1,13 @@
 import { Box } from '@mui/material';
 import { getAlertCount } from '@/lib/fetchAlerts';
 import AlertsClientWrapper from './AlertsClientWrapper';
+import { verifySession } from '@/app/_lib/session';
 
 
 const Alerts = async () => {
+  // get user info :
+  const session = await verifySession();
+
   // fetch filters data here (server side) :
   let counts;
   try {
@@ -25,7 +29,7 @@ const Alerts = async () => {
  
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
-      <AlertsClientWrapper filtersData={filtersData}/>
+      <AlertsClientWrapper filtersData={filtersData} isUserLogin={session?.isAuth ?? false}/>
     </Box>
   );
 };
