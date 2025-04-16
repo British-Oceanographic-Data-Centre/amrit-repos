@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpException } from '@nestjs/common';
 import { ProxyRoute } from './proxy.routes';
+import { extractTokenFromRequest } from 'src/api-gateway/auth/jwt.strategy';
 
 
 /**
@@ -100,3 +101,11 @@ export function cleanProxyHeaders(headers: IncomingHttpHeaders): Record<string, 
         ]),
     );
   }
+
+  export function addJWTinAuthHeaderAsBearer (jwt: string,config: AxiosRequestConfig ) {
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${jwt}`,
+        };
+      
+    }
