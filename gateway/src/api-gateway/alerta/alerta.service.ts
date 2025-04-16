@@ -44,9 +44,9 @@ export class AlertaService {
     const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req,  basePath, route);
     // Use the JWT from oceanops/auth service to authenticate in Alerta
     if (req.method=='POST' || req.method=='DELETE' || req.method=='PUT') {
-      
+      // authenticate on Alerta by forwarding the JWT on api/alerta/auth/bearer endpoint
       const alerta_token =await  this.handleAuthOnAlerta(req, route);
-      // add the alerta token as Bearer token in the request :
+      // add the alerta token as Bearer token in the request to proxy :
       addJWTinAuthHeaderAsBearer(alerta_token, config)
     }
 
@@ -91,9 +91,4 @@ export class AlertaService {
     return data.token;
   }
 
-  // async authenticateOnAlerta (req) {
-
-
-
-  // }
 }
