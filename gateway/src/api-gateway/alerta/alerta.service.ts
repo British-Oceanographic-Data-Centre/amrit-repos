@@ -66,7 +66,7 @@ export class AlertaService {
    */
   async handleAuthOnAlerta (req: Request, route : ProxyRoute) {
     this.logger.log(`Post Auth request to Alerta API`) 
-    const { host, targetPath, authHeader } = route; 
+    const { host, targetPath } = route; 
 
     const method = "post";
     const url = `https://${host}${targetPath}/auth/bearer`;
