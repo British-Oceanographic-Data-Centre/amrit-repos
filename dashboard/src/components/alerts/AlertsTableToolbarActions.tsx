@@ -24,7 +24,7 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
         try {
             const results =  await actOnAlerts(selected, action);
             if (results.success > 0 && results.failed > 0) {
-                setResultsMessage(`${results.success} alert${results.success === 1 ? ' was' : 's were'} successfully ${action}nowledged but ${results.failed} was/were not.`);
+                setResultsMessage(`${results.success} alert${results.success === 1 ? ' was' : 's were'} successfully ${action}nowledged but ${results.failed} ${results.failed === 1 ? 'was' : 'were'} not.`);
                 setSnackBarSeverity("warning");
                 setSnackBarOpen(true);
             } else if (results.success > 0) {
