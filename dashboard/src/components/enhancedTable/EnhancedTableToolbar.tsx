@@ -4,6 +4,7 @@ import { alpha } from '@mui/material/styles';
 import React from 'react'
 
 interface EnhancedTableToolbarProps {
+    selected: readonly string[]
     numSelected: number;
     toolbarActions? : React.ReactNode;
   }
