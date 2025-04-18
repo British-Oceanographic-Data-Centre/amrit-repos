@@ -2,6 +2,7 @@
 
 import { Drawer, Box } from '@mui/material';
 import SidebarList from './SidebarList';
+import type { SidebarOption } from '../../types/types';
 
 interface SidebarProps {
   darkMode: boolean;
@@ -10,6 +11,17 @@ interface SidebarProps {
 
 const drawerWidth = 280;
 const collapsedWidth = 64;
+
+const sidebarOptions: SidebarOption[] = [
+	{ label: 'Home', path: '/' },
+	{
+	  label: 'Alerts',
+	  children: [
+		{ label: 'Alerts table', path: '/alerts/alerts-table' },
+		{ label: 'My subscriptions', path: '/alerts/my-subscriptions' },
+	  ],
+	}
+  ];
 
 const Sidebar: React.FC<SidebarProps> = ({
   open,
@@ -28,15 +40,12 @@ const Sidebar: React.FC<SidebarProps> = ({
           overflowX: 'hidden',
           borderRight: '1px solid rgba(0,0,0,0.1)',
           boxShadow: 1,
+		  overflow: 'visible'
         },
       }}
     >
       <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', mt: '64px' }}>
-        <SidebarList
-          category=""
-          options={['Home', 'Alerts', 'Protected']}
-          open={open}
-        />
+	  	<SidebarList category="" options={sidebarOptions} open={open} />
       </Box>
     </Drawer>
   );

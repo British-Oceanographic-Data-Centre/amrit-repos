@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifySession } from "./app/_lib/session";
 
-const protectedRoutes = ["/protected"]
+const protectedRoutes = ["/alerts/my-subscriptions"]
 const publicRoutes = ["/login"];
 
 // Here could be added role check and authorize route for user based on thier roles

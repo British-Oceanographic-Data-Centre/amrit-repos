@@ -41,38 +41,53 @@ export async function proxyHttpRequest<T = unknown>(httpService: HttpService, co
      * @returns AxiosRequestConfig
      */
 export function buildAxiosRequestConfigFromSourceRequest(req: Request, baseProxyPath: string,  route : ProxyRoute) {
-  const { host, targetPath, authHeader } = route; 
+	const { host, targetPath, authHeader } = route;
   
-  const method = req.method.toLowerCase();
-  const params = req.query;
-  const headers = { ...cleanProxyHeaders(req.headers), host:host  }; // change host
-  const data = req.body as Record<string, any>
+	const method = req.method.toLowerCase();
+	const params = req.query;
+  
+	// 🔐 Force content-type ONLY for methods with a body
+	const isBodyMethod = ['post', 'put', 'patch'].includes(method);
+	const data = isBodyMethod ? req.body  as Record<string, any>: undefined;
+	
+	// const contentTypeHeader =
+	//   req.headers['content-type'] ?? 'application/json';
+  
+	const headers = {
+		...cleanProxyHeaders(req.headers),
+		host,
+		accept: 'application/json',
+		'user-agent': req.headers['user-agent'] || 'OceanOPS-Gateway',
+		...(isBodyMethod && {
+		  'Content-Type': 'application/json' // ✅ force correct type
+		}),
+	};
+  
+  
+	const path = req.url.replace(`/${baseProxyPath}`, targetPath);
+	const url = `https://${host}${path}`;
 
-  // build url to forward to :
-  const path = req.url.replace(`/${baseProxyPath}`, targetPath);
-  const url = `https://${host}${path}`;
-
-  // configure the axios request from the source request & api's url
-  const config: AxiosRequestConfig = {
-      method,
-      url,
-      headers,
-      params,
-      paramsSerializer : {
-        indexes: null
-      },
-      data
-  };
-
-    if (authHeader) {
-          config.headers = {
-            ...config.headers,
-            Authorization: authHeader,
-          };
-		    }
-
-  return config;
-}
+    // configure the axios request from the source request & api's url
+	const config: AxiosRequestConfig = {
+	  method,
+	  url,
+	  headers,
+	  params,
+	  paramsSerializer : {
+		indexes: null
+	  },
+	  ...(isBodyMethod && { data }),
+	};
+  
+	if (authHeader) {
+	  config.headers = {
+		...config.headers,
+		Authorization: authHeader,
+	  };
+	}
+  
+	return config;
+  }
 
 /**
  * Cleans (remove) HTTP headers that may interfere with forwarding (e.g. host, content-length)

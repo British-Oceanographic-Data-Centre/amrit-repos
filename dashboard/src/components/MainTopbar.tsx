@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import DarkModeToggle from './DarkModeToggle';
 import Link from 'next/link';
 import LogOutButton from './LogOutButton';
@@ -57,7 +57,7 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
             sx={{ mr: 1 }}
             aria-label="Toggle sidebar"
           >
-            {sidebarOpen ? <ChevronLeft /> : <MenuIcon />}
+            {sidebarOpen ? <MenuOpenIcon /> : <MenuIcon />}
           </IconButton>
 
           <Typography
@@ -69,7 +69,8 @@ const MainTopbar: React.FC<MainTopbarProps> = ({
               alignItems: 'center',
               ml: 1,
               fontWeight: 400,
-              fontSize: '1.5rem',
+			  mt: -0.4,
+              fontSize: '1.4rem',
               letterSpacing: '0.5px',
               color: theme.palette.primary.main,
             }}

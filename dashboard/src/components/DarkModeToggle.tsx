@@ -1,7 +1,8 @@
 'use client';
 
 import { IconButton, Tooltip } from '@mui/material';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 interface DarkModeToggleProps {
   darkMode: boolean;
@@ -13,7 +14,7 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ darkMode, toggleDarkMod
   return (
     <Tooltip title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}>
       <IconButton color="inherit" onClick={toggleDarkMode} aria-label="Toggle dark mode">
-        {darkMode ? <Brightness7 /> : <Brightness4 />}
+        {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
       </IconButton>
     </Tooltip>
   );

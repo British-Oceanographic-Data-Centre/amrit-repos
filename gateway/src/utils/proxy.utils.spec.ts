@@ -30,8 +30,7 @@ describe('buildAxiosRequestConfigFromSourceRequest', () => {
         url: '/api/alerta/alerts?status=open',
         query: { status: 'open' },
         headers: {
-          'content-length':'123',
-          'content-type': 'application/json',
+          'content-length':'123',          
           'x-custom-header': 'value',
         },
         body: { key: 'value' },
@@ -43,9 +42,11 @@ describe('buildAxiosRequestConfigFromSourceRequest', () => {
         method: 'post',
         url: 'https://amrit-alerta.example.com/api/alerts?status=open',
         headers: {
-          'content-type': 'application/json',
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
           'x-custom-header': 'value',
           'host': 'amrit-alerta.example.com',
+          'user-agent': 'OceanOPS-Gateway',
         },
         params: { status: 'open' },
         paramsSerializer: {
