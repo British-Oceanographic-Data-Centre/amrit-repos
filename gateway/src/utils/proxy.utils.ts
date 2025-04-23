@@ -115,3 +115,10 @@ export function cleanProxyHeaders(headers: IncomingHttpHeaders): Record<string, 
         ]),
     );
   }
+
+  export function addJWTinAuthHeaderAsBearer (jwt: string,config: AxiosRequestConfig ) {
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${jwt}`,
+        };      
+    }

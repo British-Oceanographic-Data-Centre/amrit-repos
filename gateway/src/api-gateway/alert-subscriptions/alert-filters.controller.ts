@@ -1,43 +1,32 @@
-import { Controller, Get } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
-import { firstValueFrom } from 'rxjs';
+import { Controller, Get, Req } from '@nestjs/common';
 import { Public } from '../auth/public.decorator';
-import { createProxyRouteMap, ProxyRoute } from '../../utils/proxy.routes';
+import { Request } from 'express';
+import { AlertSubscriptionsService } from './alert-subscriptions.service';
 
 @Controller('data')
 export class AlertFiltersController {
-  private readonly oceanopsRoute : ProxyRoute;
 
-  constructor(
-    private readonly http: HttpService,
-    private readonly configService: ConfigService
-  ) {
-    const routes = createProxyRouteMap(this.configService);
-    this.oceanopsRoute = routes['api/oceanops'];
-  }
+  constructor(private readonly alertSubscriptionsService : AlertSubscriptionsService ) {}
 
-  private async fetchFromOceanOps<T = unknown>(path: string): Promise<T> { 
-	const fullUrl = `https://${this.oceanopsRoute.host}${this.oceanopsRoute.targetPath}/${path}`;
-	const res = await firstValueFrom(this.http.get(fullUrl));
-    return res.data as T;
-  }
 
   @Public()
   @Get('countries')
-  async getCountries() {
-    return this.fetchFromOceanOps('country?include=["id","name"]');
+  getCountries(@Req() req: Request) {
+    
+    req.url = req.url.replace('countries','country?include=["id","name"]');
+
+    return this.alertSubscriptionsService.proxyRequest(req);
   }
 
   @Public()
   @Get('basins')
-  async getBasins() {
-    return this.fetchFromOceanOps('basins');
+  getBasins(@Req() req: Request) {
+    return this.alertSubscriptionsService.proxyRequest(req);
   }
 
   @Public()
-  @Get('severities')
-  async getSeverities() {
-    return this.fetchFromOceanOps('alerts/severities');
+  @Get('alerts/severities')
+  getSeverities(@Req() req: Request) {
+    return this.alertSubscriptionsService.proxyRequest(req);
   }
 }

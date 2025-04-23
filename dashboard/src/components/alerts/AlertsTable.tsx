@@ -4,7 +4,7 @@ import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
-import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs';
+import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 
 interface AlertsTableProps {
    selectedFilters: Partial<Record<keyof Alert, string[]>>
@@ -22,6 +22,8 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState<readonly string[]>([]);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // fetch alerts data
   useEffect(() => {   
@@ -53,11 +55,16 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
       isLatestRequest = false; 
       controller.abort();
     };    
-  }, [page, rowsPerPage, orderBy, order, selectedFilters])
+  }, [page, rowsPerPage, orderBy, order, selectedFilters, refreshKey])
 
+  // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
+  const triggerRefetch = () => {
+    setRefreshKey(prev => prev + 1);
+  };
 
+  
   return (
-    <EnhancedTable<Alert> orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions/>} colmunsConfiguration={alertaColumnsConfig}/>
+    <EnhancedTable<Alert> selected={selected} setSelected={setSelected} orderBy={orderBy} setOrderBy={setOrderBy} order={order} setOrder={setOrder} page={page} setPage={setPage} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} loading={loading} data={alertsApiResponseData?.alerts ?? []} totalCount={alertsApiResponseData?.total ?? 0} toolbarActions={<AlertsTableToolbarActions selected={selected} onActionDone ={triggerRefetch}/>} colmunsConfiguration={alertaColumnsConfig}/>
   )
 }
 

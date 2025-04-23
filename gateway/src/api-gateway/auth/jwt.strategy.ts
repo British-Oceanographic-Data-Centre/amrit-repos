@@ -2,10 +2,10 @@ import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import * as jwksRsa from 'jwks-rsa';
-import { JwtPayload } from "src/types/types";
-import { createProxyRouteMap } from "src/utils/proxy.routes";
+import { JwtPayload } from "../../types/types";
 import { ConfigService } from "@nestjs/config";
 import { Request } from 'express';
+import { createProxyRouteMap } from "../../utils/proxy.routes";
 
 
 

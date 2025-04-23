@@ -48,7 +48,7 @@ const AlertTopbar = ({filtersData, onFilterChange, selectedFilters, isUserLogin 
             {Object.entries(filtersData).map(([key, valuesList])=><MultiSelectChip key={key} datalist={valuesList} filterName={key} selectedItems={selectedFilters[key as keyof Alert] ?? []} onFilterChange={onFilterChange}  /> )}
 
             {isUserLogin &&
-                <FormControlLabel control={<Checkbox defaultChecked />} label="View only my subscriptions" />
+                <FormControlLabel control={<Checkbox  />} label="View only my subscriptions" />
             }
 
             </Toolbar>

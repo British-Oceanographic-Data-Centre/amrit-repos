@@ -1,31 +1,23 @@
-import { Controller, Get } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
-import { firstValueFrom } from 'rxjs';
-import { createProxyRouteMap, ProxyRoute } from '../../utils/proxy.routes';
+import { Controller, Get, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { Public } from '../auth/public.decorator';
+import { AlertSubscriptionsService } from './alert-subscriptions.service';
 
 @Controller('data/topics')
 export class AlertTopicsController {
-  private readonly oceanopsRoute : ProxyRoute;
-
   constructor(
-    private readonly http: HttpService,
-    private readonly configService: ConfigService
-  ) {
-    const routes = createProxyRouteMap(this.configService);
-    this.oceanopsRoute = routes['api/oceanops'];
-  }
+   private readonly alertSubscriptionsService : AlertSubscriptionsService
+  ) {  }
 
-  private async fetchFromOceanOps<T = unknown>(path: string): Promise<T> {
-    const fullUrl = `https://${this.oceanopsRoute.host}${this.oceanopsRoute.targetPath}/${path}`;
-    const res = await firstValueFrom(this.http.get(fullUrl));
-    return res.data as T;
-  }
+
 
   @Public()
   @Get()
-  async getTopics() {
-	return this.fetchFromOceanOps('alerts/dictionary/topics');
+  getTopics(@Req() req: Request) {
+
+    req.url = req.url.replace('topics','alerts/dictionary/topics');
+
+    return this.alertSubscriptionsService.proxyRequest(req);
+	  
   }
 }

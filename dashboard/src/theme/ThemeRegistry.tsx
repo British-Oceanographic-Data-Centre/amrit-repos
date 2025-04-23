@@ -42,7 +42,7 @@ export default function ThemeRegistry({
           defaultProps: {
             variant: 'contained',
           },
-        },
+        },        
       },
     });
   }, [mode]);

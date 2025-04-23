@@ -25,15 +25,17 @@ interface EnhancedTableProps<T extends HasId > {
   loading : boolean
   data: Array<T>
   totalCount: number
-  colmunsConfiguration: TableViewConfig<T>  
-  toolbarActions? :  React.ReactNode;
+  colmunsConfiguration: TableViewConfig<T>
+  selected :   readonly string[]
+  setSelected : React.Dispatch<React.SetStateAction<readonly string[]>>
+  toolbarActions? :   React.ReactNode;
 
 }
 
 
-function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, totalCount, colmunsConfiguration, toolbarActions  } : EnhancedTableProps<T>) {
+function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder, page, setPage, rowsPerPage, setRowsPerPage, loading,  data, totalCount, colmunsConfiguration, toolbarActions, selected, setSelected  } : EnhancedTableProps<T>) {
   
-  const [selected, setSelected] = useState<readonly string[]>([]); 
+  // const [selected, setSelected] = useState<readonly string[]>([]); 
   const [dense, setDense] = useState(false);
 
   
@@ -112,7 +114,7 @@ function EnhancedTable<T extends HasId>  ({ orderBy, setOrderBy, order, setOrder
       )}
 
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} toolbarActions={toolbarActions} />
+        <EnhancedTableToolbar selected={selected} numSelected={selected.length} toolbarActions={toolbarActions} />
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"

@@ -1,8 +1,10 @@
 'use client';
+// TO DO : make this server component to fetch topics data in server side (need to cut in 2 parts : a wrapper server side which fetch data and the client component with select )
 import React, { useEffect, useState } from 'react';
 import { SxProps, Theme, MenuItem, Select } from '@mui/material';
 import { TopicOption } from '@/types/types';
-import { GATEWAY_BASE_URL } from '@/config/api-routes';
+import fetchTopicOptions from '@/lib/alertSubscriptions/fetchTopicOptions.client';
+
 
 interface Props {
   value: number | null;
@@ -11,13 +13,6 @@ interface Props {
   sx?: SxProps<Theme>;
 }
 
-const baseUrl = GATEWAY_BASE_URL;
-
-const fetchTopicOptions = async (): Promise<TopicOption[]> => {
-	const res = await fetch(`${baseUrl}/data/topics`);
-	if (!res.ok) throw new Error('Failed to fetch topics');
-	return await res.json();
-  };
 
 const buildTopicTree = (flatOptions: TopicOption[]): TopicOption[] => {
   const map = new Map<number, TopicOption & { children?: TopicOption[] }>();
