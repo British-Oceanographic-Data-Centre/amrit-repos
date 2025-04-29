@@ -1,0 +1,40 @@
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Program Class
+#################################################################
+
+oceanmeta:Program a owl:Class ;
+    rdfs:label "Program"@en ;
+    rdfs:comment "A program or organizational affiliation responsible for operations, funding, or coordination."@en ;
+    rdfs:subClassOf schema:Organization .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Program ID
+oceanmeta:programId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Program ;
+    rdfs:range xsd:string ;
+    rdfs:label "Program ID"@en ;
+    rdfs:comment "Internal identifier for the program."@en .
+
+# Program Name
+oceanmeta:programName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain oceanmeta:Program ;
+    rdfs:range xsd:string ;
+    rdfs:label "Program Name"@en ;
+    rdfs:comment "Full official name of the program."@en .
+
+# Associated Country
+oceanmeta:hasCountry a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:Program ;
+    rdfs:range oceanmeta:Country ;
+    rdfs:label "Country"@en ;
+    rdfs:comment "The country where the program is based or primarily operates."@en .

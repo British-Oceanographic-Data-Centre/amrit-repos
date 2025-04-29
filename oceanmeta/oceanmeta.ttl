@@ -1,0 +1,38 @@
+@prefix : <https://www.ocean-ops.org/oceanmeta#> .
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    OceanMeta Ontology Metadata
+#################################################################
+
+<https://www.ocean-ops.org/oceanmeta> a owl:Ontology ;
+    rdfs:label "OceanMeta Ontology"@en ;
+    dcterms:title "OceanMeta Ontology"@en ;
+    dcterms:description "A semantic web ontology for Global Ocean Observing System (GOOS) metadata, managed by OceanOPS."@en ;
+    dcterms:creator "OceanOPS / GOOS / WMO" ;
+    dcterms:created "2025-04-24"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    owl:versionIRI <https://w3id.org/oceanmeta/2025-04> ;
+    owl:imports
+        <https://www.ocean-ops.org/oceanmeta/ontology/mission.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/country.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/program.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/sensor.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/sensor-model.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/variable-setup.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/variable.ttl> .
+
+#################################################################
+#    Shared Properties
+#################################################################
+
+oceanmeta:dbId a owl:DatatypeProperty ;
+    rdfs:label "Database ID"@en ;
+    rdfs:comment "Numeric primary key from the OceanOPS database."@en ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:integer .

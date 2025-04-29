@@ -1,0 +1,71 @@
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    VariableSetup Class
+#################################################################
+
+oceanmeta:VariableSetup a owl:Class ;
+    rdfs:label "Variable Setup"@en ;
+    rdfs:comment "An installation and configuration of a sensor on a platform during a mission, to observe a specific variable."@en ;
+    rdfs:subClassOf ssn:Deployment .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Setup ID
+oceanmeta:variableSetupId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range xsd:string ;
+    rdfs:label "Variable Setup ID"@en ;
+    rdfs:comment "Internal identifier for the variable setup."@en .
+
+# Observed Variable
+oceanmeta:observesVariable a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range oceanmeta:Variable ;
+    rdfs:label "Observes Variable"@en ;
+    rdfs:comment "The variable this sensor setup is intended to measure."@en .
+
+# Used Sensor
+oceanmeta:usesSensor a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range oceanmeta:Sensor ;
+    rdfs:label "Uses Sensor"@en ;
+    rdfs:comment "The sensor that was configured for this variable setup."@en .
+
+oceanmeta:mountedOnPlatform a owl:ObjectProperty ;
+    rdfs:label "Mounted on Platform"@en ;
+    rdfs:comment "The platform on which the sensor was installed."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range sosa:Platform .
+
+oceanmeta:linkedToMission a owl:ObjectProperty ;
+    rdfs:label "Part of Mission"@en ;
+    rdfs:comment "The mission in which this variable setup was used."@en ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range oceanmeta:Mission .
+
+# Setup Start Time
+oceanmeta:startTime a owl:DatatypeProperty ;
+    rdfs:subPropertyOf prov:startedAtTime ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "Start Time"@en ;
+    rdfs:comment "Time when the variable setup became active."@en .
+
+# Setup End Time
+oceanmeta:endTime a owl:DatatypeProperty ;
+    rdfs:subPropertyOf prov:endedAtTime ;
+    rdfs:domain oceanmeta:VariableSetup ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "End Time"@en ;
+    rdfs:comment "Time when the variable setup was deactivated or removed."@en .
+

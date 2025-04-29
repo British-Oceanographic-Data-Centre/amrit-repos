@@ -1,0 +1,16 @@
+{
+	"@context": {
+	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
+	  "serialNumber": {
+		"@id": "oceanmeta:serialNumber",
+		"@type": "xsd:string"
+	  },
+	  "model": {
+		"@id": "oceanmeta:hasModel",
+		"@type": "@id"
+	  },
+	  "@vocab": "oceanmeta:",
+	  "xsd": "http://www.w3.org/2001/XMLSchema#"
+	}
+  }
+  

@@ -1,0 +1,41 @@
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    SensorModel Class
+#################################################################
+
+oceanmeta:SensorModel a owl:Class ;
+    rdfs:label "Sensor Model"@en ;
+    rdfs:comment "A specification or model of a sensor, describing the types of variables it can observe. Subclass of schema:ProductModel."@en ;
+    rdfs:subClassOf schema:ProductModel .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Sensor Model ID
+oceanmeta:sensorModelId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:SensorModel ;
+    rdfs:range xsd:string ;
+    rdfs:label "Sensor Model ID"@en ;
+    rdfs:comment "Internal or URI identifier for the sensor model."@en .
+
+# Sensor Model Name
+oceanmeta:sensorModelName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain oceanmeta:SensorModel ;
+    rdfs:range xsd:string ;
+    rdfs:label "Sensor Model Name"@en ;
+    rdfs:comment "The commercial or technical name of the sensor model (e.g., Seabird SBE 37)."@en .
+
+# Supported Variables
+oceanmeta:supportsVariable a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:SensorModel ;
+    rdfs:range oceanmeta:Variable ;
+    rdfs:label "Supports Variable"@en ;
+    rdfs:comment "A variable that this sensor model is capable of observing."@en .

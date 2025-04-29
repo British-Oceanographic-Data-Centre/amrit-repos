@@ -1,0 +1,31 @@
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+oceanmeta:Country a owl:Class ;
+    rdfs:label "Country"@en ;
+    rdfs:comment "A country or territory based primarily on United Nations membership and ISO 3166 standards."@en ;
+    rdfs:subClassOf schema:Country .
+
+oceanmeta:countryId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Country ;
+    rdfs:range xsd:string ;
+    rdfs:label "Country ID"@en ;
+    rdfs:comment "Internal database identifier for the country."@en .
+
+oceanmeta:countryCode2 a owl:DatatypeProperty ;
+    rdfs:subPropertyOf skos:notation ;
+    rdfs:domain oceanmeta:Country ;
+    rdfs:range xsd:string ;
+    rdfs:label "Country Code"@en ;
+    rdfs:comment "ISO 3166-1 alpha-2 code for the country."@en .
+
+oceanmeta:countryName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain oceanmeta:Country ;
+    rdfs:range xsd:string ;
+    rdfs:label "Country Name"@en ;
+    rdfs:comment "Full English name of the country."@en .

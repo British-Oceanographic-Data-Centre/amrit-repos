@@ -1,0 +1,69 @@
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Mission Class
+#################################################################
+
+oceanmeta:Mission a owl:Class ;
+    rdfs:label "Mission"@en ;
+    rdfs:comment "An operational activity during which platforms are deployed, sensors are configured, and variables are measured."@en ;
+    rdfs:subClassOf prov:Activity .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Start and end time — reused from prov
+prov:startedAtTime a owl:DatatypeProperty .
+prov:endedAtTime a owl:DatatypeProperty .
+
+# Mission ID — OceanOPS internal identifier (ptfId)
+oceanmeta:missionId a owl:DatatypeProperty ;
+    rdfs:label "Mission ID"@en ;
+    rdfs:comment "The unique Mission ID associated with this mission."@en ;
+    rdfs:domain oceanmeta:Mission ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf dcterms:identifier .
+
+# WIGOS ID — custom, but aligned with Dublin Core
+oceanmeta:wigosId a owl:DatatypeProperty ;
+    rdfs:label "WIGOS Identifier"@en ;
+    rdfs:comment "The unique WIGOS ID associated with this mission."@en ;
+    rdfs:domain oceanmeta:Mission ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf dcterms:identifier .
+
+# Platform
+oceanmeta:hasPlatform a owl:ObjectProperty ;
+    rdfs:label "Involved Platform"@en ;
+    rdfs:comment "The physical platform used in the mission."@en ;
+    rdfs:domain oceanmeta:Mission ;
+    rdfs:range oceanmeta:Platform .
+
+# Deployment
+oceanmeta:hasDeployment a owl:ObjectProperty ;
+    rdfs:label "Deployment Activity"@en ;
+    rdfs:comment "The deployment operation performed as part of this mission."@en ;
+    rdfs:domain oceanmeta:Mission ;
+    rdfs:range oceanmeta:Deployment .
+
+# Program affiliation
+oceanmeta:hasProgram a owl:ObjectProperty ;
+    rdfs:label "Affiliated Program"@en ;
+    rdfs:comment "The program responsible for or associated with the mission."@en ;
+    rdfs:domain oceanmeta:Mission ;
+    rdfs:range oceanmeta:Program .
+
+# Variable setups used during the mission
+oceanmeta:hasVariableSetup a owl:ObjectProperty ;
+    rdfs:label "Variable Setup"@en ;
+    rdfs:comment "A configuration used during the mission involving a sensor, platform, and observed variable."@en ;
+    rdfs:domain oceanmeta:Mission ;
+    rdfs:range oceanmeta:VariableSetup .

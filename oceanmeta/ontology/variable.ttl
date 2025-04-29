@@ -1,0 +1,42 @@
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Variable Class
+#################################################################
+
+oceanmeta:Variable a owl:Class ;
+    rdfs:label "Variable"@en ;
+    rdfs:comment "A measurable oceanographic property, such as temperature, salinity, or current, corresponding to SOSA ObservableProperty."@en ;
+    rdfs:subClassOf sosa:ObservableProperty .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Variable ID
+oceanmeta:variableId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Variable ;
+    rdfs:range xsd:string ;
+    rdfs:label "Variable ID"@en ;
+    rdfs:comment "Internal identifier for the variable."@en .
+
+# Variable Name
+oceanmeta:variableName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain oceanmeta:Variable ;
+    rdfs:range xsd:string ;
+    rdfs:label "Variable Name"@en ;
+    rdfs:comment "Human-readable name of the variable (e.g., Temperature, Salinity)."@en .
+
+# Variable Description
+oceanmeta:variableDescription a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:description ;
+    rdfs:domain oceanmeta:Variable ;
+    rdfs:range xsd:string ;
+    rdfs:label "Variable Description"@en ;
+    rdfs:comment "A textual description of what this variable represents or how it's measured."@en .

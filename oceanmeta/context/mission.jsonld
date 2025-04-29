@@ -1,0 +1,34 @@
+{
+	"@context": {
+	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
+	  "dbId": {
+		"@id": "oceanmeta:dbId",
+		"@type": "xsd:integer"
+	  },
+	  "startTime": "http://www.w3.org/ns/prov#startedAtTime",
+	  "endTime": "http://www.w3.org/ns/prov#endedAtTime",
+	  "wigosId": {
+		"@id": "oceanmeta:wigosId",
+		"@type": "xsd:string"
+	  },
+	  "platform": {
+		"@id": "oceanmeta:hasPlatform",
+		"@type": "@id"
+	  },
+	  "deployment": {
+		"@id": "oceanmeta:hasDeployment",
+		"@type": "@id"
+	  },
+	  "program": {
+		"@id": "oceanmeta:hasProgram",
+		"@type": "@id"
+	  },
+	  "variableSetup": {
+		"@id": "oceanmeta:hasVariableSetup",
+		"@type": "@id"
+	  },
+	  "@vocab": "oceanmeta:",
+	  "xsd": "http://www.w3.org/2001/XMLSchema#"
+	}
+  }
+  

@@ -1,0 +1,34 @@
+@prefix oceanmeta: <https://www.ocean-ops.org/oceanmeta#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#    Sensor Class
+#################################################################
+
+oceanmeta:Sensor a owl:Class ;
+    rdfs:label "Sensor"@en ;
+    rdfs:comment "A physical device capable of sensing or measuring an observable property. Subclass of sosa:Sensor."@en ;
+    rdfs:subClassOf sosa:Sensor .
+
+#################################################################
+#    Properties
+#################################################################
+
+# Serial Number
+oceanmeta:serialNumber a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Sensor ;
+    rdfs:range xsd:string ;
+    rdfs:label "Serial Number"@en ;
+    rdfs:comment "Serial number of the sensor as provided by the manufacturer."@en ;
+    rdfs:subPropertyOf schema:serialNumber .
+
+# Sensor Model
+oceanmeta:hasModel a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:Sensor ;
+    rdfs:range oceanmeta:SensorModel ;
+    rdfs:label "Sensor Model"@en ;
+    rdfs:comment "The model or type of sensor, linking to a SensorModel resource."@en .
