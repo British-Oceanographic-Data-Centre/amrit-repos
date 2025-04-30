@@ -1,0 +1,40 @@
+@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+ #    Telecom Class
+ #################################################################
+
+oceanmeta:Telecom a owl:Class ;
+    rdfs:label "Telecom"@en ;
+    rdfs:comment "Information related to a telecommunications endpoint."@en ;
+    rdfs:subClassOf schema:ContactPoint .
+
+#################################################################
+ #    Properties
+ #################################################################
+
+# Telecom Number
+oceanmeta:telecomNumber a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Telecom ;
+    rdfs:range xsd:string ;
+    rdfs:label "Telecom Number"@en ;
+    rdfs:comment "The number used for communication."@en .
+
+# Telecom Type
+oceanmeta:isTelecomType a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Telecom ;
+    rdfs:range xsd:string ;
+    rdfs:label "Telecom Type"@en ;
+    rdfs:comment "The type of telecommunications system or network (e.g., Iridium, Argos, GSM)."@en .
+
+# IMEI Number
+oceanmeta:telecomIMEI a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Telecom ;
+    rdfs:range xsd:string ;
+    rdfs:label "IMEI"@en ;
+    rdfs:comment "International Mobile Equipment Identity (IMEI) number associated with the platform."@en .

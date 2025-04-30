@@ -1,0 +1,47 @@
+@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+ #    Deployment Class
+ #################################################################
+
+oceanmeta:Deployment a owl:Class ;
+    rdfs:label "Deployment"@en ;
+    rdfs:comment "An event or activity involving the release or installation of a platform in the marine environment."@en ;
+    rdfs:subClassOf schema:Event .
+
+#################################################################
+ #    Properties
+ #################################################################
+
+# Deployment Start Date
+oceanmeta:startDate a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Deployment ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "Start Date"@en ;
+    rdfs:comment "The date and time the deployment started."@en .
+
+# Deployment Latitude
+oceanmeta:deploymentLatitude a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Deployment ;
+    rdfs:range xsd:double ;
+    rdfs:label "Latitude"@en ;
+    rdfs:comment "Latitude where the deployment occurred, in decimal degrees."@en .
+
+# Deployment Longitude
+oceanmeta:deploymentLongitude a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Deployment ;
+    rdfs:range xsd:double ;
+    rdfs:label "Longitude"@en ;
+    rdfs:comment "Longitude where the deployment occurred, in decimal degrees."@en .
+
+# Associated Deployment Ship
+oceanmeta:deployedByShip a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:Deployment ;
+    rdfs:range oceanmeta:Ship ;
+    rdfs:label "Deployment Ship"@en ;
+    rdfs:comment "The ship involved in the deployment operation."@en .

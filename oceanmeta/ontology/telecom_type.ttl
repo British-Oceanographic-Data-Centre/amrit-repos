@@ -1,0 +1,34 @@
+@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+ #    Telecom Type Class
+ #################################################################
+
+oceanmeta:TelecomType a owl:Class ;
+    rdfs:label "Telecom Type"@en ;
+    rdfs:comment "A controlled concept identifying a telecommunications system or network, such as Iridium, Argos, or GSM."@en ;
+    rdfs:subClassOf skos:Concept .
+
+#################################################################
+ #    Properties
+ #################################################################
+
+# Telecom Type ID
+oceanmeta:telecomTypeId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:TelecomType ;
+    rdfs:range xsd:string ;
+    rdfs:label "Telecom Type ID"@en ;
+    rdfs:comment "Internal database identifier for the telecom type."@en .
+
+# Telecom Type Name
+oceanmeta:telecomTypeName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf skos:prefLabel ;
+    rdfs:domain oceanmeta:TelecomType ;
+    rdfs:range xsd:string ;
+    rdfs:label "Telecom Type Name"@en ;
+    rdfs:comment "Label of the telecom type (e.g., Iridium, GSM)."@en .

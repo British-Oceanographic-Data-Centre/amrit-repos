@@ -1,1 +1,62 @@
-#test
+@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+ #    Ship Class
+ #################################################################
+
+oceanmeta:Ship a owl:Class ;
+    rdfs:label "Ship"@en ;
+    rdfs:comment "A ship that deployed the platform, or served as the platform's installation or operation base."@en ;
+    rdfs:subClassOf schema:Vehicle .
+
+#################################################################
+ #    Properties
+ #################################################################
+
+# Ship ID
+oceanmeta:shipId a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Ship ;
+    rdfs:range xsd:string ;
+    rdfs:label "Ship ID"@en ;
+    rdfs:comment "Internal database identifier for the ship."@en .
+
+# Ship Name
+oceanmeta:shipName a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:name ;
+    rdfs:domain oceanmeta:Ship ;
+    rdfs:range xsd:string ;
+    rdfs:label "Ship Name"@en ;
+    rdfs:comment "Full name of the ship."@en .
+
+# Ship ICES Code
+oceanmeta:icesCode a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Ship ;
+    rdfs:range xsd:string ;
+    rdfs:label "ICES Code"@en ;
+    rdfs:comment "Identifier assigned to the ship by the International Council for the Exploration of the Sea (ICES)."@en .
+
+# Ship Call Sign
+oceanmeta:callSign a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Ship ;
+    rdfs:range xsd:string ;
+    rdfs:label "Call Sign"@en ;
+    rdfs:comment "Radio call sign of the ship."@en .
+
+# Ship IMO
+oceanmeta:imoNumber a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Ship ;
+    rdfs:range xsd:string ;
+    rdfs:label "IMO Number"@en ;
+    rdfs:comment "International Maritime Organization (IMO) number of the ship."@en .
+
+# Associated country
+oceanmeta:hasFlagCountry a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:Ship ;
+    rdfs:range oceanmeta:Country ;
+    rdfs:label "Flag Country"@en ;
+    rdfs:comment "Country under which the ship is registered."@en .

@@ -1,0 +1,41 @@
+@prefix oceanmeta: <https://w3id.org/oceanmeta#> .
+@prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+ #    Platform Class
+ #################################################################
+
+oceanmeta:Platform a owl:Class ;
+    rdfs:label "Platform"@en ;
+    rdfs:comment "An instrumented system or device deployed in the environment for observation, monitoring, or data collection."@en ;
+    rdfs:subClassOf schema:Product .
+
+#################################################################
+ #    Properties
+ #################################################################
+
+# Platform Reference
+oceanmeta:platformRef a owl:DatatypeProperty ;
+    rdfs:domain oceanmeta:Platform ;
+    rdfs:range xsd:string ;
+    rdfs:label "Platform Reference"@en ;
+    rdfs:comment "Reference identifier for the platform."@en .
+
+# Platform Serial Number
+oceanmeta:serialNumber a owl:DatatypeProperty ;
+    rdfs:subPropertyOf schema:serialNumber ;
+    rdfs:domain oceanmeta:Platform ;
+    rdfs:range xsd:string ;
+    rdfs:label "Serial Number"@en ;
+    rdfs:comment "Manufacturer-assigned serial number for the platform."@en .
+
+# Associated Telecom Type
+oceanmeta:hasTelecom a owl:ObjectProperty ;
+    rdfs:domain oceanmeta:Platform ;
+    rdfs:range oceanmeta:Telecom ;
+    rdfs:label "Has Telecom"@en ;
+    rdfs:comment "Telecommunication information associated with the platform."@en .
