@@ -1,0 +1,25 @@
+{
+	"@context": {
+	  "oceanmeta": "https://www.ocean-ops.org/oceanmeta#",
+	  "id": "oceanmeta:platformId",
+	  "dbId": {
+		"@id": "oceanmeta:dbId",
+		"@type": "xsd:integer"
+	  },
+	  "ref": {
+		"@id": "oceanmeta:platformRef",
+		"@type": "xsd:string"
+	  },
+	  "serialNumber": {
+		"@id": "oceanmeta:serialNumber",
+		"@type": "xsd:string"
+	  },
+      "telecom": {
+		"@id": "oceanmeta:hasTelecom",
+		"@type": "@id"
+	  },
+	  "@vocab": "oceanmeta:",
+	  "xsd": "http://www.w3.org/2001/XMLSchema#"
+	}
+  }
+  

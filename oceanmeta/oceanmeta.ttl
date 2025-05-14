@@ -25,6 +25,11 @@
         <https://www.ocean-ops.org/oceanmeta/ontology/sensor.ttl> ,
         <https://www.ocean-ops.org/oceanmeta/ontology/sensor-model.ttl> ,
         <https://www.ocean-ops.org/oceanmeta/ontology/variable-setup.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/ship.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/deployment.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/telecom_type.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/telecom.ttl> ,
+        <https://www.ocean-ops.org/oceanmeta/ontology/platform.ttl> ,
         <https://www.ocean-ops.org/oceanmeta/ontology/variable.ttl> .
 
 #################################################################
