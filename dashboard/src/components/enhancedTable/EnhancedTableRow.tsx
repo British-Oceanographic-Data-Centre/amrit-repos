@@ -65,7 +65,7 @@ const [open, setOpen] = React.useState(false); // state for collapse table
                 padding={index === 0 ? 'none' : undefined}
                 align={index !== 0 ? 'left' : undefined}
               >
-                {col.chipColor ? <Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'default'  }/> : String(rowData[col.key])}
+                {col.chipColor ? (<Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'default'  }/>) : (rowData[col.key] != null ? String(rowData[col.key]) : '')}
               </TableCell>
             ))}   
         </TableRow>
@@ -102,7 +102,7 @@ const [open, setOpen] = React.useState(false); // state for collapse table
                                 ? { component: 'th', scope: 'row' }
                                 : { align: col.align ?? 'left' })}
                             >
-                                 {col.chipColor ? <Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'info'  }/> : String(rowData[col.key])}
+                                 {col.chipColor ? (<Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'info'  }/>) : (rowData[col.key] != null ? String(rowData[col.key]) : '')}
                             </TableCell>
                             ))}
                         </TableRow>

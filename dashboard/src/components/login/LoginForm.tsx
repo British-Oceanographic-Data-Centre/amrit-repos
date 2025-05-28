@@ -138,7 +138,7 @@ const LoginForm = () => {
               label="Remember me"
             /> */}
             <ForgotPassword open={openForgetPassword} handleClose={handleCloseForgetPassword} />
-            <SubmitButton>Sign in</SubmitButton>
+            <SubmitButton pending={isPending}>Sign in</SubmitButton>
             <Link
               component="button"
               type="button"

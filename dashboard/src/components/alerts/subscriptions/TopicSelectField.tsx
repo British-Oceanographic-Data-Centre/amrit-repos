@@ -1,5 +1,5 @@
 'use client';
-// TO DO : make this server component to fetch topics data in server side (need to cut in 2 parts : a wrapper server side which fetch data and the client component with select )
+//TO DO : make this server component to fetch topics data in server side (need to cut in 2 parts : a wrapper server side which fetch data and the client component with select )
 import React, { useEffect, useState } from 'react';
 import { SxProps, Theme, MenuItem, Select } from '@mui/material';
 import { TopicOption } from '@/types/types';

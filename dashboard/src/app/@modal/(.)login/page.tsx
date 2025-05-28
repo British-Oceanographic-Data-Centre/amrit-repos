@@ -1,13 +1,13 @@
 
 import LoginForm from '@/components/login/LoginForm'
-import Modal from '@/components/ui/Modal'
+import RoutedModal from '@/components/ui/RoutedModal'
 import React from 'react'
 
 const Login = () => {
   return (
-    <Modal>
+    <RoutedModal backgroundTransparent={true}>
         <LoginForm />
-    </Modal>
+    </RoutedModal>
   )
 }
 

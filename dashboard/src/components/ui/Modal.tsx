@@ -1,19 +1,22 @@
 "use client";
 
 import { Dialog } from '@mui/material';
-import { useRouter } from 'next/navigation';
 
 import React from 'react'
 
-const Modal = ({children} : {children: React.ReactNode}) => {
-    const router = useRouter()
+interface ModalProps {
+  children:React.ReactNode
+  isModalOpen : boolean
+  handleClose : () => void
+  backgroundTransparent?: boolean
+}
 
-    const handleClose = () => {
-        router.back()
-    }
-
+const Modal = ({children, isModalOpen, handleClose, backgroundTransparent = false} : ModalProps) => {
+   
+  //use of a conditionnal transparent background was needed for the login form component and may be needed for other.
+  
   return (    
-        <Dialog id="modal" open={true} onClose={handleClose} slotProps={{
+        <Dialog id="modal" open={isModalOpen} onClose={handleClose} slotProps={{
           backdrop: {
             sx: {             
               backdropFilter: 'blur(2px)',
@@ -22,10 +25,14 @@ const Modal = ({children} : {children: React.ReactNode}) => {
           },
            paper : {
             sx: {
-              backgroundColor: 'transparent',
-              backgroundImage: 'none',
-              boxShadow: 'none',
               width: '100%',
+              ...( backgroundTransparent && {
+                backgroundColor: 'transparent',
+                backgroundImage: 'none',
+                boxShadow: 'none',
+                }
+              )          
+              
             },
           }}}>
 

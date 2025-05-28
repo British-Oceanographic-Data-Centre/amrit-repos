@@ -1,3 +1,31 @@
+type Environment = "Development" | "Production"
+
+type Severity =
+  | "security"
+  | "critical"
+  | "major"
+  | "minor"
+  | "warning"
+  | "informational"
+  | "debug"
+  | "trace"
+  | "indeterminate"
+  | "cleared"
+  | "normal"
+  | "ok"
+  | "unknown"
+
+type Status =
+  | "open"
+  | "assign"
+  | "ack"
+  | "closed"
+  | "expired"
+  | "blackout"
+  | "shelved"
+  | "unknown"
+
+
 export type Alert = AlertRaw & { // TO BE completed
 
   // id of alert given by ALerta
@@ -22,24 +50,11 @@ type AlertRaw = {
   /**
   * Environment, used to namespace the resource. Development or Production.
   */
-  environment: "Development" | "Production"
+  environment: Environment
   /**
   * Severity of alert (default normal)
   */
-  severity:
-  | "security"
-  | "critical"
-  | "major"
-  | "minor"
-  | "warning"
-  | "informational"
-  | "debug"
-  | "trace"
-  | "indeterminate"
-  | "cleared"
-  | "normal"
-  | "ok"
-  | "unknown"
+  severity: Severity
   /**
   * list of related event names
   */
@@ -47,15 +62,7 @@ type AlertRaw = {
   /**
   * Status of alert (default open)
   */
-  status:
-  | "open"
-  | "assign"
-  | "ack"
-  | "closed"
-  | "expired"
-  | "blackout"
-  | "shelved"
-  | "unknown"
+  status: Status
   /**
   * list of effected services (array must contain at least one element)
   */
@@ -103,6 +110,31 @@ type AlertRaw = {
   * unprocessed data eg. full syslog message or SNMP trap
   */
   rawData?: string
+
+  /**
+   * whenever an alert changes severity or status then a list of key alert attributes are appended to the history log
+   */
+
+  history: HistoryEntry[]
+
+  lastNote? : string
+
+}
+
+
+type ChangeType = "open" | "assing" | "ack" | "unack" | "shelve" | "unshelve" | "close" | "new" | "action" | "status" | "value" | "severity" | "note" | "dismiss" | "timeout" | "expired"
+
+
+type HistoryEntry = {
+  id:string; 
+  event : string;
+  severity: Severity;
+  status: Status;
+  text:string;
+  type: ChangeType
+  updateTime: string
+  user: string
+  value: string
 
 }
 

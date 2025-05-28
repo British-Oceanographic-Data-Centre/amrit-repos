@@ -35,6 +35,8 @@ const AlertsClientWrapper = ({filtersData, isUserLogin}: AlertsClientWrapperProp
         }
     )
 
+    
+
     const handleUpdateFilter = (filterKey: string, values: string[]) => {
         setSelectedFilters((prev) => ({
           ...prev,
@@ -49,6 +51,8 @@ const AlertsClientWrapper = ({filtersData, isUserLogin}: AlertsClientWrapperProp
         <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters = {selectedFilters} isUserLogin={isUserLogin}/>
            
         <AlertsTable selectedFilters={selectedFilters}/>
+
+
 
     </Box>
   )

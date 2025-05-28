@@ -1,4 +1,4 @@
-type BatchResult = {
+export type BatchResult = {
     success: number;
     failed: number;
     details: { id: string; status?: number; error?: string }[];

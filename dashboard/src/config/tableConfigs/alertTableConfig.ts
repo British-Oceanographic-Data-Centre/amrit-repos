@@ -9,12 +9,14 @@ export const ALERTS_TABLE_CONFIG: TableViewConfig<Alert> = {
       { key: 'event', label:"Event" },
       { key: 'value', label: "Value" },
       { key: 'text', label: "Description" },
-      { key: 'lastReceiveTime', label: "Last receive Time"  }
+      { key: 'lastReceiveTime', label: "Last receive Time" },
+      { key: 'lastNote', label: "Last note"}
     ],
     moreInfoColumns: [
       { key: 'id' },
       { key: 'origin', label: "Origin" },
       { key: 'createTime', label : "Alert creation time" },
-      { key: 'duplicateCount', label : "Number of duplicate" }
+      { key: 'duplicateCount', label : "Number of duplicate" },
+      
     ]
   };

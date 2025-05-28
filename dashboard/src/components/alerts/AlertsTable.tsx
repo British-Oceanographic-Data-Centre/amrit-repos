@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
 import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
+import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
 
 interface AlertsTableProps {
    selectedFilters: Partial<Record<keyof Alert, string[]>>
@@ -34,7 +35,9 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
     async function fetchAlertData() {
       setLoading(true);
       try {
-        const alertsData = await getAlerts(selectedFilters,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy], signal);
+        const alertsData = await getAlerts(selectedFilters,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true, signal);
+        // compute last note of each alert from alerts's history entries :
+        addAlertsLastNotesToAlertApiResponse(alertsData)
         if (isLatestRequest) { 
           setAlertsApiResponseData(alertsData);
         }
