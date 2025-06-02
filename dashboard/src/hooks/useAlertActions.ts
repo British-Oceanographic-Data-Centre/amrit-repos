@@ -1,5 +1,5 @@
 import actOnAlerts from "@/lib/alerta/actOnAlerts.client";
-import addNoteOnAlerts from "@/lib/alerta/addNoteOnAlerts.client";
+import { ActionType } from "@/types/alert";
 import { AlertColor, AlertPropsColorOverrides } from "@mui/material";
 import { OverridableStringUnion } from '@mui/types';
 import { useState } from "react";
@@ -13,20 +13,12 @@ export const useAlertActions = (
     const [resultsMessage, setResultsMessage] = useState<string |null>(null)
     const [severity, setSeverity] = useState<OverridableStringUnion<AlertColor, AlertPropsColorOverrides>>("success")
 
-    const handleActOnAlerts = async (action: "ack" | "unack" | "note", noteText?:string) : Promise<void> => {
-            // which action to do :
-            const actionHandlers = {
-                ack: () => actOnAlerts(selected, 'ack'),
-                unack: () => actOnAlerts(selected, 'unack'),
-                note: () => addNoteOnAlerts(selected, noteText || ''),
-            };        
-            setLoading(true);        
-            try {
-                 if (!actionHandlers[action]) {
-                    throw new Error(`Unsupported action: ${action}`);                
-                }
+    const handleActOnAlerts = async (action: ActionType , noteText?:string) : Promise<void> => {      
+            setLoading(true); 
+
+            try {  
                 //act on alert :
-                const results = await actionHandlers[action]();
+                const results = await actOnAlerts(selected, action, noteText );
     
                 // handle differents results :
                 if (results.success > 0 && results.failed > 0) {

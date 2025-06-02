@@ -97,8 +97,9 @@ type AlertRaw = {
 
 }
 
+export type ActionType = "open" | "ack" | "unack" | "close" | "delete" | "shelve" | "unshelve" | "assign" | "note"
 
-type ChangeType = "open" | "assing" | "ack" | "unack" | "shelve" | "unshelve" | "close" | "new" | "action" | "status" | "value" | "severity" | "note" | "dismiss" | "timeout" | "expired"
+type ChangeType = ActionType |  "new" | "action" | "status" | "value" | "severity" | "dismiss" | "timeout" | "expired" 
 
 
 type HistoryEntry = {
