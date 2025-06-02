@@ -1,5 +1,5 @@
 'use client';
-import { Alert } from '@/types/alert';
+import { Alert, AlertFilters } from '@/types/alert';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
 import React from 'react'
 import MultiSelectChip from '../../shared/inputs/MultiSelectChip';
@@ -10,11 +10,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 interface AlertTopBarProps {
     filtersData: Partial<Record<keyof Alert, string[]>>
     selectedFilters:  Partial<Record<keyof Alert, string[]>>
+    filtersToDisplayList: AlertFilters[]
+    setfiltersToDisplayList: React.Dispatch<React.SetStateAction<AlertFilters[]>>
     onFilterChange: (filterKey: string, values: string[]) => void
     isUserLogin : boolean
 }
 
-const AlertTopbar = ({filtersData, onFilterChange, selectedFilters, isUserLogin }: AlertTopBarProps) => {
+const AlertTopbar = ({filtersData, onFilterChange, selectedFilters, isUserLogin, filtersToDisplayList, setfiltersToDisplayList }: AlertTopBarProps) => {
 
     const theme = useTheme();
 
@@ -45,7 +47,14 @@ const AlertTopbar = ({filtersData, onFilterChange, selectedFilters, isUserLogin 
                     <FilterListIcon />
                 </IconButton>
             </Tooltip>
-            {Object.entries(filtersData).map(([key, valuesList])=><MultiSelectChip key={key} datalist={valuesList} filterName={key} selectedItems={selectedFilters[key as keyof Alert] ?? []} onFilterChange={onFilterChange}  /> )}
+            {filtersToDisplayList.map((filter)=> {
+                switch(filter) {
+                    case 'severity':
+                    case 'status' :
+                        if (filtersData[filter])
+                            return <MultiSelectChip key={filter} datalist={filtersData[filter]} filterName={filter} selectedItems={selectedFilters[filter] ?? []} onFilterChange={onFilterChange}  />
+                }
+            })}
 
             {isUserLogin &&
                 <FormControlLabel control={<Checkbox  />} label="View only my subscriptions" />

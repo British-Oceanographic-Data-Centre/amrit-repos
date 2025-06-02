@@ -22,7 +22,7 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
     // state for confirmation dialog on delete :
     const [deleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false)
 
-    // Tuse a custom hook useAlertsAction which can be reuse in other components
+    // use a custom hook useAlertsAction which can be reuse in other components
     const {
         loading,
         handleActOnAlerts,

@@ -21,9 +21,12 @@ const Alerts = async () => {
   }
 
 
+  // Fetch filters data server side
   const filtersData = {
     severity: Object.entries(counts.severityCounts).map(([key, value])=> `${key} (${value})`),
-    status:  Object.entries(counts.statusCounts).map(([key, value])=> `${key} (${value})`)
+    status:  Object.entries(counts.statusCounts).map(([key, value])=> `${key} (${value})`)    
+  
+  
   }
  
  

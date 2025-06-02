@@ -131,3 +131,5 @@ export type AlertApiResponse = AlertCountApiResponse & {
     statusCounts: Record<string, number>;
     total: number;
   };
+
+  export type AlertFilters = "status" | "severity" | "country" | "fromDate" | "ToDate"

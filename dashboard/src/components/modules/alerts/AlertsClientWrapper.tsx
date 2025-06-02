@@ -2,13 +2,13 @@
 import { Box } from '@mui/material'
 import React, { useState } from 'react'
 import AlertTopbar from './AlertTopbar'
-import { Alert } from '@/types/alert'
+import { AlertFilters } from '@/types/alert'
 import AlertsTable from './AlertsTable'
 
 
 
 interface AlertsClientWrapperProps {
-    filtersData: Partial<Record<keyof Alert, string[]>>
+    filtersData: Partial<Record<AlertFilters, string[]>>
     isUserLogin: boolean
 }
 
@@ -34,6 +34,8 @@ const AlertsClientWrapper = ({filtersData, isUserLogin}: AlertsClientWrapperProp
             status: getFilterLabels(["open", "ack"], filtersData.status ?? []) // initialize filters to "open" and "ack" alerts
         }
     )
+    // state for the filters lsit to display :
+    const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "severity","status", "fromDate", "ToDate"] )
 
     
 
@@ -48,7 +50,7 @@ const AlertsClientWrapper = ({filtersData, isUserLogin}: AlertsClientWrapperProp
   return (
     <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-        <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters = {selectedFilters} isUserLogin={isUserLogin}/>
+        <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters={selectedFilters} isUserLogin={isUserLogin} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList }/>
            
         <AlertsTable selectedFilters={selectedFilters}/>
 
