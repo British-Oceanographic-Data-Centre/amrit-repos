@@ -14,8 +14,7 @@ export const useAlertActions = (
     const [severity, setSeverity] = useState<OverridableStringUnion<AlertColor, AlertPropsColorOverrides>>("success")
 
     const handleActOnAlerts = async (action: ActionType , noteText?:string) : Promise<void> => {      
-            setLoading(true); 
-
+            setLoading(true);
             try {  
                 //act on alert :
                 const results = await actOnAlerts(selected, action, noteText );

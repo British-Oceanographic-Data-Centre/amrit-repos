@@ -62,6 +62,8 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
   // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
   const triggerRefetch = () => {
     setRefreshKey(prev => prev + 1);
+    // reset selected alerts after an update (ack, close, delete, etc.). Because after an action is done, some alerts may disapear (because not corresponding anymore to current filters) but still be selected in state if we not reset the selected :
+    setSelected([]) 
   };
 
   

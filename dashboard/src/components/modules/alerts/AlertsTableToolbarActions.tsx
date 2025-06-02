@@ -8,6 +8,8 @@ import React, { useState } from 'react'
 import SnackbarAlert from '../../shared/feedback/SnackbarAlert';
 import SubmitTextModal from '../../shared/modals/SubmitTextModal';
 import { useAlertActions } from '@/hooks/useAlertActions';
+import ConfirmationDialogModal from '@/components/shared/modals/ConfirmationDialogModal';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 type AlertsTableToolbarActionsProps = {
     selected :  readonly string[]
@@ -17,6 +19,8 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
     
     // state for Add a note modal :
     const [addNoteModalOpen, setAddNoteModalOpen] = useState(false);
+    // state for confirmation dialog on delete :
+    const [deleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false)
 
     // Tuse a custom hook useAlertsAction which can be reuse in other components
     const {
@@ -26,7 +30,8 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
         severity,
         clearResultMessage,
     } = useAlertActions(selected, onActionDone)   
- 
+
+
   return (
    <>
         <SnackbarAlert snackBarOpen={!!resultsMessage} handleCloseSnackbar={clearResultMessage } message={resultsMessage ?? ""} severity={severity}/>
@@ -49,17 +54,25 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
             </IconButton>
         </Tooltip>
 
+        <Tooltip title="Open">
+            <IconButton onClick={() => handleActOnAlerts("open")} disabled={loading} aria-label="open alert">
+                <LockOpenIcon />
+            </IconButton>
+        </Tooltip>
+
         <Tooltip title="Close">
-            <IconButton>
+            <IconButton onClick={() => handleActOnAlerts("close")} disabled={loading} aria-label="close alert">
                 <CloseIcon />
             </IconButton>
         </Tooltip>
 
         <Tooltip title="Delete">
-            <IconButton>
+            <IconButton onClick={() => setDeleteConfirmationDialogOpen(true)} disabled={loading} aria-label="delete alert">
                 <DeleteIcon />
             </IconButton>
         </Tooltip>
+
+        {/* MODALS */}
 
         <SubmitTextModal title={`Add a note on ${selected.length} alert${selected.length > 1 ? 's':''}`} open={addNoteModalOpen} onClose={() => setAddNoteModalOpen(false)} 
         onConfirm={async (textNote) => {
@@ -67,6 +80,10 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
             setAddNoteModalOpen(false);
             }} 
         pending={loading} />
+
+        <ConfirmationDialogModal open={deleteConfirmationDialogOpen} onClose={() => setDeleteConfirmationDialogOpen(false)} onConfirm={async () => {await handleActOnAlerts("delete"); setDeleteConfirmationDialogOpen(false)} } pending={loading}>        
+            {`Are you sure you want to delete ${selected.length} alert${selected.length>1 ? 's' :''} ? `}            
+        </ConfirmationDialogModal>
 
    </>
   )
