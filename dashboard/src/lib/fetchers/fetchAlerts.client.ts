@@ -1,5 +1,5 @@
 import { ALERTA_API_BASE_URL } from '@/config/api-routes'
-import { Alert, AlertApiResponse, AlertFilters } from '@/types/alert';
+import {  AlertApiResponse, AlertFilters } from '@/types/alert';
 
 const baseUrl = ALERTA_API_BASE_URL;
 

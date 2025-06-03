@@ -35,3 +35,18 @@ export const ALERT_STATUSES = [
 ] as const;
 
 export type AlertStatus = (typeof ALERT_STATUSES)[number];
+
+export const ALERT_ACTIONS = ["open",
+   "ack",
+   "unack",
+   "close",
+   "delete",
+   "shelve",
+   "unshelve",
+   "assign",
+   "note" ] as const 
+
+   export type ActionType = (typeof ALERT_ACTIONS)[number]
+
+   export type ChangeType = ActionType |  "new" | "action" | "status" | "value" | "severity" | "dismiss" | "timeout" | "expired" 
+

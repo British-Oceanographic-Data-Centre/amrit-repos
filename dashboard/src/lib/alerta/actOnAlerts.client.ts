@@ -1,6 +1,7 @@
 import { ALERTA_API_BASE_URL } from "@/config/api-routes";
 import batchRequestByIds from "../utils/batchRequestByIds";
-import { ActionType } from "@/types/alert";
+import { ActionType } from "@/constants/alertOptions";
+
 
 const baseUrl = ALERTA_API_BASE_URL;
 

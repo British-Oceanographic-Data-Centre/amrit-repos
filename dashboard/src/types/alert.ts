@@ -1,4 +1,4 @@
-import { AlertSeverity, AlertStatus } from "@/constants/alertOptions";
+import { ActionType, AlertSeverity, AlertStatus, ChangeType } from "@/constants/alertOptions";
 
 type Environment = "Development" | "Production"
 
@@ -97,9 +97,6 @@ type AlertRaw = {
 
 }
 
-export type ActionType = "open" | "ack" | "unack" | "close" | "delete" | "shelve" | "unshelve" | "assign" | "note"
-
-type ChangeType = ActionType |  "new" | "action" | "status" | "value" | "severity" | "dismiss" | "timeout" | "expired" 
 
 
 type HistoryEntry = {

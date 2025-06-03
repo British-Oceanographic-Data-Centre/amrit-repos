@@ -1,4 +1,5 @@
 import { GATEWAY_BASE_URL } from '@/config/api-routes';
+import { cookies } from 'next/headers';
 
 export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -6,17 +7,20 @@ interface FetchFromGatewayOptions {
   method?: HttpMethod;
   path: string;
   body?: unknown;
-  cache?: RequestCache;
-  cookieHeader?: string;
+  cache?: RequestCache;  
 }
 
 export async function fetchFromGateway<T>({
   method = 'GET',
   path,
   body,
-  cache = 'no-store',
-  cookieHeader = '',
+  cache = 'no-store',  
 }: FetchFromGatewayOptions): Promise<T> {
+  // retrieve cookies :
+  const cookieStore = cookies(); 
+  const cookieHeader = (await cookieStore).getAll().map(c => `${c.name}=${c.value}`).join('; ');
+  
+
   const res = await fetch(`${GATEWAY_BASE_URL}${path}`, {
     method,
     cache,
