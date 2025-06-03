@@ -27,7 +27,10 @@ const [open, setOpen] = React.useState(false); // state for collapse table
             tabIndex={-1}
             key={rowId}
             selected={isItemSelected}
-            sx={{ cursor: 'pointer' }}
+            sx={{ cursor: 'pointer',
+                '& > *': { borderBottom: 'unset' }
+             }}
+            
         >
             {columnsConfig.moreInfoColumns &&
              <TableCell>
