@@ -1,5 +1,5 @@
 import getAlerts from '@/lib/alerta/fetchAlerts.client';
-import { Alert, AlertApiResponse } from '@/types/alert'
+import { Alert, AlertApiResponse, AlertFilters } from '@/types/alert'
 import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
@@ -8,10 +8,10 @@ import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
 
 interface AlertsTableProps {
-   selectedFilters: Partial<Record<keyof Alert, string[]>>
+   filtersSelectedValues: Partial<Record<AlertFilters, string | string[]>>
 }
 
-const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
+const AlertsTable = ({filtersSelectedValues}: AlertsTableProps) => {
 
   // load table configuration
   const alertaColumnsConfig = ALERTS_TABLE_CONFIG;
@@ -35,7 +35,7 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
     async function fetchAlertData() {
       setLoading(true);
       try {
-        const alertsData = await getAlerts(selectedFilters,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true, signal);
+        const alertsData = await getAlerts(filtersSelectedValues,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true, signal);
         // compute last note of each alert from alerts's history entries :
         addAlertsLastNotesToAlertApiResponse(alertsData)
         if (isLatestRequest) { 
@@ -57,7 +57,7 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
       isLatestRequest = false; 
       controller.abort();
     };    
-  }, [page, rowsPerPage, orderBy, order, selectedFilters, refreshKey])
+  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey])
 
   // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
   const triggerRefetch = () => {

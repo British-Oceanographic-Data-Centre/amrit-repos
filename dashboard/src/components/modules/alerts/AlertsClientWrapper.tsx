@@ -8,7 +8,7 @@ import AlertsTable from './AlertsTable'
 
 
 interface AlertsClientWrapperProps {
-    filtersData: Partial<Record<AlertFilters, string[]>>
+    filtersValues: Partial<Record<AlertFilters, string[] | string>>
     isUserLogin: boolean
 }
 
@@ -27,20 +27,20 @@ function getFilterLabels(
     );
   }
 
-const AlertsClientWrapper = ({filtersData, isUserLogin}: AlertsClientWrapperProps) => {
-    //state for selected filters
-    const [selectedFilters, setSelectedFilters] = useState<typeof filtersData> (
+const AlertsClientWrapper = ({filtersValues, isUserLogin}: AlertsClientWrapperProps) => {
+    //state for selected filters : key : array of filters selected value
+    const [filtersSelectedValues, setFiltersSelectedValues] = useState<Partial<Record<AlertFilters, string | string[]>>> (
         {
-            status: getFilterLabels(["open", "ack"], filtersData.status ?? []) // initialize filters to "open" and "ack" alerts
+            status: getFilterLabels(["open", "ack"], Array.isArray(filtersValues.status) ? filtersValues.status : []) // initialize filters to "open" and "ack" alerts
         }
     )
     // state for the filters lsit to display :
-    const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "severity","status", "fromDate", "ToDate"] )
+    const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "severity","status","from-date", "to-date"] )
 
     
 
-    const handleUpdateFilter = (filterKey: string, values: string[]) => {
-        setSelectedFilters((prev) => ({
+    const handleUpdateFilter = (filterKey: string, values: string[] | string) => {
+        setFiltersSelectedValues((prev) => ({
           ...prev,
           [filterKey]: values,
         }));        
@@ -50,9 +50,9 @@ const AlertsClientWrapper = ({filtersData, isUserLogin}: AlertsClientWrapperProp
   return (
     <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-        <AlertTopbar filtersData={filtersData} onFilterChange={handleUpdateFilter} selectedFilters={selectedFilters} isUserLogin={isUserLogin} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList }/>
+        <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} isUserLogin={isUserLogin} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList }/>
            
-        <AlertsTable selectedFilters={selectedFilters}/>
+        <AlertsTable filtersSelectedValues={filtersSelectedValues}/>
 
 
 

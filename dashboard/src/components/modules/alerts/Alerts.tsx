@@ -22,17 +22,16 @@ const Alerts = async () => {
 
 
   // Fetch filters data server side
-  const filtersData = {
+  const filtersValues = {
     severity: Object.entries(counts.severityCounts).map(([key, value])=> `${key} (${value})`),
     status:  Object.entries(counts.statusCounts).map(([key, value])=> `${key} (${value})`)    
-  
-  
+    
   }
  
  
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
-      <AlertsClientWrapper filtersData={filtersData} isUserLogin={session?.isAuth ?? false}/>
+      <AlertsClientWrapper filtersValues={filtersValues} isUserLogin={session?.isAuth ?? false}/>
     </Box>
   );
 };

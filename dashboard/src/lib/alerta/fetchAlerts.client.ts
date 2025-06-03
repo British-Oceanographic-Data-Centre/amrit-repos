@@ -1,10 +1,10 @@
 import { ALERTA_API_BASE_URL } from '@/config/api-routes'
-import { Alert, AlertApiResponse } from '@/types/alert';
+import { Alert, AlertApiResponse, AlertFilters } from '@/types/alert';
 
 const baseUrl = ALERTA_API_BASE_URL;
 
 
-export default async function getAlerts(filters:Partial<Record<keyof Alert, string[]>> = {"status": ["open", "ack"]}, page:number =1, pageSize:number =25, sortBy:Array<string> = ["severity"],history:boolean=false, signal?: AbortSignal) : Promise<AlertApiResponse> {
+export default async function getAlerts(filters:Partial<Record<AlertFilters, string | string[]>> = {"status": ["open", "ack"]}, page:number =1, pageSize:number =25, sortBy:Array<string> = ["severity"],history:boolean=false, signal?: AbortSignal) : Promise<AlertApiResponse> {
   // convert filters object to string for query parameters:
   const filterQuery = filtersToQueryString(filters);
   // convert sortBy[] to string for query parameters:
