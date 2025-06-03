@@ -1,24 +1,18 @@
 import { Box } from '@mui/material';
 import AlertsClientWrapper from './AlertsClientWrapper';
 import { verifySession } from '@/app/_lib/session';
-import { getAlertCount } from '@/lib/alerta/getAlertsCount.server';
+import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
+import { AlertsCount } from '@/types/alert';
 
 
 const Alerts = async () => {
   // get user info :
   const session = await verifySession();
 
-  // fetch filters data here (server side) :
-  let counts;
-  try {
-  counts = await getAlertCount();
-  
-  } catch {
-    counts = {
-      severityCounts: {},
-      statusCounts: {},
-    };  
-  }
+  // fetch alerts status and severities count from Alerta API :
+  const counts = await getFromGateway<AlertsCount>(
+    '/alerta/alerts/count'
+  )
 
 
   // Fetch filters data server side

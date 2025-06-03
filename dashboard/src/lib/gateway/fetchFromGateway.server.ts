@@ -1,5 +1,5 @@
 import { GATEWAY_BASE_URL } from '@/config/api-routes';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -19,14 +19,17 @@ export async function fetchFromGateway<T>({
   // retrieve cookies :
   const cookieStore = cookies(); 
   const cookieHeader = (await cookieStore).getAll().map(c => `${c.name}=${c.value}`).join('; ');
-  
 
+  //headers to forwars :
+  const forwardedHeaders = await headers();
+  
   const res = await fetch(`${GATEWAY_BASE_URL}${path}`, {
     method,
     cache,
     headers: {
       'Content-Type': 'application/json',
-      Cookie: cookieHeader, 
+      Cookie: cookieHeader,
+      'X-Forwarded-For': forwardedHeaders.get('x-forwarded-for') ?? '', //To forward client IP
     },
     ...(body ? { body: JSON.stringify(body) } : {}),
   });

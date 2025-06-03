@@ -7,7 +7,7 @@ import AddSubscriptionModal from './AddSubscriptionModal';
 import MySubscriptionsTable from './MySubscriptionsTable';
 import { AlertSubscription } from '@/types/alert-subscription';
 import SnackbarAlert from '@/components/shared/feedback/SnackbarAlert';
-import { gatewayFetch } from '@/lib/gateway/gatewayFetch';
+import { gatewayFetchViaProxy } from '@/lib/gateway/gatewayFetchViaProxy.client';
 
 const MySubscriptionsClient = ({
 	initialData,
@@ -37,7 +37,7 @@ const MySubscriptionsClient = ({
 	const fetchSubscriptions = async () => {
 	try {
 		setLoading(true);
-		const data: AlertSubscription[] = await gatewayFetch<AlertSubscription[]>(
+		const data: AlertSubscription[] = await gatewayFetchViaProxy<AlertSubscription[]>(
 			'GET',
 			'/oceanops/alerts/subscriptions'
 		);
@@ -57,7 +57,7 @@ const MySubscriptionsClient = ({
   
 	const handleDelete = async (id: string) => {
 		try {
-		  await gatewayFetch('DELETE', `/oceanops/alerts/subscriptions/${id}`);
+		  await gatewayFetchViaProxy('DELETE', `/oceanops/alerts/subscriptions/${id}`);
 		  
 		  showNotification('Subscription deleted successfully', 'success');
 		  await fetchSubscriptions();

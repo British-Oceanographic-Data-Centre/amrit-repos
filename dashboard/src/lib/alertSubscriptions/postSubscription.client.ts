@@ -1,4 +1,4 @@
-import { gatewayFetch } from '../gateway/gatewayFetch';
+import { gatewayFetchViaProxy } from '../gateway/gatewayFetchViaProxy.client';
 import { AlertSubscription } from '@/types/alert-subscription';
 
 export async function postSubscription(payload: {
@@ -12,5 +12,5 @@ export async function postSubscription(payload: {
   minTime?: string;
   maxTime?: string;
 }): Promise<AlertSubscription> {
-  return gatewayFetch<AlertSubscription>('POST', '/oceanops/alerts/subscriptions', payload);
+  return gatewayFetchViaProxy<AlertSubscription>('POST', '/oceanops/alerts/subscriptions', payload);
 }

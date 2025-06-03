@@ -1,5 +1,5 @@
+import { ActionType } from "@/constants/alertOptions";
 import actOnAlerts from "@/lib/alerta/actOnAlerts.client";
-import { ActionType } from "@/types/alert";
 import { AlertColor, AlertPropsColorOverrides } from "@mui/material";
 import { OverridableStringUnion } from '@mui/types';
 import { useState } from "react";

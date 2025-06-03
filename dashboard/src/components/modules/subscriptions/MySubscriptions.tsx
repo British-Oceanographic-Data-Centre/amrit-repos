@@ -2,7 +2,6 @@ import MySubscriptionsClient from './MySubscriptionsClient';
 import { verifySession } from '@/app/_lib/session';
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
 import { AlertSubscription } from '@/types/alert-subscription';
-import { cookies } from 'next/headers';
 
 const MySubscriptions = async () => {
 

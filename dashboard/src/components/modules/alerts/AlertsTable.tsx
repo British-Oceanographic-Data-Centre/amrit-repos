@@ -1,4 +1,4 @@
-import getAlerts from '@/lib/alerta/fetchAlerts.client';
+import getAlerts from '@/lib/fetchers/fetchAlerts.client';
 import { Alert, AlertApiResponse, AlertFilters } from '@/types/alert'
 import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
