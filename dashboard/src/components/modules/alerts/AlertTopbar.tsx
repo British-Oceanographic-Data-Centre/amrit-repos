@@ -1,7 +1,7 @@
 'use client';
-import { Alert, AlertFilters } from '@/types/alert';
+import {  AlertFilters } from '@/types/alert';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import React from 'react'
 import MultiSelectChip from '../../shared/inputs/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -16,7 +16,7 @@ interface AlertTopBarProps {
     filtersSelectedValues:  Partial<Record<AlertFilters, string | string[]>>
     filtersToDisplayList: AlertFilters[]
     setfiltersToDisplayList: React.Dispatch<React.SetStateAction<AlertFilters[]>>
-    onFilterChange: (filterKey: string, values: string[] |string) => void
+    onFilterChange: (filterKey: string, values: string[] |string | undefined) => void
     isUserLogin : boolean
 }
 
@@ -62,8 +62,10 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                         return <DateTimePicker key={filter}
                             label={firstLetterToUppercase(filter.replace("-date", ""))}
                             format="YYYY-MM-DD HH:mm:ss"
-                            value={dayjs((typeof filtersSelectedValues[filter] === 'string') ?  filtersSelectedValues[filter] : "")}
-                            onChange={(value) => onFilterChange(filter, value.toISOString())}
+                            onAccept={(newValue: Dayjs | null) => onFilterChange(filter, newValue?.toISOString() ?? undefined)}
+                            slotProps={{
+                                field: { clearable: true },
+                            }}
                         />
                     }
             })}

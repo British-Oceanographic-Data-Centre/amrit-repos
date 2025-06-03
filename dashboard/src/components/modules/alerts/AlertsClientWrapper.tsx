@@ -39,7 +39,7 @@ const AlertsClientWrapper = ({filtersValues, isUserLogin}: AlertsClientWrapperPr
 
     
 
-    const handleUpdateFilter = (filterKey: string, values: string[] | string) => {
+    const handleUpdateFilter = (filterKey: string, values: string[] | string | undefined) => {
         setFiltersSelectedValues((prev) => ({
           ...prev,
           [filterKey]: values,
