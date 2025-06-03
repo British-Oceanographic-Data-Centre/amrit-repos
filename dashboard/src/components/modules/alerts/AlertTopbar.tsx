@@ -1,15 +1,16 @@
 'use client';
-import {  AlertFilters } from '@/types/alert';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
 import { Dayjs } from 'dayjs';
-import React from 'react'
+import React, { useState } from 'react'
 import MultiSelectChip from '../../shared/inputs/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-
 import { firstLetterToUppercase } from '@/lib/utils/stringUtils';
+import CategoryGroupedChoicesModal from '@/components/shared/modals/CategoryGroupedChoicesModal/CategoryGroupedChoicesModal';
+import { ALERTS_FILTERS_CATEGORY } from '@/config/alertsFiltersCategories';
+import { AlertFilters } from '@/constants/alertOptions';
 
 interface AlertTopBarProps {
     filtersValues: Partial<Record<AlertFilters, string | string[]>>
@@ -21,6 +22,9 @@ interface AlertTopBarProps {
 }
 
 const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUserLogin, filtersToDisplayList, setfiltersToDisplayList }: AlertTopBarProps) => {
+ 
+    // state to open modal for filter choice :
+    const [isFiltersListModalOpen, setIsFiltersListModalOpen] = useState(false);
 
     const theme = useTheme();
 
@@ -47,7 +51,7 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
             }}           
         >
             <Tooltip title="Filter list">
-                <IconButton>
+                <IconButton onClick={() => setIsFiltersListModalOpen(true)}  aria-label="show filters list">
                     <FilterListIcon />
                 </IconButton>
             </Tooltip>
@@ -74,9 +78,13 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                 <FormControlLabel control={<Checkbox  />} label="View only my subscriptions" />
             }
 
-            </Toolbar>
+            <CategoryGroupedChoicesModal categoriesChoices={ALERTS_FILTERS_CATEGORY} isModalOpen={isFiltersListModalOpen} onClose={() => setIsFiltersListModalOpen(false) } />
             
+            </Toolbar> 
+                    
             </AppBar>
+
+
 
 
     )

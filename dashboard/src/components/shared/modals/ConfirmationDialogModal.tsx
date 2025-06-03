@@ -12,7 +12,7 @@ interface ConfirmationDialogModalProps {
 
 }
 
-const confirmationDialogModal = ({open, onClose, onConfirm, pending, children}: ConfirmationDialogModalProps ) => {
+const ConfirmationDialogModal = ({open, onClose, onConfirm, pending, children}: ConfirmationDialogModalProps ) => {
   return (
     <Modal isModalOpen={open} handleClose={onClose}>
         <DialogContent>
@@ -30,4 +30,4 @@ const confirmationDialogModal = ({open, onClose, onConfirm, pending, children}: 
   )
 }
 
-export default confirmationDialogModal
+export default ConfirmationDialogModal

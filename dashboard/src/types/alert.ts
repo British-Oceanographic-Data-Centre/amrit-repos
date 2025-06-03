@@ -1,4 +1,4 @@
-import { ActionType, AlertSeverity, AlertStatus, ChangeType } from "@/constants/alertOptions";
+import {  AlertSeverity, AlertStatus, ChangeType } from "@/constants/alertOptions";
 
 type Environment = "Development" | "Production"
 

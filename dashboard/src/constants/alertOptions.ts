@@ -46,7 +46,14 @@ export const ALERT_ACTIONS = ["open",
    "assign",
    "note" ] as const 
 
-   export type ActionType = (typeof ALERT_ACTIONS)[number]
 
-   export type ChangeType = ActionType |  "new" | "action" | "status" | "value" | "severity" | "dismiss" | "timeout" | "expired" 
+export const ALERTS_FILTERS = [
+    "status", "severity", "country", "from-date", "to-date", "resource"
+] as const
+
+export type AlertFilters = (typeof ALERTS_FILTERS)[number]
+
+export type ActionType = (typeof ALERT_ACTIONS)[number]
+
+export type ChangeType = ActionType |  "new" | "action" | "status" | "value" | "severity" | "dismiss" | "timeout" | "expired" 
 
