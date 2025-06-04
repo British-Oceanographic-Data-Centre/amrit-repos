@@ -20,6 +20,7 @@ import CountrySelect from '../../shared/inputs/CountrySelect';
 import { CountryOption } from '@/types/types';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
+import fetchCountryOptions from '@/lib/fetchers/fetchCountryOptions.client';
 
 export type FilterValue =
   | string
@@ -54,14 +55,28 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
     let options: FilterOption[] = [];
 
     try {
-      if (type === 'minSeverityId') {
-        options = ALERT_SEVERITY_OPTIONS;
+      switch (type) {
+        case 'minSeverityId':
+          options = ALERT_SEVERITY_OPTIONS;
+          setFilterOptions(filterOptions);
+          break;
+        case 'countryName' :
+          const data = await fetchCountryOptions();
+          const fetchedCountryOptions = data
+            .filter((item) => item.id && item.name)
+            .map((item) => ({
+              id: item.id ?? '',
+              name: item.name ?? 'Unknown',
+              code2: item.code2 ?? '',
+            }));
+          options = fetchedCountryOptions.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
       }
-    } catch  {
-      
+    }     
+     catch  {      
     }
-
-    setFilterOptions(options);
+    setFilterOptions(options);    
     setLoadingOptions(false);
   };
 
@@ -125,18 +140,18 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
             </Stack>
           ) : (filterType && ['countryName'].includes(filterType) ? (
             <CountrySelect 
-			    label="Country"
-  				multiple={false}
-				onChange={(newValue) => {
-					if (newValue) {
-						setCountryValue(newValue as CountryOption);
-						setFilterValue(newValue as CountryOption);
-					} else {
-						setCountryValue(null); 
-						setFilterValue(null);
-					}
-				}}
-			/>
+                label="Country"
+                multiple={false}
+                onChange={(newValue) => {
+                  if (newValue) {
+                    setCountryValue(newValue as CountryOption);
+                    setFilterValue(newValue as CountryOption);
+                  } else {
+                    setCountryValue(null);
+                    setFilterValue(null);
+                  }
+                } } 
+                options={filterOptions as CountryOption[]}			/>
           ) : filterType && ['minSeverityId'].includes(filterType) ? (
 			
 			<FormControl fullWidth>

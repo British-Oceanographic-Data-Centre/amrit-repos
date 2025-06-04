@@ -136,4 +136,3 @@ export type AlertApiResponse = AlertCountApiResponse & {
     total: number;
   } 
 
-  export type AlertFilters = "status" | "severity" | "country" | "from-date" | "to-date"
