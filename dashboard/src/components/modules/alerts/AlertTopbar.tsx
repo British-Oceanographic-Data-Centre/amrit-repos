@@ -1,7 +1,7 @@
 'use client';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
 import { Dayjs } from 'dayjs';
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import MultiSelectChip from '../../shared/inputs/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Checkbox from '@mui/material/Checkbox';
@@ -25,7 +25,14 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
  
     // state to open modal for filter choice :
     const [isFiltersListModalOpen, setIsFiltersListModalOpen] = useState(false);
+    // sort the selected filters based on the order they have in the configuration array :
+    const sortedFiltersToDisplay = useMemo(() => {
+        return [...filtersToDisplayList].sort(
+            (a, b) => Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(a) - Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(b)
+        );
+    }, [filtersToDisplayList]);
 
+    // need theme for some style
     const theme = useTheme();
 
     return (
@@ -55,7 +62,7 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                     <FilterListIcon />
                 </IconButton>
             </Tooltip>
-            {filtersToDisplayList.map((filter)=> {
+            {sortedFiltersToDisplay.map((filter)=> {
                 switch(filter) {
                     case 'severity':
                     case 'status' :

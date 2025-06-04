@@ -11,7 +11,7 @@ interface CategoryGroupedChoicesModalProps<T> {
     chosenElementsList : T[]
     setChosenElementsList: React.Dispatch<React.SetStateAction<T[]>>
 }
-function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory: categoriesElements, isModalOpen, onClose, chosenElementsList, setChosenElementsList} : CategoryGroupedChoicesModalProps<T> ) {
+function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory, isModalOpen, onClose, chosenElementsList, setChosenElementsList} : CategoryGroupedChoicesModalProps<T> ) {
     // create a local state which replicate chosenElementsList :
     const [draftChosenElements, setDraftChosenElements] = React.useState<T[]>([]);
     // initialize this state by copying chosenElementsList when modal open :
@@ -30,12 +30,12 @@ function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory: categoriesE
       };
 
     const handleParentToggle = (category: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        const categoryElements= categoriesElements[category];
+        const categoryElements= groupedElementsByCategory[category];
         if (event.target.checked) {
             const newChoices = [...new Set([...chosenElementsList, ...categoryElements])];
             setDraftChosenElements(newChoices);
         } else {
-            const newFilters = chosenElementsList.filter(categoriesElements => !categoryElements.includes(categoriesElements));
+            const newFilters = chosenElementsList.filter(groupedElementsByCategory => !categoryElements.includes(groupedElementsByCategory));
             setDraftChosenElements(newFilters);
         }
     };
@@ -44,6 +44,16 @@ function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory: categoriesE
         setChosenElementsList(draftChosenElements);
         onClose();
         };
+
+
+    const handleSelectAll = () => {
+        const allElements = Object.values(groupedElementsByCategory).flat();
+        setDraftChosenElements([...new Set(allElements)]);
+    };
+
+    const handleDeselectAll = () => {
+        setDraftChosenElements([]);
+    };
   
   
     return (
@@ -52,11 +62,15 @@ function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory: categoriesE
             Select Filters
         </DialogTitle>
         <DialogContent>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+                <Button variant="outlined" onClick={handleSelectAll}>Select All</Button>
+                <Button variant="outlined" onClick={handleDeselectAll}>De-select All</Button>
+            </Box>
             <Box sx={{ mt: 2, maxHeight: '60vh', overflowY: 'auto', px: 2 }}>
                 <Grid2 container spacing={2}>
-                    {Object.keys(categoriesElements).map((category) => {                        
+                    {Object.keys(groupedElementsByCategory).map((category) => {                        
                         return (
-                           <CategoryCheckboxesGroup<T> key={`checkox-category-${category}`} category={category} groupedElementsByCategory={categoriesElements} chosenElementsList={draftChosenElements} handleChildToggle={handleChildToggle } handleParentToggle={handleParentToggle } />
+                           <CategoryCheckboxesGroup<T> key={`checkox-category-${category}`} category={category} groupedElementsByCategory={groupedElementsByCategory} chosenElementsList={draftChosenElements} handleChildToggle={handleChildToggle } handleParentToggle={handleParentToggle } />
                         )
                         })                     
                     }
