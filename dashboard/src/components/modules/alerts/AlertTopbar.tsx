@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { firstLetterToUppercase } from '@/lib/utils/stringUtils';
-import CategoryGroupedChoicesModal from '@/components/shared/modals/CategoryGroupedChoicesModal/CategoryGroupedChoicesModal';
+import CategoryGroupedChoicesModal from '@/components/shared/modals/CategoriesGroupedCheckboxesModal/CategoriesGroupedCheckboxesModal';
 import { ALERTS_FILTERS_CATEGORY } from '@/config/alertsFiltersCategories';
 import { AlertFilters } from '@/constants/alertOptions';
 
@@ -78,7 +78,7 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                 <FormControlLabel control={<Checkbox  />} label="View only my subscriptions" />
             }
 
-            <CategoryGroupedChoicesModal categoriesChoices={ALERTS_FILTERS_CATEGORY} isModalOpen={isFiltersListModalOpen} onClose={() => setIsFiltersListModalOpen(false) } />
+            <CategoryGroupedChoicesModal<AlertFilters> groupedElementsByCategory={ALERTS_FILTERS_CATEGORY} isModalOpen={isFiltersListModalOpen} onClose={() => setIsFiltersListModalOpen(false)} chosenElementsList={filtersToDisplayList} setChosenElementsList={setfiltersToDisplayList} />
             
             </Toolbar> 
                     
