@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Autocomplete, TextField, Chip, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import fetchCountryOptions from '@/lib/fetchers/fetchCountryOptions.client';
 import { CountryOption } from '@/types/types';
 import Image from 'next/image';
 

@@ -46,9 +46,7 @@ const AddFilterModal = ({ open, onClose, onConfirm }: AddFilterModalProps) => {
   const [filterValue, setFilterValue] = useState<FilterValue>('');
   const [filterOptions, setFilterOptions] = useState<FilterOption[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(false);
-  const [, setCountryValue] = useState<CountryOption | null>(
-  null
-);
+  const [, setCountryValue] = useState<CountryOption | null>(null);
 
   const fetchOptions = async (type: string) => {
     setLoadingOptions(true);

@@ -45,3 +45,11 @@ import { FilterOption } from './filters';
   id: string | number;
   name: string;
 };
+
+export type CountryAPIResponse = {
+  data: {
+    id?: string | number;
+    name?: string;
+    code2?: string;
+  }[];
+};

@@ -1,14 +1,15 @@
 import getAlerts from '@/lib/fetchers/fetchAlerts.client';
-import { Alert, AlertApiResponse, AlertFilters } from '@/types/alert'
+import { Alert, AlertApiResponse } from '@/types/alert'
 import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
 import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
+import { FiltersValuesMap } from '@/types/filters';
 
 interface AlertsTableProps {
-   filtersSelectedValues: Partial<Record<AlertFilters, string | string[]>>
+   filtersSelectedValues: FiltersValuesMap
 }
 
 const AlertsTable = ({filtersSelectedValues}: AlertsTableProps) => {

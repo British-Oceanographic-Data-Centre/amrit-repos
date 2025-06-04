@@ -1,11 +1,12 @@
 import { ALERTA_API_BASE_URL } from '@/config/api-routes'
-import { AlertFilters } from '@/constants/alertOptions';
 import {  AlertApiResponse } from '@/types/alert';
+import { FiltersValuesMap } from '@/types/filters';
+import { CountryOption } from '@/types/types';
 
 const baseUrl = ALERTA_API_BASE_URL;
 
 
-export default async function getAlerts(filters:Partial<Record<AlertFilters, string | string[] | undefined>> = {"status": ["open", "ack"]}, page:number =1, pageSize:number =25, sortBy:Array<string> = ["severity"],history:boolean=false, signal?: AbortSignal) : Promise<AlertApiResponse> {
+export default async function getAlerts(filters:FiltersValuesMap = {"status": ["open", "ack"]}, page:number =1, pageSize:number =25, sortBy:Array<string> = ["severity"],history:boolean=false, signal?: AbortSignal) : Promise<AlertApiResponse> {
   // convert filters object to string for query parameters:
   const filterQuery = filtersToQueryString(filters);
   // convert sortBy[] to string for query parameters:
@@ -34,19 +35,30 @@ export default async function getAlerts(filters:Partial<Record<AlertFilters, str
  * @param filters Partial<Record<keyof Alert, string[]>> (ex: {"status" : ["open (251)", "ack (7)"], "severity": ["critical"]})
  * @returns string to be use in the request parameters // => status=open&status=ack&severity=critical
  */
-function filtersToQueryString(filters: Partial<Record<AlertFilters, string | string[] | undefined>>): string {
+function filtersToQueryString(filters:FiltersValuesMap): string {
   const params = new URLSearchParams();
 
-  for (const [key, values] of Object.entries(filters)) {
+  for (const [key, values] of Object.entries(filters) as [keyof FiltersValuesMap, FiltersValuesMap[keyof FiltersValuesMap]][]) {
+    let valuesToProcess : string | string [];
 
-    if (Array.isArray(values)) {
-      values?.forEach((value) => {
+    // special case if country:
+    if (key === "country") {
+      const countryValues = values as CountryOption[]
+      valuesToProcess = countryValues.map(c => c.name);
+    } else {
+      valuesToProcess = values as string |string[];
+    }
+
+   
+    if (Array.isArray(valuesToProcess)) {
+      valuesToProcess?.forEach((value) => {
         cleanAndAppendValuesToQueryParams(params, key, value)
       });
-    } else if (values !== undefined) {
-      cleanAndAppendValuesToQueryParams(params, key, values)
-    }      
-  }
+    } else if (valuesToProcess !== undefined) {
+      cleanAndAppendValuesToQueryParams(params, key, valuesToProcess)
+    }     
+  
+  } 
 
   return params.toString(); 
 }
