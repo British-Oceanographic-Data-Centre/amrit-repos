@@ -1,4 +1,6 @@
+import { ALERTS_FILTERS_REGEX_MATCH } from '@/config/alertsFiltersCategories';
 import { ALERTA_API_BASE_URL } from '@/config/api-routes'
+import { ALERT_CUSTOMS_PARAMS } from '@/constants/alertOptions';
 import {  AlertApiResponse } from '@/types/alert';
 import { FiltersValuesMap } from '@/types/filters';
 import { CountryOption } from '@/types/types';
@@ -48,22 +50,35 @@ function filtersToQueryString(filters:FiltersValuesMap): string {
     } else {
       valuesToProcess = values as string |string[];
     }
-
    
     if (Array.isArray(valuesToProcess)) {
       valuesToProcess?.forEach((value) => {
-        cleanAndAppendValuesToQueryParams(params, key, value)
+        cleanAndAppendKeysValuesToQueryParams(params, key, value)
       });
     } else if (valuesToProcess !== undefined) {
-      cleanAndAppendValuesToQueryParams(params, key, valuesToProcess)
-    }     
+      cleanAndAppendKeysValuesToQueryParams(params, key, valuesToProcess)
+    }
+
+    
   
   } 
 
   return params.toString(); 
 }
 
-function cleanAndAppendValuesToQueryParams (params : URLSearchParams,key:string, value: string ) {
-  const cleanValue = value.replace(/\s*\(\d+\)\s*$/, '').trim(); 
-  params.append(key, cleanValue);
+function cleanAndAppendKeysValuesToQueryParams (params : URLSearchParams,key:string, value: string ) {
+  // clean values
+  let cleanValue = value.replace(/\s*\(\d+\)\s*$/, '').trim();
+
+  //  special case for search regex mactj :
+  if ((ALERTS_FILTERS_REGEX_MATCH as string[]).includes(key)) {
+    cleanValue="~"+cleanValue
+  }
+  
+  // modify key if needed (special case for custom attributes) :
+  let newKey = key;
+  if((ALERT_CUSTOMS_PARAMS as readonly string[]).includes(newKey)) {
+    newKey="attributes."+newKey
+  }  
+  params.append(newKey, cleanValue);
 }

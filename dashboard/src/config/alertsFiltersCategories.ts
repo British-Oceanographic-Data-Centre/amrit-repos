@@ -8,3 +8,5 @@ export const ALERTS_FILTERS_CATEGORY : Record<string, AlertFilters[]> = {
 
 
 }
+
+export const ALERTS_FILTERS_REGEX_MATCH: AlertFilters[] = ['resource']

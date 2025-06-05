@@ -78,6 +78,10 @@ export const ALERT_MQTT_TOPICS = ["operations-alerts"
     , "information"
     , "support-requests"]
 
+
+export const ALERT_CUSTOMS_PARAMS = ['Country', 'basin_id', 'alert_category', 'mqtt_topic' ] as const;
+
+
 export type MqttTopic = (typeof ALERT_MQTT_TOPICS) [number]
 
 export type AlertFilters = (typeof ALERTS_FILTERS)[number]

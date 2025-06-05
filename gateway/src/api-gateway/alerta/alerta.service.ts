@@ -6,7 +6,6 @@ import { Request} from 'express';
 import { addJWTinAuthHeaderAsBearer, buildAxiosRequestConfigFromSourceRequest, proxyHttpRequest } from '../../utils/proxy.utils';
 import { createProxyRouteMap, ProxyRoute, ProxyRouteMap } from '../../utils/proxy.routes';
 import { extractTokenFromRequest } from '../auth/jwt.strategy';
-import { alertaCustomParams } from 'src/constants/alertaCustomParams';
 
 @Injectable()
 export class AlertaService {  
@@ -49,58 +48,12 @@ export class AlertaService {
       // add the alerta token as Bearer token in the request to proxy :
       addJWTinAuthHeaderAsBearer(alerta_token, config)
     }
-
-   if (req.path.includes("/count")) {
-      // make request to Alerta api. No need to remove custom parameters as there should be none for this /count endpoint
-      return proxyHttpRequest<unknown>(this.httpService, config);
-   } else {
-      this.injectCustomParamsIntoQ(config,alertaCustomParams )
-      console.log(config.params) 
-      
-      return proxyHttpRequest<unknown>(this.httpService, config);
-   }
+    
+    return proxyHttpRequest<unknown>(this.httpService, config);
+  
   }
 
-  /**
- * Injects custom attribute parameters into the 'q' parameter of the Axios request config,
- * following Alerta's Lucene-based query syntax. https://docs.alerta.io/api/query-syntax.html
- *
- * @param config - The Axios request configuration object.
- * @param customParams - An array of custom parameter names to process.
- */
-private injectCustomParamsIntoQ(config: AxiosRequestConfig,customParams: string[]): void {
-  const params = config.params as Record<string, string |string[]>;
-  const customQParts: string[] = [];
 
-  for (const param of customParams) {
-    if (param in params) {
-      const value = params[param];
-
-      if (Array.isArray(value)) {
-        const orParts = value.map((v) => `_.${param}:"${v}"`);
-        customQParts.push(`(${orParts.join(' OR ')})`);
-      } else {
-        customQParts.push(`_.${param}:"${value}"`);
-      }
-
-      delete params[param];
-    }
-    }
-
-  if (customQParts.length === 0) return;
-
-
-  const existingQ = params.q as string;
-  const combinedQ = customQParts.join(' AND ');
-
-  if (existingQ) {
-    params.q = `(${existingQ}) AND ${combinedQ}`;
-  } else {
-    params.q = combinedQ;
-  }
-
-  config.params = params;
-}
 
   /**
    * Make a post request to api/alerta/auth/bearer with the JWT from the source request and return the alerta token
