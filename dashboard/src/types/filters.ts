@@ -12,7 +12,7 @@ export interface FilterOption {
 // Dynamic type. Default string[]
 export type FiltersValuesMap = Partial<{
   [K in AlertFilters]: 
-    K extends "country" ? CountryOption[] :
+    K extends "Country" ? CountryOption[] :
     K extends "from-date" | "to-date" ? string :
     string[];
 }>;

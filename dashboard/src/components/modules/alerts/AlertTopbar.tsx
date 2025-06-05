@@ -72,8 +72,8 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                         if (filtersValues[filter])
                             return <MultiSelectChip key={filter} datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []} filterName={filter} selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []} onFilterChange={(filterKey, values) => {   
                                              onFilterChange(filterKey as AlertFilters, values);}}  />
-                    case 'country' :
-                        return <CountrySelect multiple={true} key={filter} label={'Country'} onChange={(newValue) => onFilterChange("country", Array.isArray(newValue) ? newValue : newValue ? [newValue] : undefined) } options={filtersValues[filter] as CountryOption[]} value={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] as CountryOption[]: []}/> 
+                    case 'Country' :
+                        return <CountrySelect multiple={true} key={filter} label={'Country'} onChange={(newValue) => onFilterChange("Country", Array.isArray(newValue) ? newValue : newValue ? [newValue] : undefined) } options={filtersValues[filter] as CountryOption[]} value={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] as CountryOption[]: []}/> 
                     case "from-date":
                     case "to-date" :                        
                         return <DateTimePicker key={filter}

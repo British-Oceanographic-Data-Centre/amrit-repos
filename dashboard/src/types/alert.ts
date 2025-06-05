@@ -1,4 +1,4 @@
-import {  AlertSeverity, AlertStatus, ChangeType } from "@/constants/alertOptions";
+import {  AlertCategory, AlertSeverity, AlertStatus, ChangeType, MqttTopic } from "@/constants/alertOptions";
 
 type Environment = "Development" | "Production"
 
@@ -62,9 +62,7 @@ type AlertRaw = {
   /**
   * Dictionary of key-value pairs
   */
-  attributes?: {
-  [k: string]: unknown
-  }
+  attributes?: AlertAttributes;
   /**
   * ame of monitoring component that generated the alert
   */
@@ -97,7 +95,32 @@ type AlertRaw = {
 
 }
 
+export interface AlertAttributes {
+  /**
+   * Country of origin of the alert
+   */
+  Country: string;
 
+  /**
+   * Identification of maritime zone
+   */
+  basin_id?: string;
+
+  /**
+   * Category of alert
+   */
+  alert_category?: AlertCategory
+
+  /**
+   * MQTT topic on which the alert was received
+   */
+  mqtt_topic?: MqttTopic
+
+  /**
+   * Allow any other custom key-value pair
+   */
+  [key: string]: unknown; // <- permet les `additionalProperties`
+}
 
 type HistoryEntry = {
   id:string; 

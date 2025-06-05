@@ -42,7 +42,7 @@ function filtersToQueryString(filters:FiltersValuesMap): string {
     let valuesToProcess : string | string [];
 
     // special case if country:
-    if (key === "country") {
+    if (key === "Country") {
       const countryValues = values as CountryOption[]
       valuesToProcess = countryValues.map(c => c.name);
     } else {

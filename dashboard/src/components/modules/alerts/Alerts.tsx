@@ -28,7 +28,7 @@ const Alerts = async () => {
   const filtersValues :FiltersValuesMap = {
     severity: Object.entries(counts.severityCounts).map(([key, value])=> `${key} (${value})`),
     status:  Object.entries(counts.statusCounts).map(([key, value])=> `${key} (${value})`),    
-    country: sortedCountryOption
+    Country: sortedCountryOption
   }
   
  
