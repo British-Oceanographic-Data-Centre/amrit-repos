@@ -48,8 +48,10 @@ export class AlertaService {
       // add the alerta token as Bearer token in the request to proxy :
       addJWTinAuthHeaderAsBearer(alerta_token, config)
     }
+
+    const data = proxyHttpRequest<unknown>(this.httpService, config);
     
-    return proxyHttpRequest<unknown>(this.httpService, config);
+    return data
   
   }
 
