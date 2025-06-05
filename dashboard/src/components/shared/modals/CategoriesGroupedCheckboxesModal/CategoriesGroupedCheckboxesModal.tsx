@@ -64,7 +64,7 @@ function CategoryGroupedChoicesModal<T> ({groupedElementsByCategory, isModalOpen
         <DialogContent>
             <Box sx={{ display: 'flex', gap: 1 }}>
                 <Button variant="outlined" onClick={handleSelectAll}>Select All</Button>
-                <Button variant="outlined" onClick={handleDeselectAll}>De-select All</Button>
+                <Button variant="outlined" onClick={handleDeselectAll}>Unselect All</Button>
             </Box>
             <Box sx={{ mt: 2, maxHeight: '60vh', overflowY: 'auto', px: 2 }}>
                 <Grid2 container spacing={2}>

@@ -1,5 +1,5 @@
 import { AlertFilters } from "@/constants/alertOptions";
-import { CountryOption } from "./types";
+import { CountryOption, TopicOption } from "./types";
 
 export interface FilterOption {
   code2?: string;
@@ -13,6 +13,7 @@ export interface FilterOption {
 export type FiltersValuesMap = Partial<{
   [K in AlertFilters]: 
     K extends "Country" ? CountryOption[] :
+    K extends "alert_category" ? TopicOption[] :
     K extends "from-date" | "to-date" ? string :
     string[];
 }>;

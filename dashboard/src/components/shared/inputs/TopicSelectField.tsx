@@ -1,9 +1,7 @@
-'use client';
-//TO DO : make this server component to fetch topics data in server side (need to cut in 2 parts : a wrapper server side which fetch data and the client component with select )
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { SxProps, Theme, MenuItem, Select } from '@mui/material';
 import { TopicOption } from '@/types/types';
-import fetchTopicOptions from '@/lib/fetchers/fetchTopicOptions.client';
+
 
 
 interface Props {
@@ -11,6 +9,7 @@ interface Props {
   onChange: (newValue: number) => void;
   size?: 'small' | 'medium';
   sx?: SxProps<Theme>;
+  topics: TopicOption[]
 }
 
 
@@ -32,12 +31,7 @@ const buildTopicTree = (flatOptions: TopicOption[]): TopicOption[] => {
   return roots;
 };
 
-const TopicSelectField = ({ value, size, onChange, sx }: Props) => {
-  const [topics, setTopics] = useState<TopicOption[]>([]);
-
-  useEffect(() => {
-    fetchTopicOptions().then((raw) => setTopics(buildTopicTree(raw)));
-  }, []);
+const TopicSelectField = ({ value, size, onChange, sx, topics }: Props) => {
 
   const renderOptions = (options: TopicOption[], level = 0): React.ReactNode[] =>
     options.flatMap((opt) => [
@@ -58,7 +52,7 @@ const TopicSelectField = ({ value, size, onChange, sx }: Props) => {
 		<MenuItem disabled value="">
 		 <em>Select a topic</em>
 		</MenuItem>
-      {renderOptions(topics)}
+      {renderOptions(buildTopicTree(topics))}
     </Select>
   );
 };

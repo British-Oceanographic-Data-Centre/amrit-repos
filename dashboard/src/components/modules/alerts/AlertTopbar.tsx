@@ -15,6 +15,8 @@ import { FiltersValuesMap } from '@/types/filters';
 import CountrySelect from '@/components/shared/inputs/CountrySelect';
 import { CountryOption } from '@/types/types';
 import MultiChipInput from '@/components/shared/inputs/MultiChipInput';
+import TopicSelectField from '@/components/shared/inputs/TopicSelectField';
+import { findAllChildrenTopicsFromId } from '@/lib/utils/findAllChildrenFromTopicId';
 
 interface AlertTopBarProps {
     filtersValues: FiltersValuesMap
@@ -26,7 +28,9 @@ interface AlertTopBarProps {
 }
 
 const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUserLogin, filtersToDisplayList, setfiltersToDisplayList }: AlertTopBarProps) => {
- 
+    // need theme for some style
+    const theme = useTheme();
+
     // state to open modal for filter choice :
     const [isFiltersListModalOpen, setIsFiltersListModalOpen] = useState(false);
     // sort the selected filters based on the order they have in the configuration array :
@@ -36,9 +40,17 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
         );
     }, [filtersToDisplayList]);
 
-    // need theme for some style
-    const theme = useTheme();
+    // handle topic filters :
+    const handleTopicSelection = (newtopicId: number) => {
+        // get the topic object from topic id :
+        if (filtersValues.alert_category) {            
+            const topicAndChildren= findAllChildrenTopicsFromId( filtersValues.alert_category, newtopicId );
+            onFilterChange ("alert_category", topicAndChildren)            
+        }
+    }
+    
 
+  
     return (
 
         <AppBar
@@ -88,6 +100,8 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                                 field: { clearable: true },
                             }}
                         />
+                    case "alert_category":
+                        return <TopicSelectField key={filter} size={'medium'} value={filtersSelectedValues[filter] ? filtersSelectedValues[filter][0].id : null} onChange={(newValue) => handleTopicSelection(newValue)} topics={filtersValues.alert_category ?? []} />
                     }
             })}
 
@@ -100,9 +114,6 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
             </Toolbar> 
                     
             </AppBar>
-
-
-
 
     )
 }

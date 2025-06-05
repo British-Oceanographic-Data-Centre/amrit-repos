@@ -1,3 +1,4 @@
+import { firstLetterToUppercase } from '@/lib/utils/stringUtils';
 import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import React, { useMemo } from 'react'
 
@@ -35,7 +36,7 @@ function CategoryCheckboxesGroup<T> ({category,groupedElementsByCategory: catego
             {categoryElements.map(c => (
               <FormControlLabel
                 key={String(c)}
-                label={String(c)}
+                label={firstLetterToUppercase(String(c)).replace("_"," ")}
                 control={
                   <Checkbox
                     checked={chosenElementsList.includes(c)}

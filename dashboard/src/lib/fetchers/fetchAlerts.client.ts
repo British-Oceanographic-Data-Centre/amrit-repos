@@ -3,7 +3,7 @@ import { ALERTA_API_BASE_URL } from '@/config/api-routes'
 import { ALERT_CUSTOMS_PARAMS } from '@/constants/alertOptions';
 import {  AlertApiResponse } from '@/types/alert';
 import { FiltersValuesMap } from '@/types/filters';
-import { CountryOption } from '@/types/types';
+import { CountryOption, TopicOption } from '@/types/types';
 
 const baseUrl = ALERTA_API_BASE_URL;
 
@@ -43,13 +43,17 @@ function filtersToQueryString(filters:FiltersValuesMap): string {
   for (const [key, values] of Object.entries(filters) as [keyof FiltersValuesMap, FiltersValuesMap[keyof FiltersValuesMap]][]) {
     let valuesToProcess : string | string [];
 
-    // special case if country:
+    // special cases CountryOption[] & TopicOption[]:
     if (key === "Country") {
       const countryValues = values as CountryOption[]
       valuesToProcess = countryValues.map(c => c.name);
+    } else if (key === "alert_category") {
+        const topics = values as TopicOption[];
+        valuesToProcess = topics.map(c => c.label);
     } else {
       valuesToProcess = values as string |string[];
     }
+      
    
     if (Array.isArray(valuesToProcess)) {
       valuesToProcess?.forEach((value) => {
@@ -74,7 +78,7 @@ function cleanAndAppendKeysValuesToQueryParams (params : URLSearchParams,key:str
   if ((ALERTS_FILTERS_REGEX_MATCH as string[]).includes(key)) {
     cleanValue="~"+cleanValue
   }
-  
+
   // modify key if needed (special case for custom attributes) :
   let newKey = key;
   if((ALERT_CUSTOMS_PARAMS as readonly string[]).includes(newKey)) {
