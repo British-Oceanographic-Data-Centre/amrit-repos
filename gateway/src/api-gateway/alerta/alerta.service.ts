@@ -7,7 +7,6 @@ import { addJWTinAuthHeaderAsBearer, buildAxiosRequestConfigFromSourceRequest, p
 import { createProxyRouteMap, ProxyRoute, ProxyRouteMap } from '../../utils/proxy.routes';
 import { extractTokenFromRequest } from '../auth/jwt.strategy';
 import { alertaCustomParams } from 'src/constants/alertaCustomParams';
-import { AlertApiResponse, AlertCountApiResponse } from 'src/types/alert';
 
 @Injectable()
 export class AlertaService {  
@@ -53,12 +52,12 @@ export class AlertaService {
 
    if (req.path.includes("/count")) {
       // make request to Alerta api. No need to remove custom parameters as there should be none for this /count endpoint
-      return proxyHttpRequest<AlertCountApiResponse>(this.httpService, config);
+      return proxyHttpRequest<unknown>(this.httpService, config);
    } else {
       this.injectCustomParamsIntoQ(config,alertaCustomParams )
       console.log(config.params) 
       
-      return proxyHttpRequest<AlertApiResponse>(this.httpService, config);
+      return proxyHttpRequest<unknown>(this.httpService, config);
    }
   }
 
