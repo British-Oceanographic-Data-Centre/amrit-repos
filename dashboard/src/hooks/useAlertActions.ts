@@ -18,7 +18,7 @@ export const useAlertActions = (
             try {  
                 //act on alert :
                 const results = await actOnAlerts(selected, action, noteText );
-    
+                
                 // handle differents results :
                 if (results.success > 0 && results.failed > 0) {
                     setResultsMessage(`${results.success} alert${results.success === 1 ? ' was' : 's were'} successfully updated (${action}) but ${results.failed} ${results.failed === 1 ? 'was' : 'were'} not.`);

@@ -34,6 +34,7 @@ const AlertsTableToolbarActions = ({selected, onActionDone} : AlertsTableToolbar
 
   return (
    <>
+        
         <SnackbarAlert snackBarOpen={!!resultsMessage} handleCloseSnackbar={clearResultMessage } message={resultsMessage ?? ""} severity={severity}/>
         
         <Tooltip title="Acknowledge">

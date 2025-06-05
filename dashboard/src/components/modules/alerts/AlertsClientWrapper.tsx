@@ -46,7 +46,6 @@ const AlertsClientWrapper = ({filtersValues, isUserLogin}: AlertsClientWrapperPr
         }));        
       };
 
-      console.log(filtersSelectedValues.alert_category)
 
   return (
     <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
