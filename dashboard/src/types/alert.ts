@@ -1,4 +1,4 @@
-import { AlertSeverity, AlertStatus } from "@/constants/alertOptions";
+import {  AlertCategory, AlertSeverity, AlertStatus, ChangeType, MqttTopic } from "@/constants/alertOptions";
 
 type Environment = "Development" | "Production"
 
@@ -62,9 +62,7 @@ type AlertRaw = {
   /**
   * Dictionary of key-value pairs
   */
-  attributes?: {
-  [k: string]: unknown
-  }
+  attributes?: AlertAttributes;
   /**
   * ame of monitoring component that generated the alert
   */
@@ -97,9 +95,32 @@ type AlertRaw = {
 
 }
 
+export interface AlertAttributes {
+  /**
+   * Country of origin of the alert
+   */
+  Country: string;
 
-type ChangeType = "open" | "assing" | "ack" | "unack" | "shelve" | "unshelve" | "close" | "new" | "action" | "status" | "value" | "severity" | "note" | "dismiss" | "timeout" | "expired"
+  /**
+   * Identification of maritime zone
+   */
+  basin_id?: string;
 
+  /**
+   * Category of alert
+   */
+  alert_category?: AlertCategory
+
+  /**
+   * MQTT topic on which the alert was received
+   */
+  mqtt_topic?: MqttTopic
+
+  /**
+   * Allow any other custom key-value pair
+   */
+  [key: string]: unknown; // <- permet les `additionalProperties`
+}
 
 type HistoryEntry = {
   id:string; 
@@ -130,3 +151,11 @@ export type AlertApiResponse = AlertCountApiResponse & {
     statusCounts: Record<string, number>;
     total: number;
   };
+
+  export type AlertsCount = {
+    severityCounts: Record<string, number>;
+    status: string;
+    statusCounts: Record<string, number>;
+    total: number;
+  } 
+

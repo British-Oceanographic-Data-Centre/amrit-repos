@@ -8,7 +8,7 @@ export const ALERTS_TABLE_CONFIG: TableViewConfig<Alert> = {
       { key: 'status', label: "Status" },
       { key: 'event', label:"Event" },
       { key: 'value', label: "Value" },
-      { key: 'text', label: "Description" },
+      { key: 'text', label: "Description" },      
       { key: 'lastReceiveTime', label: "Last receive Time" },
       { key: 'lastNote', label: "Last note"}
     ],

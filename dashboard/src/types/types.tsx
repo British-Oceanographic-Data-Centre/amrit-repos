@@ -7,6 +7,7 @@ import {
   import StarIcon from '@mui/icons-material/Star';
   import DoDisturbIcon from '@mui/icons-material/DoDisturb';
   import { JSX } from 'react';
+import { FilterOption } from './filters';
   
   export type SidebarItem = {
 	label: string;
@@ -40,8 +41,15 @@ import {
 	children?: TopicOption[];
   };
 
-  export type CountryOption = {
-	id: string | number;
-	name: string;
-	code2?: string;
-	};
+  export type CountryOption  =  Omit<FilterOption, 'id' | 'name'> & {
+  id: string | number;
+  name: string;
+};
+
+export type CountryAPIResponse = {
+  data: {
+    id?: string | number;
+    name?: string;
+    code2?: string;
+  }[];
+};

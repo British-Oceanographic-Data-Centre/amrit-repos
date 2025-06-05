@@ -12,7 +12,7 @@ import {
   Stack,
 } from '@mui/material';
 import React, { useState } from 'react';
-import TopicSelectField from './TopicSelectField';
+import FetchedTopicSelectField from './FetchedTopicSelectField';
 import { AlertSubscription } from '@/types/alert-subscription';
 import { postSubscription } from '@/lib/alertSubscriptions/postSubscription.client';
 
@@ -53,7 +53,7 @@ const AddSubscriptionModal = ({ open, onClose, onConfirm, contactId }: AddSubscr
       <DialogContent>
         <Stack spacing={3} mt={1}>
 		<FormControl fullWidth required>
-			<TopicSelectField value={topicId} onChange={setTopicId} size="medium" />
+			<FetchedTopicSelectField value={topicId} onChange={setTopicId} size="medium" />
 		</FormControl>
 
           <FormControlLabel

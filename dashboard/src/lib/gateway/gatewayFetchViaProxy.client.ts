@@ -1,6 +1,6 @@
 import type { GatewayMethod, GatewayProxyPayload } from './types';
 
-export async function gatewayFetch<T>(
+export async function gatewayFetchViaProxy<T>(
   method: GatewayMethod,
   path: string,
   body?: GatewayProxyPayload['body']

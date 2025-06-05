@@ -1,4 +1,4 @@
-import getAlerts from '@/lib/alerta/fetchAlerts.client';
+import getAlerts from '@/lib/fetchers/fetchAlerts.client';
 import { Alert, AlertApiResponse } from '@/types/alert'
 import { Order } from '@/types/types';
 import React, { useEffect, useState } from 'react'
@@ -6,12 +6,13 @@ import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
 import { ALERTS_TABLE_CONFIG } from '@/config/tableConfigs/alertTableConfig';
 import addAlertsLastNotesToAlertApiResponse from '@/lib/utils/computeAlertLastNote';
+import { FiltersValuesMap } from '@/types/filters';
 
 interface AlertsTableProps {
-   selectedFilters: Partial<Record<keyof Alert, string[]>>
+   filtersSelectedValues: FiltersValuesMap
 }
 
-const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
+const AlertsTable = ({filtersSelectedValues}: AlertsTableProps) => {
 
   // load table configuration
   const alertaColumnsConfig = ALERTS_TABLE_CONFIG;
@@ -35,7 +36,7 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
     async function fetchAlertData() {
       setLoading(true);
       try {
-        const alertsData = await getAlerts(selectedFilters,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true, signal);
+        const alertsData = await getAlerts(filtersSelectedValues,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true, signal);
         // compute last note of each alert from alerts's history entries :
         addAlertsLastNotesToAlertApiResponse(alertsData)
         if (isLatestRequest) { 
@@ -57,11 +58,13 @@ const AlertsTable = ({selectedFilters}: AlertsTableProps) => {
       isLatestRequest = false; 
       controller.abort();
     };    
-  }, [page, rowsPerPage, orderBy, order, selectedFilters, refreshKey])
+  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey])
 
   // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
   const triggerRefetch = () => {
     setRefreshKey(prev => prev + 1);
+    // reset selected alerts after an update (ack, close, delete, etc.). Because after an action is done, some alerts may disapear (because not corresponding anymore to current filters) but still be selected in state if we not reset the selected :
+    //setSelected([]) // was 
   };
 
   

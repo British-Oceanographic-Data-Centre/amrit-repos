@@ -3,4 +3,5 @@ export type JwtPayload = {
 	contactId: string
 	name: string
 	exp:number
+	roles: string[]
 }

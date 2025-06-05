@@ -32,16 +32,15 @@ export class AlertaService {
   async alertaProxyRequest(req: Request) : Promise<any>
 
     {  
-    this.logger.log(`Proxy ${req.method} request to Alerta API`);
+    this.logger.log(`Proxy ${req.method} request to Alerta API (${req.path}) `);
     const basePath = 'api/alerta'
 
     const route = this.proxyRoutes[basePath];
     if (!route) {
       throw new Error(`No proxy route config found for ${basePath}`);
-    }
-  
+    }  
     //build axiosRequestConfig with source request parameters and target host parameter :
-    const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req,  basePath, route);
+    const config: AxiosRequestConfig = buildAxiosRequestConfigFromSourceRequest(req,  basePath, route);   
     // Use the JWT from oceanops/auth service to authenticate in Alerta
     if (req.method=='POST' || req.method=='DELETE' || req.method=='PUT') {
       // authenticate on Alerta by forwarding the JWT on api/alerta/auth/bearer endpoint
@@ -50,13 +49,13 @@ export class AlertaService {
       addJWTinAuthHeaderAsBearer(alerta_token, config)
     }
 
-    // make request to Alerta api
     const data = proxyHttpRequest<unknown>(this.httpService, config);
-
-    //TO DO ? here can add some logic if needed (ex : change Alert model with a mapper)
-
-    return data;
+    
+    return data
+  
   }
+
+
 
   /**
    * Make a post request to api/alerta/auth/bearer with the JWT from the source request and return the alerta token

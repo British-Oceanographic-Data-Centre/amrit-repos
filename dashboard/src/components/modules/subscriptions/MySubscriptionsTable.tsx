@@ -6,7 +6,7 @@ import { AlertSubscription } from '@/types/alert-subscription';
 import { subscriptionsTableConfig } from '@/config/tableConfigs/subscriptionsTableConfig';
 import AddFilterModal from './AddFilterModal';
 import { FilterValue } from './AddFilterModal';
-import { gatewayFetch } from '@/lib/gateway/gatewayFetch';
+import { gatewayFetchViaProxy } from '@/lib/gateway/gatewayFetchViaProxy.client';
 import { CountryOption } from '@/types/types';
 import dayjs from 'dayjs';
 
@@ -32,7 +32,7 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 		newValue: boolean
 	) => {
 		try {
-		const updatedRow = await gatewayFetch<Partial<AlertSubscriptionRow>>(
+		const updatedRow = await gatewayFetchViaProxy<Partial<AlertSubscriptionRow>>(
 			'PATCH',
 			`/oceanops/alerts/subscriptions/${id}`,
 			{ [field]: newValue }
@@ -52,7 +52,7 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 		newValue: string | number | boolean | null
 	) => {
 		try {
-		const updatedRow = await gatewayFetch<Partial<AlertSubscriptionRow>>(
+		const updatedRow = await gatewayFetchViaProxy<Partial<AlertSubscriptionRow>>(
 			'PATCH',
 			`/oceanops/alerts/subscriptions/${id}`,
 			{ [field]: newValue }
@@ -94,7 +94,7 @@ const MySubscriptionsTable = ({ data, loading, onDelete }: Props) => {
 		}
 
 		try {
-			const updatedRow = await gatewayFetch<Partial<AlertSubscriptionRow>>(
+			const updatedRow = await gatewayFetchViaProxy<Partial<AlertSubscriptionRow>>(
 			'PATCH',
 			`/oceanops/alerts/subscriptions/${openAddFilterForId}`,
 			body

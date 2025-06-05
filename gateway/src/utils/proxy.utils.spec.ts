@@ -28,6 +28,7 @@ describe('buildAxiosRequestConfigFromSourceRequest', () => {
       const mockReq = {
         method: 'POST',
         url: '/api/alerta/alerts?status=open',
+        path: '/api/alerta/alerts',
         query: { status: 'open' },
         headers: {
           'content-length':'123',          
@@ -40,7 +41,7 @@ describe('buildAxiosRequestConfigFromSourceRequest', () => {
   
       expect(result).toEqual({
         method: 'post',
-        url: 'https://amrit-alerta.example.com/api/alerts?status=open',
+        url: 'https://amrit-alerta.example.com/api/alerts',
         headers: {
           'accept': 'application/json',
           'Content-Type': 'application/json',

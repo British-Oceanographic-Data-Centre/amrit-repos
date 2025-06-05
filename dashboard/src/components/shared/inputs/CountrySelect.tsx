@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Autocomplete, TextField, Chip, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import fetchCountryOptions from '@/lib/fetchers/fetchCountryOptions.client';
 import { CountryOption } from '@/types/types';
 import Image from 'next/image';
 
@@ -13,6 +12,7 @@ interface CountryFieldProps {
   value?: CountryOption | CountryOption[] | null;
   onChange: (newValue: CountryOption | CountryOption[] | null) => void;
   multiple?: boolean;
+  options: CountryOption[]
 }
 
 const OptionBox = styled(Box)({
@@ -20,40 +20,13 @@ const OptionBox = styled(Box)({
   alignItems: 'center',
 });
 
-const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple }) => {
-  const [options, setOptions] = useState<CountryOption[]>([]);
-  const [isFetched, setIsFetched] = useState(false);
-
-  const fetchOptions = async () => {
-    if (!isFetched) {
-      try {
-        const data = await fetchCountryOptions();
-        const fetchedOptions: CountryOption[] = data
-          .filter((item) => item.id && item.name)
-          .map((item) => ({
-            id: item.id ?? '',
-            name: item.name ?? 'Unknown',
-            code2: item.code2 ?? '',
-          }));
-
-        const sortedOptions = fetchedOptions.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
-
-        setOptions(sortedOptions);
-        setIsFetched(true);
-      } catch {
-        
-      }
-    }
-  };
+const CountryField: React.FC<CountryFieldProps> = ({ value, onChange, multiple, options }) => {
 
   return (
     <Autocomplete
       multiple={multiple}
       size="medium"
       options={options}
-      onFocus={fetchOptions}
       getOptionLabel={(option) => option.name}
       value={value ?? (multiple ? [] : null)}
       onChange={(_, newValue) => onChange(newValue)}

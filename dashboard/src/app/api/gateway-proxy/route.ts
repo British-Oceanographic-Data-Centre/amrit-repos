@@ -3,7 +3,6 @@ import { postToGateway } from '@/lib/gateway/postToGateway.server';
 import { patchToGateway } from '@/lib/gateway/patchToGateway.server';
 import { deleteFromGateway } from '@/lib/gateway/deleteFromGateway.server';
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
-import { cookies } from 'next/headers';
 
 interface GatewayProxyPayload {
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE';
@@ -29,14 +28,13 @@ export async function POST(req: NextRequest) {
 
   try {
     let result;
-    const cookieHeader = req.headers.get('cookie') || '';
 
     if (method === 'POST') {
-      result = await postToGateway(path, body, cookieHeader);
+      result = await postToGateway(path, body);
     } else if (method === 'PATCH') {
-      result = await patchToGateway(path, body, cookieHeader);
+      result = await patchToGateway(path, body);
     } else if (method === 'DELETE') {
-      result = await deleteFromGateway(path, cookieHeader);
+      result = await deleteFromGateway(path);
     } else {
       return NextResponse.json({ error: 'Invalid method' }, { status: 400 });
     }
@@ -52,14 +50,13 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const path = searchParams.get('path');
-  const cookieHeader = cookies().toString();
 
   if (!path) {
     return NextResponse.json({ error: 'Missing path' }, { status: 400 });
   }
 
   try {
-    const result = await getFromGateway(path, cookieHeader);
+    const result = await getFromGateway(path);
     return NextResponse.json(result);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error';
