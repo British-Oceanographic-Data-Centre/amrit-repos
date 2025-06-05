@@ -46,26 +46,24 @@ export function buildAxiosRequestConfigFromSourceRequest(req: Request, baseProxy
 	const method = req.method.toLowerCase();
 	const params = req.query;
   
-	// 🔐 Force content-type ONLY for methods with a body
+	// Force content-type ONLY for methods with a body
 	const isBodyMethod = ['post', 'put', 'patch'].includes(method);
 	const data = isBodyMethod ? req.body  as Record<string, any>: undefined;
 	
-	// const contentTypeHeader =
-	//   req.headers['content-type'] ?? 'application/json';
-  
+  // build headers
 	const headers = {
 		...cleanProxyHeaders(req.headers),
 		host,
 		accept: 'application/json',
 		'user-agent': req.headers['user-agent'] || 'OceanOPS-Gateway',
 		...(isBodyMethod && {
-		  'Content-Type': 'application/json' // ✅ force correct type
+		  'Content-Type': 'application/json' //  force correct type
 		}),
 	};
   
   
-	const path = req.url.replace(`/${baseProxyPath}`, targetPath);
-	const url = `https://${host}${path}`;
+  const relativePath = req.path.replace(`/${baseProxyPath}`, targetPath);
+  const url = `https://${host}${relativePath}`;
 
 
     // configure the axios request from the source request & api's url
@@ -75,8 +73,8 @@ export function buildAxiosRequestConfigFromSourceRequest(req: Request, baseProxy
 	  headers,
 	  params,
 	  paramsSerializer : {
-		indexes: null
-	  },
+      indexes: null
+    },
 	  ...(isBodyMethod && { data }),
 	};
   
