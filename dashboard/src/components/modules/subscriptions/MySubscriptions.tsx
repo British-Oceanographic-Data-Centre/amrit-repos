@@ -15,7 +15,7 @@ const MySubscriptions = async () => {
  
 
   const subscriptions = await getFromGateway<AlertSubscription[]>(
-        '/oceanops/alerts/subscriptions'
+        '/oceanops/alerts/subscriptions?contactId='+contactId
    
   );
 

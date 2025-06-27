@@ -5,13 +5,13 @@ import AlertTopbar from './AlertTopbar'
 import AlertsTable from './AlertsTable'
 import { AlertFilters } from '@/constants/alertOptions'
 import { FiltersValuesMap } from '@/types/filters'
+import { Session } from '@/types/types'
 
 
 
 interface AlertsClientWrapperProps {
     filtersValues: FiltersValuesMap
-    isUserLogin: boolean
-    userRoles: string[]
+    session: Session | null
 }
 
 
@@ -30,7 +30,7 @@ function getFilterLabels(
     );
   }
 
-const AlertsClientWrapper = ({filtersValues, isUserLogin, userRoles}: AlertsClientWrapperProps) => {
+const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps) => {
     //state for selected filters : key : array of filters selected value
     const [filtersSelectedValues, setFiltersSelectedValues] = useState<FiltersValuesMap> (
         {
@@ -39,21 +39,29 @@ const AlertsClientWrapper = ({filtersValues, isUserLogin, userRoles}: AlertsClie
     )
     // state for the filters lsit to display :
     const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "event","severity","status","from-date", "to-date"] )
+    // state to fetch only subs alerts :
+    const [isOnlyMySubsAlerts, setIsOnlyMySubsAlerts] = useState(false);
+
 
     const handleUpdateFilter = <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => {
-        setFiltersSelectedValues((prev) => ({
-          ...prev,
-          [filterKey]: values,
-        }));        
+        setFiltersSelectedValues((prev) => {
+           const updated = { ...prev };
+          if (values === undefined) {
+            delete updated[filterKey];
+          } else {
+            updated[filterKey] = values;
+          }
+          return updated;
+              });
       };
 
 
   return (
     <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-        <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} setFiltersSelectedValues={setFiltersSelectedValues} isUserLogin={isUserLogin} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList }/>
+        <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} setFiltersSelectedValues={setFiltersSelectedValues} isUserLogin={session?.isAuth ?? false} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList} isOnlyMySubsAlerts={isOnlyMySubsAlerts} setIsOnlyMySubsAlerts={setIsOnlyMySubsAlerts}/>
            
-        <AlertsTable filtersSelectedValues={filtersSelectedValues} isUserLogin={isUserLogin} userRoles={userRoles}/>
+        <AlertsTable filtersSelectedValues={filtersSelectedValues} session={session} isOnlyMySubsAlerts={isOnlyMySubsAlerts}/>
 
 
 

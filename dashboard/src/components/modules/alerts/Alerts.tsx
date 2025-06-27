@@ -3,14 +3,14 @@ import AlertsClientWrapper from './AlertsClientWrapper';
 import { verifySession } from '@/app/_lib/session';
 import { getFromGateway } from '@/lib/gateway/getFromGateway.server';
 import { AlertsCount } from '@/types/alert';
-import { CountryAPIResponse, CountryOption, TopicOption } from '@/types/types';
+import { CountryAPIResponse, CountryOption, Session, TopicOption } from '@/types/types';
 import { FiltersValuesMap } from '@/types/filters';
 import { handleCountryAPIJsonResponse } from '@/lib/utils/handleCountryAPIJsonResponse';
 
 
 const Alerts = async () => {
   // get user info :
-  const session = await verifySession();
+  const session:Session |null = await verifySession();
 
   // fetch alerts status and severities count from Alerta API :
   const counts = await getFromGateway<AlertsCount>(
@@ -36,7 +36,7 @@ const Alerts = async () => {
  
   return (
     <Box sx={{ width: '100%', padding: 2 }}>
-      <AlertsClientWrapper filtersValues={filtersValues} isUserLogin={session?.isAuth ?? false} userRoles = {session?.roles ?? []}/>
+      <AlertsClientWrapper filtersValues={filtersValues} session={session}/>
     </Box>
   );
 };

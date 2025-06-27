@@ -52,24 +52,28 @@ export const ALERTS_FILTERS = [
 ] as const
 
 export const ALERT_CATEGORIES = [
-     "data-management"
-     ,"information"
-     ,"support-requests"
-     ,"EEZ"
-     ,"beaching"
-     ,"icing"
-     ,"technical alerts"
-     ,"argo technical alerts"
-     ,"file checker"
-     ,"QC feedback"
-     ,"metadata check"
-     ,"platform"
-     ,"Cruises"
-     ,"data"
-     ,"Deployment/Retrieval"
-     ,"Data processing"
-     ,"Data access"
-     ,"Dashboard"] as const
+  "Operations alerts",
+  "Data management",
+  "Information",
+  "Support requests",
+  "EEZ","Beaching",
+  "Icing",
+  "Technical issue","Battery issue", "Sensor issue",
+  "Data checker",
+  "QC feedback",
+  "Metadata check",
+  "Platform",
+  "Cruises",
+  "Data",
+  "New platform",
+  "New Cruises",
+  "New data flow",
+  "Deployment/Retrieval",
+  "Deployment request",
+  "Retrieval request",
+  "Data processing request",
+  "Data access request",
+  "Dashboard"] as const
 
 export type AlertCategory = (typeof ALERT_CATEGORIES) [number]
 

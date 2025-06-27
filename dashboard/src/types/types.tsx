@@ -54,3 +54,13 @@ export type CountryAPIResponse = {
     code2?: string;
   }[];
 };
+
+export type Session = {  
+    isAuth: boolean;
+    userId: number | undefined;
+    username: string | undefined;
+    roles: string[] | undefined;
+ 
+}
+
+export type TimeRange = { from?: string, to?: string };

@@ -130,7 +130,12 @@ export type AlertAttributes = {
    * Identification of maritime zone
    */
   basin_id?: string | null;
-
+  
+  /**
+   * WIGOS Station Identifiers
+   */
+  wigos_id?:string;
+  
   /**
    * Category of alert
    */

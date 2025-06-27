@@ -115,6 +115,11 @@ export type AlertAttributes = {
   basin_id?: string;
 
   /**
+   * WIGOS Station Identifiers
+   */
+  wigos_id?:string;
+  
+  /**
    * Category of alert
    */
   alert_category?: AlertCategory

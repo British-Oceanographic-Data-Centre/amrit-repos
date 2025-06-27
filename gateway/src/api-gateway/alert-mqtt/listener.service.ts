@@ -56,17 +56,18 @@ export class AlertsMqttService implements OnModuleInit {
   }
 
   async handleAlert(alert: AlertEvent): Promise<void> {
+    this.logger.log ("alert received on mqtt : " + alert.data.resource +", "+alert.data.event+", "+alert.data.severity)
     if (alert?.data?.repeat === true) return;
 
     const payload = {
-      mqttTopic: alert?.data?.attributes?.mqtt_topic,
+      alertCategory: alert?.data?.attributes?.alert_category,
       severity: alert?.data?.severity,
       resource: alert?.data?.resource,
       country: alert?.data?.attributes?.Country,
       time: alert?.time,
     };
 
-    if (!payload.mqttTopic) {
+    if (!payload.alertCategory) {
       this.logger.warn('🚫 Missing required alert data, skipping.');
       return;
     }
@@ -79,6 +80,7 @@ export class AlertsMqttService implements OnModuleInit {
 
       for (const contact of contacts) {
         try {
+          this.logger.log("send email to " + contact.email + " for alert resource "+alert.data.resource+ " event " + alert.data.event)
           await this.sendEmail(contact.email, alert, emailContent);
         } catch (emailError) {
           this.logger.error(`❌ Failed to send email to ${contact.email}`, emailError);
@@ -112,7 +114,7 @@ export class AlertsMqttService implements OnModuleInit {
         resource: '5906990',
         event: 'FLAG_SUPRAHydraulicAlert_LOGICAL',
         environment: 'Development',
-        severity: 'warning',
+        severity: 'critical',
         correlate: [],
         status: 'open',
         service: ['Laboratory of Oceanography of Villefranche'],
@@ -123,7 +125,7 @@ export class AlertsMqttService implements OnModuleInit {
         attributes: {
           Country: 'France',
           basin_id: null,
-          alert_category: 'argo technical alerts',
+          alert_category: 'Technical issue',
           mqtt_topic: 'operational',
           ArgoType: 'PSEUDO',
           LastStationDate: '24-05-2025',

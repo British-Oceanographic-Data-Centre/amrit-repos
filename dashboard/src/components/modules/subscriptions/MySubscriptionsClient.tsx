@@ -8,6 +8,7 @@ import MySubscriptionsTable from './MySubscriptionsTable';
 import { AlertSubscription } from '@/types/alert-subscription';
 import SnackbarAlert from '@/components/shared/feedback/SnackbarAlert';
 import { gatewayFetchViaProxy } from '@/lib/gateway/gatewayFetchViaProxy.client';
+import { getUserAlertsSubscriptions } from '@/lib/alertSubscriptions/getUserAlertsSubscriptions.client';
 
 const MySubscriptionsClient = ({
 	initialData,
@@ -37,10 +38,7 @@ const MySubscriptionsClient = ({
 	const fetchSubscriptions = async () => {
 	try {
 		setLoading(true);
-		const data: AlertSubscription[] = await gatewayFetchViaProxy<AlertSubscription[]>(
-			'GET',
-			'/oceanops/alerts/subscriptions'
-		);
+		const data: AlertSubscription[] = await getUserAlertsSubscriptions(contactId);	
 		setSubscriptions(data);
 	} catch {
 	

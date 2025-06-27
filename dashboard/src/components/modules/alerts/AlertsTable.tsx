@@ -1,6 +1,6 @@
 import getAlerts from '@/lib/fetchers/fetchAlerts.client';
 import { Alert, AlertApiResponse } from '@/types/alert'
-import { Order } from '@/types/types';
+import { Order, Session } from '@/types/types';
 import React, { useEffect, useState } from 'react'
 import EnhancedTable from '../../shared/tables/enhancedTable/EnhancedTable';
 import AlertsTableToolbarActions from './AlertsTableToolbarActions';
@@ -13,11 +13,12 @@ import LoadingWrapper from '@/components/shared/feedback/LoadingWrapper';
 
 interface AlertsTableProps {
    filtersSelectedValues: FiltersValuesMap
-   isUserLogin: boolean
-   userRoles: string[]
+   isOnlyMySubsAlerts:boolean
+   session: Session | null
+       
 }
 
-const AlertsTable = ({filtersSelectedValues, isUserLogin, userRoles}: AlertsTableProps) => {
+const AlertsTable = ({filtersSelectedValues, session, isOnlyMySubsAlerts}: AlertsTableProps) => {
 
   // load table configuration
   const alertaColumnsConfig = ALERTS_MAIN_TABLE_CONFIG;
@@ -41,7 +42,7 @@ const AlertsTable = ({filtersSelectedValues, isUserLogin, userRoles}: AlertsTabl
     async function fetchAlertData() {
       setLoading(true);
       try {
-        const alertsData = await getAlerts(filtersSelectedValues,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true, signal);
+        const alertsData = await getAlerts(filtersSelectedValues,page+1, rowsPerPage, [order==='desc' ? orderBy : "-"+orderBy],true,isOnlyMySubsAlerts, session?.userId ?? 0, signal );
         // compute last note of each alert from alerts's history entries :
         addAlertsLastNotesToAlertApiResponse(alertsData)
         if (isLatestRequest) { 
@@ -63,7 +64,7 @@ const AlertsTable = ({filtersSelectedValues, isUserLogin, userRoles}: AlertsTabl
       isLatestRequest = false; 
       controller.abort();
     };    
-  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey])
+  }, [page, rowsPerPage, orderBy, order, filtersSelectedValues, refreshKey, isOnlyMySubsAlerts])
 
   // TO DO : may be use a more general way using the MQTT broker : when there is a new alet, trigger the refresh
   const triggerRefetch = () => {
@@ -72,7 +73,7 @@ const AlertsTable = ({filtersSelectedValues, isUserLogin, userRoles}: AlertsTabl
     //setSelected([]) // was 
   };
 
-  const toolBarActionComponent = <AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={isUserLogin} alertsData={alertsApiResponseData?.alerts ?? []} userRoles={userRoles}/>
+  const toolBarActionComponent = <AlertsTableToolbarActions selected={selected} onActionDone={triggerRefetch} setSelected={setSelected} isUserLogin={session ? session.isAuth : false} alertsData={alertsApiResponseData?.alerts ?? []} userRoles={session?.roles ?? []}/>
   
   
  

@@ -26,9 +26,11 @@ interface AlertTopBarProps {
     setfiltersToDisplayList: React.Dispatch<React.SetStateAction<AlertFilters[]>>
     onFilterChange: <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => void
     isUserLogin : boolean
+    isOnlyMySubsAlerts:boolean
+    setIsOnlyMySubsAlerts: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUserLogin, filtersToDisplayList, setfiltersToDisplayList, setFiltersSelectedValues }: AlertTopBarProps) => {
+const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUserLogin, filtersToDisplayList, setfiltersToDisplayList, setFiltersSelectedValues,isOnlyMySubsAlerts,setIsOnlyMySubsAlerts   }: AlertTopBarProps) => {
     // need theme for some style
     const theme = useTheme();
 
@@ -120,6 +122,10 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
                             label={firstLetterToUppercase(filter.replace("-date", ""))}
                             format="YYYY-MM-DD HH:mm:ss"
                             onAccept={(newValue: Dayjs | null) => onFilterChange(filter, newValue?.toISOString() ?? undefined)}
+                            onChange={(newValue) => {
+                                if(newValue === null){
+                                    onFilterChange(filter, undefined)
+                                }}}
                             slotProps={{
                                 field: { clearable: true },
                             }}
@@ -130,7 +136,7 @@ const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUs
             })}
 
             {isUserLogin &&
-                <FormControlLabel control={<Checkbox  />} label="View only my subscriptions" />
+                <FormControlLabel control={<Checkbox checked={isOnlyMySubsAlerts} onChange={() => setIsOnlyMySubsAlerts(prev => !prev)}  />} label="View only my subscriptions" />
             }
 
             <CategoryGroupedChoicesModal<AlertFilters> groupedElementsByCategory={ALERTS_FILTERS_CATEGORY} isModalOpen={isFiltersListModalOpen} onClose={onFiltersListModalClose} chosenElementsList={filtersToDisplayList} setChosenElementsList={setfiltersToDisplayList} />
