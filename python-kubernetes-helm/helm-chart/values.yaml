@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: python-dummy-api
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+
+resources: {}
