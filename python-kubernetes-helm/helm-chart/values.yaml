@@ -1,9 +1,12 @@
+namespace:
+  name: ewetchy-amrit
+
 replicaCount: 1
 
 image:
-  repository: python-dummy-api
+  repository: docker-repo.bodc.me/ewetchy/amrit/api
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "1.0.0"
 
 service:
   type: ClusterIP
