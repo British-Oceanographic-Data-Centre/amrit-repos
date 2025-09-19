@@ -21,3 +21,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
+          env:
+            - name: API_ROOT_PATH
+              value: {{ .Values.ingress.api.path }}

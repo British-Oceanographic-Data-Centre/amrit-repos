@@ -1,0 +1,13 @@
+helmDefaults:
+  kubeContext: krakentst-1
+
+releases:
+  - name: ewetchy-amrit-api
+    namespace: ewetchy-amrit
+    chart: ./helm-chart
+    values:
+      - ingress:
+          api:
+            path: /livkrakentst-1/ewetchy/amrit/argo-toolbox/api
+          ingressClassName: bodc-nginx
+          host: livbodcinttst.bodc.me
