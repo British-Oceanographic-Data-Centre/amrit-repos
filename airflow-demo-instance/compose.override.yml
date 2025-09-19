@@ -26,14 +26,28 @@ x-airflow-common:
     postgres:
       condition: service_healthy
 
+x-apptainer-runtime:
+  &apptainer-runtime
+  devices:
+    - "/dev/fuse:/dev/fuse"         # --device /dev/fuse
+  cap_add:
+    - SYS_ADMIN                     # --cap-add SYS_ADMIN
+    - SETUID
+    - SETGID
+    - DAC_OVERRIDE
+  security_opt:
+    - seccomp:unconfined            # --security-opt seccomp=unconfined
+    - apparmor:unconfined           # --security-opt apparmor=unconfined
+  privileged: true
+
 services:
   airflow-apiserver:
-    <<: [ *airflow-common ]
+    <<: [ *airflow-common, *apptainer-runtime ]
   airflow-scheduler:
-    <<: [ *airflow-common ]
+    <<: [ *airflow-common, *apptainer-runtime ]
   airflow-dag-processor:
-    <<: [ *airflow-common ]
+    <<: [ *airflow-common, *apptainer-runtime ]
   airflow-worker:
-    <<: [ *airflow-common ]
+    <<: [ *airflow-common, *apptainer-runtime ]
   airflow-triggerer:
-    <<: [ *airflow-common ]
+    <<: [ *airflow-common, *apptainer-runtime ]
