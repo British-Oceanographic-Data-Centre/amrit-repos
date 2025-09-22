@@ -52,6 +52,10 @@ airflow-demo-instance/
 └── run-airflow.sh        # Launch script
 ```
 
+## ⚙️ Decoder processing chain with Airflow
+
+TODO
+
 ## 🔧 Useful Commands
 
 Depending on your environment, replace `docker compose` with `docker-compose` if needed.
