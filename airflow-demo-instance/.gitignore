@@ -1,5 +1,7 @@
 config/*
-data/*
+/data/**
+!/data/**/
+!/data/**/.gitkeep
 logs/
 
 __pycache__

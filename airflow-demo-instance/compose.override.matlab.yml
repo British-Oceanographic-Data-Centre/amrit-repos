@@ -17,7 +17,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
-    - /home/lbruvryl/development/tmp/tmp_tc/matlab_runtime:/opt/matlab/runtime:ro
+    - runtime-matlab-volume:/opt/matlab/runtime:ro
   user: "${AIRFLOW_UID:-50000}:0"
   env_file: ".env"
   depends_on:
@@ -52,3 +52,18 @@ services:
     <<: [ *airflow-common, *apptainer-runtime ]
   airflow-triggerer:
     <<: [ *airflow-common, *apptainer-runtime ]
+
+##############################################################
+# If MATLAB is not accessible from the host, add this section
+# run a conainer imagetha contains the runtime and shera it
+# with Airflow, Cf. x-airflow-common.volumes
+##############################################################
+  runtime-matlab:
+    container_name: decoder-runtime-matlab
+    image: ghcr.io/euroargodev/coriolis-data-processing-chain-for-argo-floats/runtime/matlab:R2022b
+    volumes:
+      - runtime-matlab-volume:/matlab/runtime:rw
+
+volumes:
+  runtime-matlab-volume:
+    external: false
