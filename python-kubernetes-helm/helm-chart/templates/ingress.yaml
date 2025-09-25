@@ -8,10 +8,17 @@ spec:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
-          - path: {{ .Values.ingress.api.path }}
+          - path: {{ .Values.ingress.file_checker_api.path }}
             pathType: Prefix
             backend:
               service:
-                name:  "{{ .Release.Name }}-service"
+                name:  "{{ .Release.Name }}-argo-file-checker-service"
                 port:
-                 number: {{ .Values.service.port }}
+                 number: {{ .Values.file_checker_api.service.port }}
+          - path: {{ .Values.ingress.boilerplate_api.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name:  "{{ .Release.Name }}-boilerplate-api-service"
+                port:
+                 number: {{ .Values.boilerplate_api.service.port }}
