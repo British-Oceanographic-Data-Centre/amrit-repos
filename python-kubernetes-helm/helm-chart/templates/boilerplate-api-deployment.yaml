@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Release.Name }}-boilerplate-api"
+  name: "{{ .Release.Name }}-{{ .Values.boilerplate_api.component_name }}"
   labels:
-    app: "{{ .Release.Name }}-boilerplate-api"
+    app: {{ .Release.Name }}
+    component: {{ .Values.boilerplate_api.component_name }}
 spec:
   replicas: {{ .Values.boilerplate_api.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}
+      component: {{ .Values.boilerplate_api.component_name }}
   template:
     metadata:
       labels:
         app: {{ .Release.Name }}
+        component: {{ .Values.boilerplate_api.component_name }}
     spec:
       containers:
-        - name: {{ .Release.Name }}
+        - name: "{{ .Release.Name }}-{{ .Values.boilerplate_api.component_name }}"
           image: "{{ .Values.boilerplate_api.image.repository }}:{{ .Values.boilerplate_api.image.tag }}"
           imagePullPolicy: {{ .Values.boilerplate_api.image.pullPolicy }}
           ports:

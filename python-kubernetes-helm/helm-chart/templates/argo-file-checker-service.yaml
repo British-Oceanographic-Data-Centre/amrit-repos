@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Release.Name }}-argo-file-checker-service"
+  name: "{{ .Release.Name }}-{{ .Values.file_checker_api.component_name }}-service"
   labels:
-    app: "{{ .Release.Name }}-argo-file-checker-service"
+    app: "{{ .Release.Name }}-{{ .Values.file_checker_api.component_name }}-service"
 spec:
   selector:
-    app: "{{ .Release.Name }}-argo-file-checker"
+    app: {{ .Release.Name }}
+    component: {{ .Values.file_checker_api.component_name }}
   type: {{ .Values.file_checker_api.service.type }}
   ports:
     - port: {{ .Values.file_checker_api.service.port }}
