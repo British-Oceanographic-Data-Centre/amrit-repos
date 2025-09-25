@@ -1,0 +1,88 @@
+name: Argo File Checker Python wrapper Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - argofilechecker-python-wrapper/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - argofilechecker-python-wrapper/**
+  release:
+    types: [created]
+
+jobs:
+  python-linting:
+    uses: ./.github/workflows/component-python-lint.yml
+    with:
+      context: argofilechecker-python-wrapper
+  e2e_tests :
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Run on Python versions that are stable and not EOL
+        python-version: ["3.12"]
+        tox-job: ["test_e2e"]
+    steps:
+      - uses: actions/checkout@v4 # Checkout the current branch/merge state
+      - name: Set up Python ${{ matrix.python-version }} # Get Python ready to use
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies # Get Tox and Poetry ready
+        working-directory: ./argofilechecker-python-wrapper
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tox tox-gh-actions
+          curl -sSL https://install.python-poetry.org | python -
+          tox depends --recreate
+      # Run Tox jobs
+      - name: Tox (${{ matrix.tox-job }})
+        working-directory: ./argofilechecker-python-wrapper
+        run: |
+          poetry config virtualenvs.create false
+          poetry install --no-root --with test
+          tox -e ${{ matrix.tox-job }}  
+  python-security:
+    uses: ./.github/workflows/component-python-security.yml
+    with:
+      context: argofilechecker-python-wrapper
+  container-image-build:
+    needs: [python-linting, python-security]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: argofilechecker-python-wrapper
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/argofilechecker-python/app
+ 
+  publish-to-github-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"  
+
+      - name: Python Build
+        run: |
+          cd argofilechecker-python-wrapper
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry build
+      # - name: Publish to GitHub Packages
+        # env:
+          # TWINE_USERNAME: __token__
+          # TWINE_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        # run: |
+
+          # cd argofilechecker-python-wrapper
+          # python -m pip install --upgrade pip
+          # pip install twine
+          # python -m twine upload \
+          # --repository-url https://pypi.pkg.github.com/amrit-eu \
+          # dist/*
