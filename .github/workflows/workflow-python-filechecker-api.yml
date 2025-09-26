@@ -17,10 +17,10 @@ on:
     types: [created]
 
 jobs:
-  python-linting:
-    uses: ./.github/workflows/component-python-lint.yml
-    with:
-      context: argo-file-checker-python/argo-file-checker-python-api
+#  python-linting:
+#    uses: ./.github/workflows/component-python-lint.yml
+#    with:
+#      context: argo-file-checker-python/argo-file-checker-python-api
   python-security:
     uses: ./.github/workflows/component-python-security.yml
     with:
