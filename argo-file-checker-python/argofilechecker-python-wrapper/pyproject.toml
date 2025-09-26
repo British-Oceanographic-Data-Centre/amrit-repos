@@ -178,6 +178,8 @@ warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "e2e: end-to-end tests which have to download data from GDAC."]
 
 [tool.pytest_env]
 GDAC_FTP_HOST="ftp://ftp.ifremer.fr/ifremer/argo/dac"
