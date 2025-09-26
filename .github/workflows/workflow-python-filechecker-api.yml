@@ -1,0 +1,32 @@
+name: Argo File Checker Python API Workflow
+
+on:
+  push:
+    branches:
+      # Run on our main branch
+      - main
+    paths:
+      - argo-file-checker-python/argo-file-checker-python-api/**
+  pull_request:
+    # Run for any pull requests
+    paths:
+      - argo-file-checker-python/argo-file-checker-python-api/**
+  release:
+    types: [created]
+
+jobs:
+  python-linting:
+    uses: ./.github/workflows/component-python-lint.yml
+    with:
+      context: argo-file-checker-python/argo-file-checker-python-api
+  python-security:
+    uses: ./.github/workflows/component-python-security.yml
+    with:
+      context: argo-file-checker-python/argo-file-checker-python-api
+  container-image-build:
+    needs: [python-linting, python-security]
+    uses: ./.github/workflows/component-container-image.yml
+    with:
+      context: argo-file-checker-python
+      target: file-checker-api
+      image-path: ghcr.io/british-oceanographic-data-centre/amrit-repos/argo-file-checker-api/app
