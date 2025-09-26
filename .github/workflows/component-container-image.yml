@@ -38,6 +38,7 @@ jobs:
         if: ${{ github.event_name != 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
+          target: "{{defaultContext}}:${{ inputs.target }}"
           tags: "${{ steps.format.outputs.lowercase }}:develop"
           push: false
       - name: Build and push
@@ -45,5 +46,6 @@ jobs:
         if: ${{ github.event_name == 'release' }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
+          target: "{{defaultContext}}:${{ inputs.target }}"
           tags: "${{ steps.format.outputs.lowercase }}:${{ github.ref_name }}"
           push: true
