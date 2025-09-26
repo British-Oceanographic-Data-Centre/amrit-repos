@@ -47,12 +47,15 @@ docker compose down
     ```
    
 3. #### Deploy to Kubernetes using Helm
+   
+   The Helm charts are configured to deploy images that are part of the Argo toolbox. The ingress routes requests to the different service backends.
+
    ```shell
    helm install python-kubernetes .\helm-chart\
    kubectl get pods
    kubectl port-forward {pod-name} 8000:8000
    ```
-   The /hello-world endpoint should then be available on http://localhost:8000/hello-world
+   The /hello-world endpoint should then be available on http://localhost:8000/argo-toolbox/api/boilerplate/hello-world
     
     Uninstall the Helm deployment using
     ```shell
