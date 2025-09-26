@@ -39,17 +39,31 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         uses: docker/build-push-action@v6
-        if: ${{ github.event_name != 'release' }}
+        if: ${{ github.event_name != 'release' && inputs.target == '' || inputs.target == null }}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
-          target: "{{defaultContext}}:${{ inputs.target }}"
+          tags: "${{ steps.format.outputs.lowercase }}:develop"
+          push: false
+      - name: Build with target
+        uses: docker/build-push-action@v6
+        if: ${{ github.event_name != 'release' && inputs.target != '' && inputs.target != null }}
+        with:
+          context: "{{defaultContext}}:${{ inputs.context }}"
+          target: ${{ inputs.target }}
           tags: "${{ steps.format.outputs.lowercase }}:develop"
           push: false
       - name: Build and push
         uses: docker/build-push-action@v6
-        if: ${{ github.event_name == 'release' }}
+        if: ${{ github.event_name == 'release' && inputs.target == '' || inputs.target == null}}
         with:
           context: "{{defaultContext}}:${{ inputs.context }}"
-          target: "{{defaultContext}}:${{ inputs.target }}"
+          tags: "${{ steps.format.outputs.lowercase }}:${{ github.ref_name }}"
+          push: true
+      - name: Build with target and push
+        uses: docker/build-push-action@v6
+        if: ${{ github.event_name == 'release' && inputs.target != '' && inputs.target != null }}
+        with:
+          context: "{{defaultContext}}:${{ inputs.context }}"
+          target: ${{ inputs.target }}
           tags: "${{ steps.format.outputs.lowercase }}:${{ github.ref_name }}"
           push: true
