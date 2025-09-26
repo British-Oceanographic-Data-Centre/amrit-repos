@@ -26,7 +26,8 @@ jobs:
     with:
       context: argo-file-checker-python/argo-file-checker-python-api
   container-image-build:
-    needs: [python-linting, python-security]
+#    needs: [python-linting, python-security] # TODO: reinstate when linting is set up
+    needs: [python-security]
     uses: ./.github/workflows/component-container-image.yml
     with:
       context: argo-file-checker-python
