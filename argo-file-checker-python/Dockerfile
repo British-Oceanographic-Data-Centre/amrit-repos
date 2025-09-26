@@ -67,6 +67,8 @@ ENTRYPOINT ["/opt/venv/bin/python"]
 
 FROM base AS file-checker-api
 
+LABEL org.opencontainers.image.description="Docker image for Argo File Checker Python API"
+
 #env variables for file checker
 ENV FILE_CHECKER_JAR="/app/app.jar"
 #ENV FILE_CHECKER_SPECS="/app/specs"

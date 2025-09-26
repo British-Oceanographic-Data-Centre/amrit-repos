@@ -6,11 +6,13 @@ on:
       # Run on our main branch
       - main
     paths:
-      - argo-file-checker-python/argo-file-checker-python-api/**
+      - 'argo-file-checker-python/argo-file-checker-python-api/**'
+      - 'argo-file-checker-python/Dockerfile'
   pull_request:
     # Run for any pull requests
     paths:
-      - argo-file-checker-python/argo-file-checker-python-api/**
+      - 'argo-file-checker-python/argo-file-checker-python-api/**'
+      - 'argo-file-checker-python/Dockerfile'
   release:
     types: [created]
 
