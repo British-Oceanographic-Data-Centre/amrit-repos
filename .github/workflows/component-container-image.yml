@@ -11,6 +11,10 @@ on:
         description: "Path of the docker image Tag"
         default: "ghcr.io/${{ github.repository }}/app"
         type: string
+      target:
+        description: "Target build stage for Docker multistage build"
+        required: false
+        type: string
 
 jobs:
   container-image-build:
