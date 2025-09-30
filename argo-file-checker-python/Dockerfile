@@ -48,7 +48,7 @@ LABEL org.opencontainers.image.vendor="Advance Marine Research Infrastructures T
 
 #env variables for file checker
 ENV FILE_CHECKER_JAR="/app/app.jar"
-#ENV FILE_CHECKER_SPECS="/app/specs"
+ENV FILE_CHECKER_SPECS="/app/file_checker_spec"
 
 RUN --mount=type=bind,from=build-package,source=/opt/build,target=/opt/build \
     python -m venv /opt/venv && \
@@ -73,7 +73,7 @@ LABEL org.opencontainers.image.source="https://github.com/British-Oceanographic-
 
 #env variables for file checker
 ENV FILE_CHECKER_JAR="/app/app.jar"
-#ENV FILE_CHECKER_SPECS="/app/specs"
+ENV FILE_CHECKER_SPECS="/app/file_checker_spec"
 
 RUN --mount=type=bind,from=build-package,source=/opt/build,target=/opt/build \
     python -m venv /opt/venv && \
@@ -82,7 +82,6 @@ RUN --mount=type=bind,from=build-package,source=/opt/build,target=/opt/build \
 
 WORKDIR /home/app
 COPY argo-file-checker-python-api/ ./
-COPY argofilechecker-python-wrapper/demo_scripts/file_checker_spec /home/app/file_checker_spec
 
 RUN --mount=type=bind,from=build-package,source=/opt/build,target=/opt/build \
     poetry config virtualenvs.create false && \

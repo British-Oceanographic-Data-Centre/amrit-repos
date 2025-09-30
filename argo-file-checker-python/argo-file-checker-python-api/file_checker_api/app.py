@@ -42,7 +42,7 @@ def check_file_list(files: list[UploadFile], dac: str):
                 shutil.copyfileobj(upload_file.file, buffer)
         finally:
             upload_file.file.close()
-    file_checker = FileChecker(specs_path='/home/app/file_checker_spec')
+    file_checker = FileChecker()
     results = {"results": file_checker.check_files(request_file_dir.glob("*"), dac)}
     shutil.rmtree(request_file_dir)
     return results
