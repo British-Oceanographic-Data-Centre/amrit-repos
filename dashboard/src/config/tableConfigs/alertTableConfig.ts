@@ -46,6 +46,7 @@ export const ALERTS_HISTORY_TABLE_CONFIG:  TableViewConfig<HistoryEntry> = {
   mainColumns: [
     {key:'updateTime', label:"Update time"},    
     {key:'type', label: "Change type", chipColor :{}},
+    {key: 'value', label: "Value" },
     {key: 'text', label : "Description"},
     {key: 'user', label : "User"}
 
