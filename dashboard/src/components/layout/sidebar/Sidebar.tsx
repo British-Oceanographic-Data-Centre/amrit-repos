@@ -15,11 +15,7 @@ const collapsedWidth = 64;
 const sidebarOptions: SidebarOption[] = [
 	{ label: 'Home', path: '/' },
 	{
-	  label: 'Alerts',
-	  children: [
-		{ label: 'Alerts table', path: '/alerts/alerts-table' },
-		{ label: 'My subscriptions', path: '/alerts/my-subscriptions' },
-	  ],
+	  label: 'Alerts', path: '/alerts/alerts-table' 
 	}
   ];
 

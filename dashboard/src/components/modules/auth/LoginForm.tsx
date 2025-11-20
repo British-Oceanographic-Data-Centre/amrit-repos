@@ -5,8 +5,8 @@ import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import { Box, Button, Divider, FormControl, FormLabel, Link, TextField, Typography } from '@mui/material';
 import ForgotPassword from './ForgotPassword';
-import { GoogleIcon } from '../../shared/icons/CustomIcons';
-import GitHubIcon from '@mui/icons-material/GitHub';
+// import { GoogleIcon } from '../../shared/icons/CustomIcons';
+// import GitHubIcon from '@mui/icons-material/GitHub';
 import { login } from '../../../app/_actions/auth';
 import SubmitButton from '../../shared/buttons/SubmitButton';
 import { useRouter } from 'next/navigation';
@@ -154,8 +154,18 @@ const LoginForm =  ({callbackUrl} : {callbackUrl?: string}) => {
             >
               Forgot your password?
             </Link>
+            <Divider></Divider>
+            <Button
+              variant="outlined"
+              component="a"
+              href={process.env.NEXT_PUBLIC_SIGNUP_URL ?? 'https://oceanops-dashboard.isival.ifremer.fr/signup/'}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Sign up
+            </Button>
           </Box>
-          <Divider>or</Divider>
+          {/* <Divider>or</Divider>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Button
               fullWidth
@@ -173,7 +183,7 @@ const LoginForm =  ({callbackUrl} : {callbackUrl?: string}) => {
             >
               Sign in with Github
             </Button>            
-          </Box>
+          </Box> */}
         </Card>
       </SignInContainer>
   )

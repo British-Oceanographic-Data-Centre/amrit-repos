@@ -1,11 +1,13 @@
 'use client'
 import { Box } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import AlertTopbar from './AlertTopbar'
 import AlertsTable from './AlertsTable'
 import { AlertFilters } from '@/constants/alertOptions'
 import { FiltersValuesMap } from '@/types/filters'
 import { Session } from '@/types/types'
+import { useAppStore } from '@/store/useAppStore'
+import { useShallow } from 'zustand/react/shallow';
 
 
 
@@ -30,40 +32,61 @@ function getFilterLabels(
     );
   }
 
-const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps) => {
-    //state for selected filters : key : array of filters selected value
-    const [filtersSelectedValues, setFiltersSelectedValues] = useState<FiltersValuesMap> (
-        {
-            status: getFilterLabels(["open", "ack"],  filtersValues.status ?? []) // initialize filters to "open" and "ack" alerts
-        }
-    )
-    // state for the filters lsit to display :
-    const [selectedFilterList, setSelectedFilterList] = useState<AlertFilters[]> ([ "event","severity","status","from-date", "to-date"] )
-    // state to fetch only subs alerts :
-    const [isOnlyMySubsAlerts, setIsOnlyMySubsAlerts] = useState(false);
 
+const AlertsClientWrapper = ({filtersValues, session}: AlertsClientWrapperProps) => {
+
+    // Get state with useShallow - Zustand will only re-render if values change
+    const { onlyMySubs, filtersSelectedValues } = useAppStore(
+      useShallow((s) => ({
+        onlyMySubs: s.alerts.onlyMySubs,
+        filtersSelectedValues: s.alerts.selected,
+      }))
+    );
+
+    // Get actions separately - they're stable references, no need for shallow
+    const setOnlyMySubs = useAppStore((s) => s.setOnlyMySubs);
+    const setFiltersSelectedValues = useAppStore((s) => s.setAlertSelected);
+    const bulkSetAlertSelected = useAppStore((s) => s.bulkSetAlertSelected);
+
+    // state for page to display
+    const [page, setPage] = useState(0);
+
+    // Use ref to track if this is the initial mount
+    const isInitialMount = useRef(true);
+
+    // Initialize status filter only once on mount by considering filtersValues (alerts count done server side on parent) and add "open" and "ack" by default if present in the count
+    useEffect(() => {
+      if (isInitialMount.current && filtersValues.status) {
+        const initialStatusLabels = getFilterLabels(["open", "ack"], filtersValues.status);
+        if (initialStatusLabels.length > 0) {
+          setFiltersSelectedValues("status", initialStatusLabels);
+        }
+        isInitialMount.current = false;
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Run only once on mount
 
     const handleUpdateFilter = <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => {
-        setFiltersSelectedValues((prev) => {
-           const updated = { ...prev };
-          if (values === undefined) {
+        // reset page number to 0 when filters change :
+        setPage(0);
+        const updated = { ...filtersSelectedValues };
+        if (values === undefined) {
             delete updated[filterKey];
           } else {
             updated[filterKey] = values;
           }
-          return updated;
-              });
+        
+
+        bulkSetAlertSelected(updated);
       };
 
 
   return (
-    <Box sx={{ width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{height: '100%', width: '100%', padding:2, display: 'flex', flexDirection: 'column', gap: 2, overflow:'hidden' }}>
 
-        <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} setFiltersSelectedValues={setFiltersSelectedValues} isUserLogin={session?.isAuth ?? false} filtersToDisplayList={selectedFilterList} setfiltersToDisplayList={setSelectedFilterList} isOnlyMySubsAlerts={isOnlyMySubsAlerts} setIsOnlyMySubsAlerts={setIsOnlyMySubsAlerts}/>
+        <AlertTopbar filtersValues={filtersValues} onFilterChange={handleUpdateFilter} filtersSelectedValues={filtersSelectedValues} bulkSetAlertSelected={bulkSetAlertSelected} isUserLogin={session?.isAuth ?? false}  isOnlyMySubsAlerts={onlyMySubs} setIsOnlyMySubsAlerts={setOnlyMySubs}/>
            
-        <AlertsTable filtersSelectedValues={filtersSelectedValues} session={session} isOnlyMySubsAlerts={isOnlyMySubsAlerts}/>
-
-
+        <AlertsTable filtersSelectedValues={filtersSelectedValues} session={session} isOnlyMySubsAlerts={onlyMySubs} page={page} setPage={setPage}/>
 
     </Box>
   )

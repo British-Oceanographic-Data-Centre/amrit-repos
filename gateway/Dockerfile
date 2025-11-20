@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/node:latest AS base
+FROM node:lts-alpine3.22 AS base
 
 
 LABEL org.opencontainers.image.authors="yvan.lubac@euro-argo.eu"

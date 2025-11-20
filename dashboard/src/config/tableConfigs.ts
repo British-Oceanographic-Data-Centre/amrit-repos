@@ -1,10 +1,12 @@
 
-interface TableColumnConfig<T> {
+export interface TableColumnConfig<T> {
 	key: keyof T;
+  subKey?: string; 
   label?: string;
   align?: 'left' | 'right' | 'center';
-  padding?: 'none' | 'normal'
-  chipColor? : Record<string, "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning" | undefined> // Will be displayed in form of a chip if set. Depend on value of the specific key : {"value": "chip color", }
+  padding?: 'none' | 'normal';
+  chipColor? : Record<string, "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning" | undefined>; // Will be displayed in form of a chip if set. Depend on value of the specific key : {"value": "chip color", }
+  link? : boolean
 }
 
 export interface EditableTableColumnConfig<T> extends TableColumnConfig<T> {

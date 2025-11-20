@@ -68,7 +68,7 @@ export const ALERT_CATEGORIES = [
   "New platform",
   "New Cruises",
   "New data flow",
-  "Deployment/Retrieval",
+  "Deployment or Retrieval",
   "Deployment request",
   "Retrieval request",
   "Data processing request",

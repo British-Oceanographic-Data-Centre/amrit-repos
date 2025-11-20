@@ -1,6 +1,6 @@
 import { TopicOption } from "@/types/types";
 
-export function findAllChildrenTopicsFromId(allTopics: TopicOption[], rootId: number): TopicOption[] {
+export function findAllChildrenTopicsFromId(allTopics: TopicOption[], rootId: number | null): TopicOption[] {
   const result: TopicOption[] = [];
 
   const rootTopic = allTopics.find((t) => t.id === rootId);
@@ -8,7 +8,7 @@ export function findAllChildrenTopicsFromId(allTopics: TopicOption[], rootId: nu
 
   result.push(rootTopic);
 
-  function collectChildrenRecursive(parentId: number) {
+  function collectChildrenRecursive(parentId: number |null) {
     const children = allTopics.filter((t) => t.parentId === parentId);
     for (const child of children) {
       result.push(child);

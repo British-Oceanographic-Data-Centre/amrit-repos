@@ -48,7 +48,7 @@ function EnhancedTableHead<T> ({ onSelectAllClick, order, orderBy, numSelected, 
         
         {columnsConfig.mainColumns.map(col => (
           <TableCell
-            sx={{fontWeight: 'bold'}}
+            sx={{fontWeight: 600}}
             key={`headCell-${String(col.key)}`}
             align={col.align ?? 'left'} 
             padding={col.padding ?? 'normal'}

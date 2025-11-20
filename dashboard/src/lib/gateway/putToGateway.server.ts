@@ -1,9 +1,3 @@
 import { fetchFromGateway } from '@/lib/gateway/fetchFromGateway.server';
-
-export async function putToGateway<T>(path: string, body: unknown): Promise<T> {
-    return fetchFromGateway<T>({
-    method: 'PUT',
-    path,
-    body
-  });
-}
+export const putToGateway = <TReq, TRes>(path: string, body?: TReq) =>
+  fetchFromGateway<TRes>({ method: 'PUT', path, body });

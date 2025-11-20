@@ -45,6 +45,7 @@ import { FilterOption } from './filters';
   export type CountryOption  =  Omit<FilterOption, 'id' | 'name'> & {
   id: string | number;
   name: string;
+  code2?: string;
 };
 
 export type CountryAPIResponse = {

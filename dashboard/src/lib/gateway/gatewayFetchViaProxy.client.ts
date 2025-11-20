@@ -4,13 +4,20 @@ export async function gatewayFetchViaProxy<T>(
   method: GatewayMethod,
   path: string,
   body?: GatewayProxyPayload['body'],
-  signal?: AbortSignal | null | undefined
+  signal?: AbortSignal | null | undefined,
+  cache?: boolean
 ): Promise<T> {
   let res: Response;
 
   if (method === 'GET') {
     const url = `/api/gateway-proxy?path=${encodeURIComponent(path)}`;
-    res = await fetch(url, { method: 'GET', signal });
+    res = await fetch(url, { 
+      method: 'GET',
+      signal, 
+      ...(cache
+        ? { cache: 'force-cache', next: { revalidate: 1800 } }
+        : {}),
+    });
   } else {
     res = await fetch('/api/gateway-proxy', {
       method: 'POST',

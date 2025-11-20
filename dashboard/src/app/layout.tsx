@@ -4,6 +4,10 @@ import '@fontsource/quicksand/400.css';
 import '@fontsource/quicksand/500.css';
 import '@fontsource/quicksand/600.css';
 import '@fontsource/lexend/400.css';
+import '@fontsource/lexend/500.css';
+import '@fontsource/lexend/600.css';
+import '@fontsource/lexend/700.css';
+import '@fontsource/lexend/800.css';
 import LayoutClient from './LayoutClient';
 
 export const metadata: Metadata = {

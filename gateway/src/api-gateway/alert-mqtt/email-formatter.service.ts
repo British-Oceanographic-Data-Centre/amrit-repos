@@ -1,6 +1,7 @@
 // src/alerts/email-formatter.service.ts
 import { Injectable } from '@nestjs/common';
 import { AlertEvent, Alert, AlertAttributes } from '../../types/alert';
+import { extractHost, isValidUrl } from 'src/utils/stringUtils';
 
 @Injectable()
 export class EmailFormatterService {
@@ -32,12 +33,12 @@ export class EmailFormatterService {
     addLine('Service', metadataLines, Array.isArray(data.service) ? data.service.join(', ') : undefined);
     addLine('Origin', metadataLines, data.origin);
 
-	const fleetLink = typeof attrs.FleetMonitoringLink === 'string'
-	? `<p><strong>🔗 Fleet Monitoring:</strong> ${attrs.FleetMonitoringLink}</p>`
-	: '';
+  const inspectLink = (alert.id) ? `<a href="${process.env.REFERENCED_DASHBOARD_URL_IN_EMAILS}/alerts/${alert.id}" target="_blank">Open alert in Dashboard</a>` : ''
+
+	const seeMoreLink = (attrs.url && isValidUrl(attrs.url)) ? `<a href=${attrs.url} target='_blank'>See more on ${extractHost(attrs.url)}</a>` : ''
 
     return `
-      <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
       <div style="font-family: Lexend, Arial, sans-serif; line-height: 1.5; color: #333;">
         <h2 style="color: #c0392b;">🚨 AMRIT Alert Notification</h2>
@@ -47,6 +48,8 @@ export class EmailFormatterService {
           <p style="margin: 4px 0; color: #555;"><strong>ALERT CATEGORY: </strong> ${attrs.alert_category}</p>
           <p style="margin: 4px 0; color: #555;"><strong>ALERT ID: </strong> ${alert.id}</p>
         </div>
+
+        ${inspectLink}
 
         <h3 style="color:rgb(71, 137, 236);">Summary</h3>
         ${summaryLines.join('')}
@@ -60,7 +63,7 @@ export class EmailFormatterService {
         <h3 style="color:rgb(71, 137, 236);">Message</h3>
         <p style="background: #f9f9f9; padding: 12px; border-left: 4px solid #ccc;"><em>${data.text}</em></p>
 
-         ${fleetLink}
+        ${seeMoreLink}
 
         <hr style="margin: 24px 0;" />
 

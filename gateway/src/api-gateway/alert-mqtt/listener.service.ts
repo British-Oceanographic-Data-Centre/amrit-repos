@@ -142,8 +142,7 @@ export class AlertsMqttService implements OnModuleInit {
           mqtt_topic: 'operational',
           ArgoType: 'PSEUDO',
           LastStationDate: '24-05-2025',
-          FleetMonitoringLink:
-            "<a href='https://fleetmonitoring.euro-argo.eu/float/5906990' target='_blank'>Go to float page</a>",
+          url: 'https://fleetmonitoring.euro-argo.eu/float/5906990',         
           lastCycleNumberToRaiseAlarm: '107',
         },
         origin: 'Coriolis Argo Technical data alerts',

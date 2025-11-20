@@ -130,6 +130,11 @@ export type AlertAttributes = {
   mqtt_topic?: MqttTopic
 
   /**
+   * URL for more informations on the resource
+   */
+  url?: string;
+
+  /**
    * Allow any other custom key-value pair
    */
   [key: string]: unknown; // <- permet les `additionalProperties`
@@ -170,6 +175,18 @@ export type AlertApiResponse = AlertCountApiResponse & {
     status: string;
     statusCounts: Record<string, number>;
     total: number;
+  }
+  
+  export type EventsCount = {
+    events : Array<{count:number , environment:string, event:string}>
+    status: string
+    total: number
+  }
+
+  export type ResourcesCount = {
+    resources : Array<{count:number , environment:string, resource:string}>
+    status: string
+    total: number
   }
 
   export type Note = {

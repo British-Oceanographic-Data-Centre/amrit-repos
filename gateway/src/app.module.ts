@@ -6,9 +6,10 @@ import { AlertsMqttModule } from './api-gateway/alert-mqtt/listener.module';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { EmailModule } from './mailer/mailer.module';
+import { PasswordResetModule } from './api-gateway/auth/password-reset/password-reset.module'; 
 
 @Module({
-  imports: [EmailModule, AlertsMqttModule, ApiGatewayModule, HttpModule, ConfigModule.forRoot({isGlobal: true,})],
+  imports: [PasswordResetModule, EmailModule, AlertsMqttModule, ApiGatewayModule, HttpModule, ConfigModule.forRoot({isGlobal: true,})],
   controllers: [AppController],
   providers: [EmailModule, AppService],
 })

@@ -42,6 +42,8 @@ export class ContactMatcherService {
         topic: alert?.data?.attributes?.alert_category,
         severity: alert?.data?.severity,
         resource: alert?.data?.resource,
+        event: alert?.data?.event,
+        wigosId: alert?.data?.attributes?.wigos_id,
         country: alert?.data?.attributes?.Country,
         time: alert?.time,
       },

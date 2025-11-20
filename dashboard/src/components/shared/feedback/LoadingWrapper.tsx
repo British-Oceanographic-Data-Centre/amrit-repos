@@ -8,7 +8,16 @@ interface TableWrapperProps {
 
 const LoadingWrapper = ({loading, children}:TableWrapperProps) => {
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ 
+      width: '100%', 
+      height: '100%' , 
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      overflow: 'hidden',
+      padding:0.25   
+      
+      }}>
 
       {loading && (
         <Box sx={{
@@ -21,12 +30,12 @@ const LoadingWrapper = ({loading, children}:TableWrapperProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'rgba(255, 255, 255, 0.7)',
-          zIndex: 1,          
+          zIndex: 2,          
         }}>
           <CircularProgress />
         </Box>
       )}
-        <Paper sx={{ width: '100%', mb: 2 }}>
+        <Paper sx={{ width: '100%', mb: 1, height: 'calc(100% - 8px)'}}>
             {children}
         </Paper>
     </Box>

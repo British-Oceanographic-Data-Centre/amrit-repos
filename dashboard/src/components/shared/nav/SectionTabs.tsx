@@ -16,7 +16,7 @@ interface SectionTabsProps {
   centered?: boolean;
 }
 
-const SectionTabs: React.FC<SectionTabsProps> = ({ tabs, width = 220, centered = true }) => {
+const SectionTabs: React.FC<SectionTabsProps> = ({ tabs, width = 250, centered = false }) => {
   const theme = useTheme();
   const pathname = usePathname();
   const router = useRouter();
@@ -35,7 +35,7 @@ const SectionTabs: React.FC<SectionTabsProps> = ({ tabs, width = 220, centered =
       sx={{
         mb: 0,
         borderBottom: `1px solid ${theme.palette.divider}`,
-        minHeight: 48,
+        minHeight: 52,
       }}
     >
       {tabs.map((tab, index) => (
@@ -50,7 +50,7 @@ const SectionTabs: React.FC<SectionTabsProps> = ({ tabs, width = 220, centered =
               bgcolor: theme.palette.action.hover,
             },
             width,
-            minHeight: 48,
+            minHeight: 52,
             textTransform: 'none',
             height: 1,
           }}

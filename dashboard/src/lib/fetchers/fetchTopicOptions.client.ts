@@ -3,5 +3,5 @@ import { gatewayFetchViaProxy } from "../gateway/gatewayFetchViaProxy.client";
 
 
 export default async function fetchTopicOptions(): Promise<TopicOption[]> {
-  return gatewayFetchViaProxy<TopicOption[]>('GET',`/data/topics`);
+  return gatewayFetchViaProxy<TopicOption[]>('GET',`/data/topics`,undefined, undefined, true );
 };

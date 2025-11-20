@@ -10,7 +10,8 @@ export const ALERTS_MAIN_TABLE_CONFIG: TableViewConfig<Alert> = {
     { key: 'value', label: "Value" },
     { key: 'text', label: "Description" },      
     { key: 'lastReceiveTime', label: "Last receive Time" },
-    { key: 'lastNote', label: "Last note"}
+    { key: 'lastNote', label: "Last note"},
+    { key: 'attributes', label:"Link", subKey: 'url', link:true}
   ],
 };
 
@@ -29,8 +30,9 @@ export const ALERTS_DETAILS_GENERAL_INFO_TABLE_CONFIG: TableViewConfig<Alert> = 
 
 export const ALERTS_ATTRIBUTES_TABLE_CONFIG: TableViewConfig<{id: string} & AlertAttributes> = {
   mainColumns: [
+    {key:'alert_category', label: "Alert category"},    
     {key:'Country'},
-    {key:'alert_category', label: "Alert category"},
+    {key:'wigos_id'}    
   ],
 };
 
@@ -46,6 +48,7 @@ export const ALERTS_HISTORY_TABLE_CONFIG:  TableViewConfig<HistoryEntry> = {
   mainColumns: [
     {key:'updateTime', label:"Update time"},    
     {key:'type', label: "Change type", chipColor :{}},
+    {key: 'value', label: "Value" },
     {key: 'text', label : "Description"},
     {key: 'user', label : "User"}
 

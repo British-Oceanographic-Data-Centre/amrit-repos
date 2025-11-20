@@ -68,7 +68,7 @@ export const ALERT_CATEGORIES = [
   "New platform",
   "New Cruises",
   "New data flow",
-  "Deployment/Retrieval",
+  "Deployment or Retrieval",
   "Deployment request",
   "Retrieval request",
   "Data processing request",
@@ -83,7 +83,7 @@ export const ALERT_MQTT_TOPICS = ["operations-alerts"
     , "support-requests"]
 
 
-export const ALERT_CUSTOMS_PARAMS = ['Country', 'basin_id', 'alert_category', 'mqtt_topic' ] as const;
+export const ALERT_CUSTOMS_PARAMS = ['Country', 'basin_id', 'alert_category', 'mqtt_topic', 'wigos_id' ] as const;
 
 
 export type MqttTopic = (typeof ALERT_MQTT_TOPICS) [number]

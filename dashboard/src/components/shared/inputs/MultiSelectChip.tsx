@@ -8,23 +8,29 @@ interface MultiSelectChipProps {
     datalist : string[]    
     filterName : string
     onFilterChange: (filterKey: string, values: string[]) => void
+    selectedValues: string[]
+    freesolo?:boolean
+    
 }
 
 
 
-const MultiSelectChip = ({datalist, onFilterChange, filterName} : MultiSelectChipProps) => {
+const MultiSelectChip = ({datalist, onFilterChange, filterName, selectedValues, freesolo=false} : MultiSelectChipProps) => {
     
 
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ width: 'auto', minWidth: 400, maxWidth: 900 }}>
         <Autocomplete
           id={`${filterName}-autocomplete`} 
           multiple
+          freeSolo={freesolo}
           size="medium"
           options={datalist}
-          onChange={(_, values) => onFilterChange(filterName, values)}        
+          value={selectedValues}
+          onChange={(_, values) => onFilterChange(filterName, values)} 
+          isOptionEqualToValue={(opt, val) => opt === val}               
           renderTags={(value: string[], getTagProps) =>
             value.map((option: string, index: number) => (
               <Chip
@@ -39,6 +45,7 @@ const MultiSelectChip = ({datalist, onFilterChange, filterName} : MultiSelectChi
               {...params}
               variant="outlined"
               label={firstLetterToUppercase(filterName)}
+              placeholder={freesolo ? "Select options in list or type and press Enter" : "Select options in list" }
                             
             />
           )}

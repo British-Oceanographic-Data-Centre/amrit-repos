@@ -1,4 +1,4 @@
-import LoginForm from '@/components/layout/login/LoginForm'
+import LoginForm from '@/components/modules/auth/LoginForm'
 import { Metadata } from 'next';
 import React from 'react'
 

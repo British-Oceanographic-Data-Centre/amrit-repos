@@ -42,7 +42,7 @@ const Home= ({ session }: SessionProps) => {
             {`Welcome ${session.username} !`}
           </Typography> }
         <Typography variant="h6" sx={{ mb: 3 }}>
-          Amrit Boards is a collaborative Amrit project.
+          This application is open-source and collaborative.
         </Typography>
 
         <Button
@@ -50,7 +50,7 @@ const Home= ({ session }: SessionProps) => {
           color="primary"
           size="large"
           startIcon={<GitHubIcon />}
-          href="https://github.com/British-Oceanographic-Data-Centre/amrit-repos"
+          href="https://github.com/amrit-eu"
           target="_blank"
           rel="noopener noreferrer"
         >

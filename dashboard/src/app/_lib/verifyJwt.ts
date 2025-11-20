@@ -16,7 +16,6 @@ export async function verifyJwt(token: string | undefined =""): Promise<JWTVerif
     });
     return payload;
   } catch  {
-    throw new Error('Token verification failed');
-    
+    return null   
   }
 }

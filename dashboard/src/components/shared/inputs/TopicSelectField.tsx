@@ -1,15 +1,18 @@
 import React from 'react';
-import { SxProps, Theme, MenuItem, Select } from '@mui/material';
+import { SxProps, Theme, MenuItem, Select, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
 import { TopicOption } from '@/types/types';
+import { ClearIcon } from '@mui/x-date-pickers';
 
 
 
 interface Props {
   value: number | null;
-  onChange: (newValue: number) => void;
+  onChange: (newValue: number | null) => void;
   size?: 'small' | 'medium';
   sx?: SxProps<Theme>;
-  topics: TopicOption[]
+  topics: TopicOption[];
+  label?: string;
+  showClearIcon?:boolean
 }
 
 
@@ -31,7 +34,7 @@ const buildTopicTree = (flatOptions: TopicOption[]): TopicOption[] => {
   return roots;
 };
 
-const TopicSelectField = ({ value, size, onChange, sx, topics }: Props) => {
+const TopicSelectField = ({ value, size, onChange, sx={  width: 'auto', minWidth: 300, maxWidth: 900 }, topics, label, showClearIcon=false }: Props) => {
 
   const renderOptions = (options: TopicOption[], level = 0): React.ReactNode[] =>
     options.flatMap((opt) => [
@@ -42,18 +45,38 @@ const TopicSelectField = ({ value, size, onChange, sx, topics }: Props) => {
     ]);
 
   return (
-    <Select
-      value={value ?? ''}
-      onChange={(e) => onChange(Number(e.target.value))}
-      size={size ?? 'small'}
-	  sx={{ ...sx }}
-	  displayEmpty
-    >
-		<MenuItem disabled value="">
-		 <em>Select a topic</em>
-		</MenuItem>
-      {renderOptions(buildTopicTree(topics))}
-    </Select>
+   <FormControl fullWidth size={size ?? 'small'} sx={sx}>
+      {label && <InputLabel>{label}</InputLabel>}
+      <Select
+        value={value ?? ''}
+        onChange={(e) => onChange(Number(e.target.value))}
+        input={
+          <OutlinedInput
+            label={value ? label : ''}
+            endAdornment={
+              (value && showClearIcon) ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    size="small"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onChange(null);
+                    }}
+                    edge="end"
+                    sx={{ mr: 2 }}
+                  >
+                    <ClearIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ) : null
+            }
+          />
+        }
+        displayEmpty
+      >      
+        {renderOptions(buildTopicTree(topics))}
+      </Select>
+    </FormControl>
   );
 };
 

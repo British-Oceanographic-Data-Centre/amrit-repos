@@ -15,6 +15,8 @@ export interface AlertSubscription {
 	basinName: string | null;
   
 	wigosId: string | null;
+	event: string | null;  
+	resource: string | null;
   
 	minTime: string | null; // ISO date string
 	maxTime: string | null;

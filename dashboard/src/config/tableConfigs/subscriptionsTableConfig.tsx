@@ -83,6 +83,28 @@ export const subscriptionsTableConfig: EditableTableViewConfig<AlertSubscription
 			);
 		  }
 	  
+		  if (row.resource) {
+			chips.push(
+			  <Chip
+				key="resource"
+				label={`Resource: ${row.resource}`}
+				onDelete={() => removeFilter('resource')}
+				sx={{ bgcolor: '#c4fdffff', color: 'black' }}
+			  />
+			);
+		  }
+	  
+		  if (row.event) {
+			chips.push(
+			  <Chip
+				key="event"
+				label={`Event: ${row.event}`}
+				onDelete={() => removeFilter('event')}
+				sx={{ bgcolor: '#daffc4ff', color: 'black' }}
+			  />
+			);
+		  }
+	  
 		  if (row.minTime || row.maxTime) {
 			const from = row.minTime?.slice(0, 10) ?? '...';
 			const to = row.maxTime?.slice(0, 10) ?? '...';

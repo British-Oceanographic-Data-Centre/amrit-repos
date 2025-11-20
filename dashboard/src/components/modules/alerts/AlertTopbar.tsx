@@ -1,7 +1,6 @@
 'use client';
 import { AppBar, IconButton, Toolbar, Tooltip, useTheme } from '@mui/material'
-import { Dayjs } from 'dayjs';
-import React, { useMemo, useState } from 'react'
+import React, {  useMemo, useState } from 'react'
 import MultiSelectChip from '../../shared/inputs/MultiSelectChip';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Checkbox from '@mui/material/Checkbox';
@@ -14,139 +13,199 @@ import { AlertFilters } from '@/constants/alertOptions';
 import { FiltersValuesMap } from '@/types/filters';
 import CountrySelect from '@/components/shared/inputs/CountrySelect';
 import { CountryOption } from '@/types/types';
-import MultiChipInput from '@/components/shared/inputs/MultiChipInput';
 import TopicSelectField from '@/components/shared/inputs/TopicSelectField';
 import { findAllChildrenTopicsFromId } from '@/lib/utils/findAllChildrenFromTopicId';
+import { useAppStore } from '@/store/useAppStore';
+import { useShallow } from 'zustand/react/shallow';
+import dayjs from 'dayjs';
+
 
 interface AlertTopBarProps {
-    filtersValues: FiltersValuesMap
-    filtersSelectedValues:  FiltersValuesMap
-    setFiltersSelectedValues: React.Dispatch<React.SetStateAction<FiltersValuesMap>>
-    filtersToDisplayList: AlertFilters[]
-    setfiltersToDisplayList: React.Dispatch<React.SetStateAction<AlertFilters[]>>
-    onFilterChange: <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => void
-    isUserLogin : boolean
-    isOnlyMySubsAlerts:boolean
-    setIsOnlyMySubsAlerts: React.Dispatch<React.SetStateAction<boolean>>
+  filtersValues: FiltersValuesMap
+  filtersSelectedValues:  FiltersValuesMap
+  bulkSetAlertSelected: (next: FiltersValuesMap) => void;
+  onFilterChange: <K extends AlertFilters>(filterKey: K, values: FiltersValuesMap[K]) => void
+  isUserLogin : boolean
+  isOnlyMySubsAlerts:boolean
+  setIsOnlyMySubsAlerts: (v: boolean) => void
 }
+const AlertTopbar = ({
+  filtersValues, onFilterChange, filtersSelectedValues, isUserLogin,
+  bulkSetAlertSelected,
+  isOnlyMySubsAlerts, setIsOnlyMySubsAlerts
+}: AlertTopBarProps) => {
+  const theme = useTheme();
 
-const AlertTopbar = ({filtersValues, onFilterChange, filtersSelectedValues, isUserLogin, filtersToDisplayList, setfiltersToDisplayList, setFiltersSelectedValues,isOnlyMySubsAlerts,setIsOnlyMySubsAlerts   }: AlertTopBarProps) => {
-    // need theme for some style
-    const theme = useTheme();
+  // Get state with useShallow - Zustand will only re-render if values change
+  const { alertsFiltersDisplayed } = useAppStore(
+    useShallow((s) => ({
+      alertsFiltersDisplayed: s.alerts.displayed,
+    }))
+  );
 
-    // state to open modal for filter choice :
-    const [isFiltersListModalOpen, setIsFiltersListModalOpen] = useState(false);
-    // sort the selected filters based on the order they have in the configuration array :
-    const sortedFiltersToDisplay = useMemo(() => {
-        return [...filtersToDisplayList].sort(
-            (a, b) => Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(a) - Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(b)
-        );
-    }, [filtersToDisplayList]);
+  // Get action separately - it's a stable reference, no need for shallow
+  const setAlertsFiltersDisplayed = useAppStore((s) => s.setAlertsFiltersDisplayed);
 
-    // handle topic filters :
-    const handleTopicSelection = (newtopicId: number) => {
-        // get the topic object from topic id :
-        if (filtersValues.alert_category) {            
-            const topicAndChildren= findAllChildrenTopicsFromId( filtersValues.alert_category, newtopicId );
-            onFilterChange ("alert_category", topicAndChildren)            
+  // local modal state
+  const [isFiltersListModalOpen, setIsFiltersListModalOpen] = useState(false);
+
+  const sortedFiltersToDisplay = useMemo(() => {
+    return [...alertsFiltersDisplayed].sort(
+      (a, b) => Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(a) - Object.values(ALERTS_FILTERS_CATEGORY).flat().indexOf(b)
+    );
+  }, [alertsFiltersDisplayed]);
+
+  const handleTopicSelection = (newtopicId: number | null) => {
+    if (filtersValues.alert_category) {
+      const topicAndChildren = findAllChildrenTopicsFromId(filtersValues.alert_category, newtopicId);
+      onFilterChange('alert_category', topicAndChildren);
+    }
+  };
+
+  const onFiltersListModalClose = (draftChosenElements?: AlertFilters[]) => {
+    if (draftChosenElements) {
+      const newFilterSelectedValues: FiltersValuesMap = { ...filtersSelectedValues };
+      let filterRemoved = false;
+
+      for (const [key] of Object.entries(newFilterSelectedValues)) {
+        if (!draftChosenElements.includes(key as AlertFilters)) {
+          delete newFilterSelectedValues[key as AlertFilters];
+          filterRemoved = true;
         }
+      }
+      if (filterRemoved) {
+        bulkSetAlertSelected(newFilterSelectedValues);
+      }
+      setAlertsFiltersDisplayed(draftChosenElements);             // persist (zustand)
     }
 
-    // handle filters lsit modal close action :
-    const onFiltersListModalClose = (draftChosenElements?:AlertFilters[]) => {
-        if (draftChosenElements) {
-            const newFilterSelectedValues: FiltersValuesMap = {...filtersSelectedValues}
-            let filterRemoved = false;
-
-            for (const [key] of Object.entries(newFilterSelectedValues)) {   
-                if(!draftChosenElements.includes(key as AlertFilters )) {
-                    // Removing a filter from display should set it to empty and refresh table    
-                    delete newFilterSelectedValues[key as AlertFilters];
-                    filterRemoved=true;
-                }
-            }
-            if (filterRemoved) {
-                setFiltersSelectedValues (newFilterSelectedValues)
-            }
-        }
-
-        setIsFiltersListModalOpen(false)
-
-    }
-    
+    setIsFiltersListModalOpen(false);
+  };
 
   
-    return (
 
-        <AppBar
-            position="static"
-            square={false}
-            elevation={1}            
-            sx={{
-                bgcolor: theme.palette.background.paper,
-                color: theme.palette.text.primary,           
-            }}
-            >
-        <Toolbar
-            sx={{
-            width: '100%',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            padding: '12px',
-            margin: 0,
-            gap: 2,            
-            }}           
-        >
-            <Tooltip title="Filter list">
-                <IconButton onClick={() => setIsFiltersListModalOpen(true)}  aria-label="show filters list">
-                    <FilterListIcon />
-                </IconButton>
-            </Tooltip>
-            {sortedFiltersToDisplay.map((filter)=> {
-                switch(filter) {
-                    case 'severity':
-                    case 'status' :                    
-                        if (filtersValues[filter])
-                            return <MultiSelectChip key={filter} datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []} filterName={filter} onFilterChange={(filterKey, values) => {   
-                                             onFilterChange(filterKey as AlertFilters, values);}}  />
-                    case 'resource' :
-                    case 'event':
-                        return <MultiChipInput key={filter} selectedItems={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []} filterName={filter} onFilterChange={(filterKey, values) => {   
-                                             onFilterChange(filterKey as AlertFilters, values);}} />
-                    case 'Country' :
-                        return <CountrySelect multiple={true} key={filter} label={'Country'} onChange={(newValue) => onFilterChange("Country", Array.isArray(newValue) ? newValue : newValue ? [newValue] : undefined) } options={filtersValues[filter] as CountryOption[]} value={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] as CountryOption[]: []}/> 
-                    case "from-date":
-                    case "to-date" :                        
-                        return <DateTimePicker key={filter}
-                            label={firstLetterToUppercase(filter.replace("-date", ""))}
-                            format="YYYY-MM-DD HH:mm:ss"
-                            onAccept={(newValue: Dayjs | null) => onFilterChange(filter, newValue?.toISOString() ?? undefined)}
-                            onChange={(newValue) => {
-                                if(newValue === null){
-                                    onFilterChange(filter, undefined)
-                                }}}
-                            slotProps={{
-                                field: { clearable: true },
-                            }}
-                        />
-                    case "alert_category":
-                        return <TopicSelectField key={filter} size={'medium'} value={filtersSelectedValues[filter] ? filtersSelectedValues[filter][0].id : null} onChange={(newValue) => handleTopicSelection(newValue)} topics={filtersValues.alert_category ?? []} />
-                    }
-            })}
+  return (
+    <AppBar position="static" square={false} elevation={1}
+      sx={{ bgcolor: theme.palette.background.paper, color: theme.palette.text.primary }}>
+      <Toolbar sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', alignItems: 'center', padding: '12px', margin: 0, gap: 2 }}>
+        <Tooltip title="Filter list">
+          <IconButton onClick={() => setIsFiltersListModalOpen(true)} aria-label="show filters list">
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
 
-            {isUserLogin &&
-                <FormControlLabel control={<Checkbox checked={isOnlyMySubsAlerts} onChange={() => setIsOnlyMySubsAlerts(prev => !prev)}  />} label="View only my subscriptions" />
+        {sortedFiltersToDisplay.map((filter) => {
+          switch (filter) {
+            case 'severity':
+            case 'status':
+              if (filtersValues[filter])
+                return (
+                  <MultiSelectChip
+                    freesolo={false} // only choices from the list are authorized
+                    key={filter}
+                    datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []}
+                    filterName={filter}
+                    selectedValues={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []}
+                    onFilterChange={(filterKey, values) => {
+                      onFilterChange(filterKey as AlertFilters, values);
+                    }}
+                  />
+                );
+              return null;
+            case 'event' :
+            case 'resource' :
+              if (filtersValues[filter])
+                return (
+                  <MultiSelectChip
+                    freesolo = {true} // free text are authorized because request will be a regex match (contains)
+                    key={filter}
+                    datalist={Array.isArray(filtersValues[filter]) ? filtersValues[filter] : []}
+                    filterName={filter}
+                    selectedValues={Array.isArray(filtersSelectedValues[filter]) ? filtersSelectedValues[filter] : []}
+                    onFilterChange={(filterKey, values) => {
+                      onFilterChange(filterKey as AlertFilters, values);
+                    }}
+                  />
+                );
+              return null;
+
+            case 'Country':
+              return (
+                <CountrySelect
+                  key={filter}
+                  multiple
+                  label="Country"
+                  options={filtersValues[filter] as CountryOption[]}
+                  value={Array.isArray(filtersSelectedValues[filter]) ? (filtersSelectedValues[filter] as CountryOption[]) : []}
+                  onChange={(newValue) => {
+                    const val = Array.isArray(newValue) ? newValue : newValue ? [newValue] : undefined;
+                    onFilterChange('Country', val);
+                  }}
+                />
+              );
+
+            case 'from-date':
+            case 'to-date':
+              return (
+                <DateTimePicker
+                  key={filter}
+                  label={firstLetterToUppercase(filter.replace('-date', ''))}
+                  format="YYYY-MM-DD HH:mm:ss"
+                  value={
+                    typeof filtersSelectedValues[filter] === 'string'
+                      ? (dayjs(filtersSelectedValues[filter] as string).isValid()
+                          ? dayjs(filtersSelectedValues[filter] as string)
+                          : null)
+                      : null
+                  }
+                  onChange={(newValue) => {
+                    const iso = newValue ? newValue.toDate().toISOString() : undefined;
+                    onFilterChange(filter, iso);     
+                  }}
+                  slotProps={{ field: { clearable: true } }}
+                />
+              );
+
+            case 'alert_category':
+              return (
+                <TopicSelectField
+                  key={filter}
+                  size="medium"
+                  value={( filtersSelectedValues[filter] && filtersSelectedValues[filter][0]?.id) ? filtersSelectedValues[filter][0].id : null}
+                  onChange={(newValue) => handleTopicSelection(newValue)}
+                  topics={filtersValues.alert_category ?? []}
+                  label='Alert category'
+                  showClearIcon
+                />
+              );
+          }
+        })}
+
+        {isUserLogin && (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isOnlyMySubsAlerts}
+                onChange={() => {
+                  const next = !isOnlyMySubsAlerts;
+                  setIsOnlyMySubsAlerts(next);
+                }}
+              />
             }
+            label="View only my subscriptions"
+          />
+        )}
 
-            <CategoryGroupedChoicesModal<AlertFilters> groupedElementsByCategory={ALERTS_FILTERS_CATEGORY} isModalOpen={isFiltersListModalOpen} onClose={onFiltersListModalClose} chosenElementsList={filtersToDisplayList} setChosenElementsList={setfiltersToDisplayList} />
-            
-            </Toolbar> 
-                    
-            </AppBar>
+        <CategoryGroupedChoicesModal<AlertFilters>
+          groupedElementsByCategory={ALERTS_FILTERS_CATEGORY}
+          isModalOpen={isFiltersListModalOpen}
+          onClose={onFiltersListModalClose}
+          chosenElementsList={alertsFiltersDisplayed}
+          setChosenElementsList={setAlertsFiltersDisplayed}
+        />
+      </Toolbar>
+    </AppBar>
+  );
+};
 
-    )
-}
-
-
-export default AlertTopbar
+export default AlertTopbar;

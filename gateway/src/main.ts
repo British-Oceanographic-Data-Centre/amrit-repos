@@ -1,13 +1,14 @@
 import { NestFactory, HttpAdapterHost, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './all-exceptions.filter';
-import { RequestMethod } from '@nestjs/common';
+import { RequestMethod, ValidationPipe } from '@nestjs/common';
 import { JwtAuthGuard } from './api-gateway/auth/jwt-auth.guard';
 import * as cookieParser from 'cookie-parser';
 import { json } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.use(cookieParser());
   app.use(json());
   const { httpAdapter} = app.get(HttpAdapterHost);

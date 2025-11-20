@@ -1,17 +1,17 @@
 'use client';
 
-import SectionTabs, { SectionTab } from '@/components/layout/SectionTabs';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import StarIcon from '@mui/icons-material/Star';
+import SectionTabs, { SectionTab } from '@/components/shared/nav/SectionTabs';
+import InboxIcon from '@mui/icons-material/Inbox';
+import StarIcon from '@mui/icons-material/StarOutlineOutlined';
 
 const alertTabs: SectionTab[] = [
   {
-    label: 'Alerts table',
-    icon: <NotificationsIcon />,
+    label: 'INBOX',
+    icon: <InboxIcon />,
     path: '/alerts/alerts-table',
   },
   {
-    label: 'My subscriptions',
+    label: 'SUBSCRIPTIONS',
     icon: <StarIcon />,
     path: '/alerts/my-subscriptions',
   },

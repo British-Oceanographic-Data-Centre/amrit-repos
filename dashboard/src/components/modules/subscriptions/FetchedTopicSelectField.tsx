@@ -8,7 +8,7 @@ import TopicSelectField from '@/components/shared/inputs/TopicSelectField';
 
 interface Props {
   value: number | null;
-  onChange: (newValue: number) => void;
+  onChange: (newValue: number | null) => void;
   size?: 'small' | 'medium';
   sx?: SxProps<Theme>;
 }

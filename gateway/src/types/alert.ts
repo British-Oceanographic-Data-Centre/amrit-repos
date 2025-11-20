@@ -147,6 +147,11 @@ export type AlertAttributes = {
   mqtt_topic?: MqttTopic
 
   /**
+   * URL for more informations on the resource
+   */
+  url?: string;
+
+  /**
    * Allow any other custom key-value pair
    */
   [key: string]: unknown; // <- permet les `additionalProperties`

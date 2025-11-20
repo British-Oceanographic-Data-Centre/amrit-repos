@@ -1,5 +1,5 @@
 
-import LoginForm from '@/components/layout/login/LoginForm'
+import LoginForm from '@/components/modules/auth/LoginForm'
 import RoutedModal from '@/components/shared/modals/RoutedModal'
 import React from 'react'
 

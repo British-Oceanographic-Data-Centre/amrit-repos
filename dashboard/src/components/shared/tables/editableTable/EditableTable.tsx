@@ -48,7 +48,7 @@ function EditableTable<T extends HasId>({
                     key={`head-${String(col.key)}`}
                     align={col.align ?? 'left'}
                     padding={col.padding ?? 'normal'}
-                    sx={{ fontWeight: 'bold' }}
+                    sx={{ fontWeight: 600 }}
                   >
                     {col.label ?? String(col.key)}
                   </TableCell>

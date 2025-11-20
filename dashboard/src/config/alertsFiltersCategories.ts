@@ -9,4 +9,5 @@ export const ALERTS_FILTERS_CATEGORY : Record<string, AlertFilters[]> = {
 
 }
 
+// attribute for which we want a regex match contains (=~)
 export const ALERTS_FILTERS_REGEX_MATCH: AlertFilters[] = ['resource', 'event']

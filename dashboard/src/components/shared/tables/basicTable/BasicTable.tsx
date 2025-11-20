@@ -1,6 +1,7 @@
 import React from 'react' 
-import {  Chip, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { TableViewConfig } from '@/config/tableConfigs'
+import EnhancedTableCell from '../EnhancedTableCell';
 
 interface HasId {
   id: string;
@@ -21,7 +22,7 @@ function BasicTable<T extends HasId >({colmunsConfiguration, data, handleClickOn
             <TableRow >
               {colmunsConfiguration.mainColumns.map(col => (
                         <TableCell
-                          sx={{fontWeight: 'bold'}}
+                          sx={{fontWeight: 600}}
                           key={`headCell-${String(col.key)}`}
                           align={col.align ?? 'left'} 
                           padding={col.padding ?? 'normal'}                                            
@@ -47,18 +48,14 @@ function BasicTable<T extends HasId >({colmunsConfiguration, data, handleClickOn
                             {'& > *': { borderBottom: 'unset !important' }}
                             }                        
                       >
-                          {colmunsConfiguration.mainColumns.map((col, index) => (
-                              <TableCell
-                              key={`${String(col.key)}-${rowData.id}`}
-                              component={index === 0 ? 'th' : undefined}
-                              scope={index === 0 ? 'row' : undefined}
-                              padding={col.padding ?? 'normal'}  
-                              align={index !== 0 ? 'left' : undefined}
-                              >
-                                  {col.chipColor ? (<Chip label={String(rowData[col.key])} color={col.chipColor[String(rowData[col.key])] ?? 'default'  }/>) : (rowData[col.key] != null ? String(rowData[col.key]) : '')}
-                              </TableCell>
-                          ))}   
-                          
+                          {colmunsConfiguration.mainColumns.map((col, index) =>            
+                            <EnhancedTableCell 
+                              key={`cell-${rowData.id}-${index}`} 
+                              rowData={rowData} 
+                              col={col} 
+                              index={index} 
+                              rowId={rowData.id} />
+                            )}                            
                       </TableRow>
 
 
