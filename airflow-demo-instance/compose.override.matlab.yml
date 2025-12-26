@@ -1,0 +1,69 @@
+---
+x-airflow-common:
+  &airflow-common
+  # In order to add custom dependencies or upgrade provider distributions you can use your extended image.
+  # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
+  # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
+  build: .
+  # image: gitlab-registry.ifremer.fr/dev-ops/isival/airflow-plateforme:3.0.6
+  # In order to force override variables from official Airflow compose.yml we need to override these here
+  # for any other variables, you just need to add it to airflow_override_config in vars.yml.
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__LOAD_EXAMPLES: false
+  volumes:
+    - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
+    - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
+    - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
+    - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
+    - runtime-matlab-volume:/opt/matlab/runtime:ro
+  user: "${AIRFLOW_UID:-50000}:0"
+  env_file: ".env"
+  depends_on:
+    &airflow-common-depends-on
+    redis:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+
+x-apptainer-runtime:
+  &apptainer-runtime
+  devices:
+    - "/dev/fuse:/dev/fuse"         # --device /dev/fuse
+  cap_add:
+    - SYS_ADMIN                     # --cap-add SYS_ADMIN
+    - SETUID
+    - SETGID
+    - DAC_OVERRIDE
+  security_opt:
+    - seccomp:unconfined            # --security-opt seccomp=unconfined
+    - apparmor:unconfined           # --security-opt apparmor=unconfined
+  privileged: true
+
+services:
+  airflow-apiserver:
+    <<: [ *airflow-common, *apptainer-runtime ]
+  airflow-scheduler:
+    <<: [ *airflow-common, *apptainer-runtime ]
+  airflow-dag-processor:
+    <<: [ *airflow-common, *apptainer-runtime ]
+  airflow-worker:
+    <<: [ *airflow-common, *apptainer-runtime ]
+  airflow-triggerer:
+    <<: [ *airflow-common, *apptainer-runtime ]
+
+##############################################################
+# If MATLAB is not accessible from the host, add this section
+# run a conainer imagetha contains the runtime and shera it
+# with Airflow, Cf. x-airflow-common.volumes
+##############################################################
+  runtime-matlab:
+    container_name: decoder-runtime-matlab
+    image: ghcr.io/euroargodev/coriolis-data-processing-chain-for-argo-floats/runtime/matlab:R2022b
+    volumes:
+      - runtime-matlab-volume:/matlab/runtime:rw
+
+volumes:
+  runtime-matlab-volume:
+    external: false
